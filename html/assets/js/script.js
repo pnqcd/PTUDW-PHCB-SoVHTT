@@ -1,13 +1,25 @@
-document
-  .querySelector("#editUserModal")
-  .addEventListener("shown.bs.modal", () => {
-    document.querySelector("#firstNameEdit").focus();
-  });
+// document
+//   .querySelector("#editUserModal")
+//   .addEventListener("shown.bs.modal", () => {
+//     document.querySelector("#firstNameEdit").focus();
+//   });
+
+// document
+//   .querySelector("#addUserModal")
+//   .addEventListener("shown.bs.modal", () => {
+//     document.querySelector("#firstName").focus();
+//   });
+
+// document
+//   .querySelector("#editWardModal")
+//   .addEventListener("shown.bs.modal", () => {
+//     document.querySelector("#wardNameEdit").focus();
+//   });
 
 document
-  .querySelector("#addUserModal")
+  .querySelector("#addWardModal")
   .addEventListener("shown.bs.modal", () => {
-    document.querySelector("#firstName").focus();
+    document.querySelector("#wardName").focus();
   });
 
 document.querySelectorAll(".delete-btn").forEach((btnConfirm) => {

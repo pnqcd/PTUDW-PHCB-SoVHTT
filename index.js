@@ -20,19 +20,24 @@ app.engine('hbs', expressHbs.engine({
                 month: 'long',
                 day: 'numeric'
             });
-        }
+        },
+        showIndex: (index) => index + 1,
     }
 }));
 app.set('view engine', 'hbs');
 
-app.get('/', (req, res) => res.redirect('/phuong-quan'));
-app.use('/phuong-quan', require('./routes/wardRouter'));
+// Cau hinh de doc du lieu gui len theo phuong thuc POST
+app.use(express.json());
+app.use(express.urlencoded({extended: true}));
 
-app.get('/createTables', (req, res) => {
-    let models = require('./models');
-    models.sequelize.sync().then(() => {
-        res.send('Tables created!');
-    });
-});
+app.get('/', (req, res) => res.redirect('/danh-sach'));
+app.use('/danh-sach', require('./routes/wardRouter'));
+
+// app.get('/createTables', (req, res) => {
+//     let models = require('./models');
+//     models.sequelize.sync().then(() => {
+//         res.send('Tables created!');
+//     });
+// });
 // app.set('view engine', 'hbs');
 app.listen(port, () => console.log(`Example app listening on port ${port}!`));

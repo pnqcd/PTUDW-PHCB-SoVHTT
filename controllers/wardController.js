@@ -25,7 +25,7 @@ controller.addWard = async (req, res) => {
       zipCode, 
       population
     });
-    res.redirect("/phuong-quan");
+    res.redirect("/danh-sach");
   } catch (error) {
     res.send("Can't add ward");
     console.error(error);

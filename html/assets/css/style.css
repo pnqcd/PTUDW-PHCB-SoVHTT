@@ -82,3 +82,11 @@
 .card-header .btn {
     margin-bottom: 10px;
 }
+
+#addWardModal .form-label {
+    text-transform: uppercase;
+    font-weight: 500;
+}
+#addWardModal .modal-header, #addWardModal .modal-footer {
+    border: none;
+}

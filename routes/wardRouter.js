@@ -3,7 +3,7 @@ const router = express.Router();
 const controller = require("../controllers/wardController");
 
 router.get("/", controller.show);
-router.post("/", controller.addWard);
+router.post("/wards", controller.addWard);
 router.put("/", controller.editWard);
 router.delete("/:id", controller.deleteWard);
 
