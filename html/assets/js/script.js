@@ -22,14 +22,14 @@ document
     document.querySelector("#wardName").focus();
   });
 
-document.querySelectorAll(".delete-btn").forEach((btnConfirm) => {
+document.querySelectorAll(".user-delete-btn").forEach((btnConfirm) => {
   btnConfirm.addEventListener("click", (e) => {
     let id = e.target.dataset.id;
     const options = {
-      title: "Are you sure?",
+      title: "Bạn có chắc chắn muốn xoá?",
       type: "danger",
-      btnOkText: "Yes",
-      btnCancelText: "No",
+      btnOkText: "Xoá",
+      btnCancelText: "Thoát",
       onConfirm: () => {
         console.log("Confirm");
         console.log(id);
@@ -43,7 +43,32 @@ document.querySelectorAll(".delete-btn").forEach((btnConfirm) => {
       el,
       content,
       options: confirmedOptions,
-    } = bs5dialog.confirm("Do you really want to delete this user?", options);
+    } = bs5dialog.confirm("Bạn có chắc chắn muốn xoá?", options);
+  });
+});
+
+document.querySelectorAll(".ward-delete-btn").forEach((btnConfirm) => {
+  btnConfirm.addEventListener("click", (e) => {
+    let id = e.target.dataset.id;
+    const options = {
+      title: "Bạn có chắc chắn xoá phường này?",
+      type: "danger",
+      btnOkText: "Xoá",
+      btnCancelText: "Thoát",
+      onConfirm: () => {
+        console.log("Confirm");
+        console.log(id);
+        deleteWard(id);
+      },
+      onCancel: () => {
+        console.log("Cancel");
+      },
+    };
+    const {
+      el,
+      content,
+      options: confirmedOptions,
+    } = bs5dialog.confirm("Bạn có chắc chắn xoá phường này?", options);
   });
 });
 
@@ -79,6 +104,14 @@ async function editUser(e) {
 
 async function deleteUser(id) {
   let res = await fetch(`/users/${id}`, {
+    method: "DELETE",
+  });
+
+  location.reload();
+}
+
+async function deleteWard(id) {
+  let res = await fetch(`/danh-sach/${id}`, {
     method: "DELETE",
   });
 

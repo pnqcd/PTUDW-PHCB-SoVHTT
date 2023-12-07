@@ -55,7 +55,7 @@ controller.deleteWard = async (req, res) => {
     await models.Ward.destroy(
       {where: {id}}
     );
-    res.send("Ward deleted!");
+    res.send("Đã xoá phường!");
   } catch (error) {
     res.send("Can't delete ward!");
     console.error(error);
