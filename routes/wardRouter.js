@@ -4,7 +4,7 @@ const controller = require("../controllers/wardController");
 
 router.get("/", controller.show);
 router.post("/wards", controller.addWard);
-router.put("/", controller.editWard);
+router.put("/wards", controller.editWard);
 router.delete("/:id", controller.deleteWard);
 
 module.exports = router;

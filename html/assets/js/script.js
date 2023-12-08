@@ -10,11 +10,11 @@
 //     document.querySelector("#firstName").focus();
 //   });
 
-// document
-//   .querySelector("#editWardModal")
-//   .addEventListener("shown.bs.modal", () => {
-//     document.querySelector("#wardNameEdit").focus();
-//   });
+document
+  .querySelector("#editWardModal")
+  .addEventListener("shown.bs.modal", () => {
+    document.querySelector("#wardNameEdit").focus();
+  });
 
 document
   .querySelector("#addWardModal")
@@ -72,6 +72,14 @@ document.querySelectorAll(".ward-delete-btn").forEach((btnConfirm) => {
   });
 });
 
+function showEditWardModal(btn) {
+  document.querySelector("#id").value = btn.dataset.id;
+  document.querySelector("#wardNameEdit").value = btn.dataset.wardName;
+  document.querySelector("#districtNameEdit").value = btn.dataset.districtName;
+  document.querySelector("#zipCodeEdit").value = btn.dataset.zipCode;
+  document.querySelector("#populationEdit").value = btn.dataset.population;
+}
+
 function showEditUserModal(btn) {
   document.querySelector("#id").value = btn.dataset.id;
   document.querySelector("#usernameEdit").value = btn.dataset.username;
@@ -79,6 +87,27 @@ function showEditUserModal(btn) {
   document.querySelector("#lastNameEdit").value = btn.dataset.lastName;
   document.querySelector("#mobileEdit").value = btn.dataset.mobile;
   document.querySelector("#isAdminEdit").checked = btn.dataset.isAdmin == "true" ? true : false;
+}
+
+async function editWard(e) {
+  e.preventDefault();
+
+  const formData = new FormData(document.getElementById("editWardForm"));
+  const data = Object.fromEntries(formData.entries());
+
+  // data = {
+  //   wardName: document.querySelector('#wardNameEdit').value,
+  // }
+
+  let res = await fetch('/danh-sach/wards', {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(data),
+  });
+
+  location.reload();
 }
 
 async function editUser(e) {

@@ -1,6 +1,6 @@
 <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
     {{>navbar}}
-    <!-- Modal -->
+    <!-- Add Ward Modal -->
     <div class="modal fade" id="addWardModal" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <form action="/danh-sach/wards" id="addWardForm" method="POST">
@@ -54,6 +54,55 @@
                 </button>
                 </div>
             </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Edit Ward Modal -->
+    <div class="modal fade" id="editWardModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <form action="" id="editWardForm" onsubmit="editWard(event)">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">
+                        Chỉnh sửa thông tin phường
+                        </h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                <div class="modal-body">
+                    <div class="row g-2">
+                        <div class="col mb-3">
+                            <label for="wardNameEdit" class="form-label">Phường</label>
+                            <input type="text" id="wardNameEdit" name="wardName" class="form-control" placeholder="Phường 1"
+                            required />
+                        </div>
+                    <div class="col mb-3">
+                        <label for="districtNameEdit" class="form-label">Quận</label>
+                        <input type="text" id="districtNameEdit" name="districtName" class="form-control" placeholder="Quận 5" required />
+                    </div>
+                    </div>
+                    <div class="row g-2">
+                        <div class="col mb-3">
+                            <label for="zipCodeEdit" class="form-label">Mã vùng</label>
+                            <input type="text" id="zipCodeEdit" name="zipCode" class="form-control" placeholder="72000"/>
+                        </div>
+                    <div class="col mb-3">
+                        <label for="populationEdit" class="form-label">Dân số</label>
+                        <input type="text" id="populationEdit" name="population" class="form-control" placeholder="12345" />
+                    </div>
+                    </div>
+                    <div class="text-center badge bg-label-danger" id="errorMessage"></div>
+                </div>
+                <div class="modal-footer">
+                    <input type="hidden" name="id" id="id" value="" />
+                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal" id="closeBtnEdit">
+                    Đóng
+                    </button>
+                    <button type="submit" class="btn btn-primary" >
+                    Lưu
+                    </button>
+                </div>
+                </div>
             </form>
         </div>
     </div>
@@ -230,9 +279,9 @@
                             <td class="align-middle text-center">
                                 <i role="button" class="fa fa-pen-to-square text-info me-3" data-bs-toggle="modal"
                                     data-bs-target="#editWardModal" onclick="showEditWardModal(this)" 
-                                    data-id={{id}} data-ward-name={{wardName}}
-                                    data-district-name={{districtName}} data-zip-code = {{zipCode}}
-                                    data-population={{population}}></i>
+                                    data-id="{{id}}" data-ward-name="{{wardName}}"
+                                    data-district-name="{{districtName}}" data-zip-code = "{{zipCode}}"
+                                    data-population="{{population}}"></i>
                                 <i role="button" class="fa fa-trash text-danger delete-btn ward-delete-btn" data-id={{id}}></i>
                             </td>
                             </tr>

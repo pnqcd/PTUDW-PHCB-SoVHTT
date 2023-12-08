@@ -83,10 +83,11 @@
     margin-bottom: 10px;
 }
 
-#addWardModal .form-label {
+#addWardModal .form-label, #editWardModal .form-label {
     text-transform: uppercase;
     font-weight: 500;
 }
-#addWardModal .modal-header, #addWardModal .modal-footer {
+#addWardModal .modal-header, #addWardModal .modal-footer, 
+#editWardModal .modal-header, #editWardModal .modal-footer {
     border: none;
 }
