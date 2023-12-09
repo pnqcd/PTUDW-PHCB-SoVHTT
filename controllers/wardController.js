@@ -13,6 +13,20 @@ controller.show = async (req, res) => {
     ],
     order: [["createdAt", "DESC"]],
   });
+
+  res.locals.places = await models.Place.findAll({
+    attributes: [
+      "id",
+      "diaChi",
+      "khuVuc",
+      "loaiVT",
+      "hinhThuc",
+      "quyHoach",
+      "hinhAnh",
+    ],
+    order: [["createdAt", "DESC"]],
+  });
+
   res.render("manage-list");
 };
 

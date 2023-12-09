@@ -2,6 +2,15 @@ const express = require('express');
 const app = express();
 const port = 4000;
 const expressHbs = require('express-handlebars');
+const Handlebars = require('handlebars');
+
+Handlebars.registerHelper('if_eq', function (a, b, options) {
+    if (a == b) {
+        return options.fn(this);
+    } else {
+        return options.inverse(this);
+    }
+});
 
 app.use(express.static(__dirname + '/html'));
 
@@ -33,11 +42,11 @@ app.use(express.urlencoded({extended: true}));
 app.get('/', (req, res) => res.redirect('/danh-sach'));
 app.use('/danh-sach', require('./routes/wardRouter'));
 
-// app.get('/createTables', (req, res) => {
-//     let models = require('./models');
-//     models.sequelize.sync().then(() => {
-//         res.send('Tables created!');
-//     });
-// });
+app.get('/createTables', (req, res) => {
+    let models = require('./models');
+    models.sequelize.sync().then(() => {
+        res.send('Tables created!');
+    });
+});
 // app.set('view engine', 'hbs');
 app.listen(port, () => console.log(`Example app listening on port ${port}!`));
