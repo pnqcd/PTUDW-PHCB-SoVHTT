@@ -154,15 +154,18 @@ function openCustomDown(elm) {
       elm.parentElement.querySelector('.customDown').style.display = "none";
 }
 
-function openViewDetail(elm) {
+function openViewDetail(elm, wardName, districtName, zipCode, population) {
   let div = document.createElement('div');
   div.classList.add('modal-backdrop', 'fade', 'show');
   document.body.appendChild(div);
 
-  elm.parentElement.parentElement.querySelector('.modal').classList.add('show');
-  elm.parentElement.parentElement.querySelector('.modal.detail-ward').style.display = "block";
+  let ancElm = elm.parentElement.parentElement.parentElement.parentElement.querySelector('.modal');
+  ancElm.classList.add('show');
+  elm.parentElement.parentElement.parentElement.parentElement.querySelector('.modal.detail-ward').style.display = "block";
 
-  elm.parentElement.style.display = "none";
+  ancElm.querySelector('.detail-card :nth-child(1) span').textContent = wardName + ", " + districtName;
+  ancElm.querySelector('.detail-card :nth-child(3) .span-content').textContent = zipCode;
+  ancElm.querySelector('.detail-card :nth-child(4) .span-content').textContent = population;
 }
 
 function closeViewDetail(elm) {
