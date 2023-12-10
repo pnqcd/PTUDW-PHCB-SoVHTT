@@ -83,11 +83,26 @@
     margin-bottom: 10px;
 }
 
-#addWardModal .form-label, #editWardModal .form-label {
+#addWardModal .form-label, #editWardModal .form-label,
+#addPlaceModal .form-label, #editPlaceModal .form-label {
     text-transform: uppercase;
     font-weight: 500;
 }
 #addWardModal .modal-header, #addWardModal .modal-footer, 
-#editWardModal .modal-header, #editWardModal .modal-footer {
+#editWardModal .modal-header, #editWardModal .modal-footer,
+#addPlaceModal .modal-header, #addPlaceModal .modal-footer, 
+#editPlaceModal .modal-header, #editPlaceModal .modal-footer {
     border: none;
+}
+
+.form-check {
+    padding-left: 0.125rem;
+}
+
+.form-check-label {
+    color: rgb(0, 116, 217);
+}
+
+.bg-label-primary {
+    background-color: rgba(0, 116, 217, 0.2);
 }

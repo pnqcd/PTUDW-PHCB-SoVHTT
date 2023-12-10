@@ -5,56 +5,56 @@
     <div class="modal fade" id="addWardModal" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <form action="/danh-sach/wards" id="addWardForm" method="POST">
-            <div class="modal-content">
-                <div class="modal-header">
-                <h5 class="modal-title" id="wardModalTitle">
-                    Thêm Phường
-                </h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="wardModalTitle">
+                            Thêm Phường
+                        </h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row g-2">
+                            <div class="col mb-3">
+                            <label for="wardName" class="form-label">Phường</label>
+                            <input type="text" id="wardName" name="wardName" class="form-control" placeholder="Phường 1"
+                                required data-autofocus />
+                            </div>
+                            <div class="col mb-3">
+                            <label for="districtName" class="form-label">Quận</label>
+                            <input type="text" id="districtName" name="districtName" class="form-control" placeholder="Quận 5"
+                                required />
+                            </div>
+                        </div>
+                        <div class="row g-2">
+                            <div class="col mb-3">
+                            <label for="zipCode" class="form-label">Mã vùng</label>
+                            <input type="text" id="zipCode" name="zipCode" class="form-control" placeholder="72000"
+                                required />
+                            </div>
+                            <div class="col mb-3">
+                            <label for="population" class="form-label">Dân số</label>
+                            <input type="text" id="population" name="population" class="form-control" placeholder="12345" />
+                            </div>
+                        </div>
+                        {{!-- <div class="row">
+                            <div class="col mb-0">
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="checkbox" id="isAdmin" name="isAdmin" value="1" />
+                                <label class="form-check-label badge bg-label-primary" for="isAdmin">Is Admin</label>
+                            </div>
+                            </div>
+                        </div> --}}
+                        <div class="text-center badge bg-label-danger" id="errorMessage"></div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal" id="closeBtn">
+                            Đóng
+                        </button>
+                        <button type="submit" class="btn btn-primary">
+                            Lưu
+                        </button>
+                    </div>
                 </div>
-                <div class="modal-body">
-                <div class="row g-2">
-                    <div class="col mb-3">
-                    <label for="wardName" class="form-label">Phường</label>
-                    <input type="text" id="wardName" name="wardName" class="form-control" placeholder="Phường 1"
-                        required data-autofocus />
-                    </div>
-                    <div class="col mb-3">
-                    <label for="districtName" class="form-label">Quận</label>
-                    <input type="text" id="districtName" name="districtName" class="form-control" placeholder="Quận 5"
-                        required />
-                    </div>
-                </div>
-                <div class="row g-2">
-                    <div class="col mb-3">
-                    <label for="zipCode" class="form-label">Mã vùng</label>
-                    <input type="text" id="zipCode" name="zipCode" class="form-control" placeholder="72000"
-                        required />
-                    </div>
-                    <div class="col mb-3">
-                    <label for="population" class="form-label">Dân số</label>
-                    <input type="text" id="population" name="population" class="form-control" placeholder="12345" />
-                    </div>
-                </div>
-                {{!-- <div class="row">
-                    <div class="col mb-0">
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="checkbox" id="isAdmin" name="isAdmin" value="1" />
-                        <label class="form-check-label badge bg-label-primary" for="isAdmin">Is Admin</label>
-                    </div>
-                    </div>
-                </div> --}}
-                <div class="text-center badge bg-label-danger" id="errorMessage"></div>
-                </div>
-                <div class="modal-footer">
-                <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal" id="closeBtn">
-                    Đóng
-                </button>
-                <button type="submit" class="btn btn-primary">
-                    Lưu
-                </button>
-                </div>
-            </div>
             </form>
         </div>
     </div>
@@ -103,6 +103,64 @@
                     Lưu
                     </button>
                 </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Add Place Modal -->
+    <div class="modal fade" id="addPlaceModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <form action="/danh-sach/places" id="addPlaceForm" method="POST">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="wardModalTitle">
+                            Thêm Điểm Đặt Bảng Quảng Cáo
+                        </h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row g-2">
+                            <div class="col mb-3">
+                            <label for="diaChi" class="form-label">Địa chỉ</label>
+                            <input type="text" id="diaChi" name="diaChi" class="form-control" placeholder="Chợ An Đông"
+                                required data-autofocus />
+                            </div>
+                            <div class="col mb-3">
+                            <label for="khuVuc" class="form-label">Khu vực</label>
+                            <input type="text" id="khuVuc" name="khuVuc" class="form-control" placeholder="Phường 9, Quận 5"
+                                required />
+                            </div>
+                        </div>
+                        <div class="row g-2">
+                            <div class="col mb-3">
+                            <label for="loaiVT" class="form-label">Loại vị trí</label>
+                            <input type="text" id="loaiVT" name="loaiVT" class="form-control" placeholder="Chợ"
+                                required />
+                            </div>
+                            <div class="col mb-3">
+                            <label for="hinhThuc" class="form-label">Hình thức</label>
+                            <input type="text" id="hinhThuc" name="hinhThuc" class="form-control" placeholder="Quảng cáo thương mại" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col mb-0">
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="checkbox" id="isQuyHoach" name="isQuyHoach" value="1" />
+                                    <label class="form-check-label badge bg-label-primary" for="isQuyHoach">Quy hoạch</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="text-center badge bg-label-danger" id="errorMessage"></div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal" id="closeBtn">
+                            Đóng
+                        </button>
+                        <button type="submit" class="btn btn-primary">
+                            Lưu
+                        </button>
+                    </div>
                 </div>
             </form>
         </div>
@@ -391,7 +449,7 @@
                                 <tbody>
                                     {{#each places}}
                                     <tr>
-                                        <td style="max-width: 280px; overflow: hidden; text-overflow: ellipsis;">
+                                        <td style="max-width: 250px; overflow: hidden; text-overflow: ellipsis;">
                                             <div class="d-flex px-2">
                                                 <div>
                                                     <img src="{{#if hinhAnh}}{{hinhAnh}}{{else}}/assets/img/places/place.jpeg{{/if}}" class="avatar avatar-sm me-3 border-radius-lg" alt="spotify">
@@ -417,11 +475,11 @@
                                         </td>
                                         <td class="align-middle text-center">
                                             <i role="button" class="fa fa-pen-to-square text-info me-3" data-bs-toggle="modal"
-                                                data-bs-target="#editWardModal" onclick="showEditWardModal(this)" 
-                                                data-id="{{places.stt}}" data-dia-chi="{{diaChi}}"
+                                                data-bs-target="#editPlaceModal" onclick="showEditPlaceModal(this)" 
+                                                data-id="{{places.id}}" data-dia-chi="{{diaChi}}"
                                                 data-khu-vuc="{{khuVuc}}" data-loai-vt = "{{loaiVT}}"
                                                 data-hinh-thuc="{{hinhThuc}}" data-quy-hoach="{{quyHoach}}"></i>
-                                            <i role="button" class="fa fa-trash text-danger delete-btn ward-delete-btn" data-id={{places.id}}></i>
+                                            <i role="button" class="fa fa-trash text-danger delete-btn place-delete-btn" data-id={{places.id}}></i>
                                         </td>
                                     </tr>
                                     {{/each}}

@@ -22,6 +22,12 @@ document
     document.querySelector("#wardName").focus();
   });
 
+  document
+  .querySelector("#addPlaceModal")
+  .addEventListener("shown.bs.modal", () => {
+    document.querySelector("#diaChi").focus();
+  });
+
 document.querySelectorAll(".user-delete-btn").forEach((btnConfirm) => {
   btnConfirm.addEventListener("click", (e) => {
     let id = e.target.dataset.id;
@@ -140,7 +146,7 @@ async function deleteUser(id) {
 }
 
 async function deleteWard(id) {
-  let res = await fetch(`/danh-sach/${id}`, {
+  let res = await fetch(`/danh-sach/wards/${id}`, {
     method: "DELETE",
   });
 

@@ -25,6 +25,7 @@ controller.show = async (req, res) => {
       "hinhAnh",
     ],
     order: [["createdAt", "DESC"]],
+    limit: 10,
   });
 
   res.render("manage-list");
@@ -41,12 +42,9 @@ controller.addWard = async (req, res) => {
     });
     res.redirect("/danh-sach");
   } catch (error) {
-    res.send("Can't add ward");
+    res.send("Không thể thêm phường");
     console.error(error);
   }
-  // res.send(req.body);
-  // console.log(req);
-  // res.redirect("/phuong-quan");
 }
 
 controller.editWard = async (req, res) => {
@@ -56,9 +54,9 @@ controller.editWard = async (req, res) => {
       {wardName, districtName, zipCode, population},
       {where: {id}}
     );
-    res.send("Ward updated!");
+    res.send("Đã cập nhật phường!");
   } catch (error) {
-    res.send("Can't update ward!");
+    res.send("Không thể cập nhật phường!");
     console.error(error);
   }
 }
@@ -71,7 +69,56 @@ controller.deleteWard = async (req, res) => {
     );
     res.send("Đã xoá phường!");
   } catch (error) {
-    res.send("Can't delete ward!");
+    res.send("Không thể xoá phường!");
+    console.error(error);
+  }
+}
+
+controller.addPlace = async (req, res) => {
+  let {diaChi, khuVuc, loaiVT, hinhThuc, isQuyHoach} = req.body;
+  try {
+    await models.Place.create({
+      diaChi, 
+      khuVuc, 
+      loaiVT, 
+      hinhThuc, 
+      quyHoach: isQuyHoach ? "ĐÃ QUY HOẠCH" : "CHƯA QUY HOẠCH"
+    });
+    res.redirect("/danh-sach");
+  } catch (error) {
+    res.send("Không thể thêm điểm đặt");
+    console.error(error);
+  }
+}
+
+controller.editPlace = async (req, res) => {
+  let {id, diaChi, khuVuc, loaiVT, hinhThuc, isQuyHoach} = req.body;
+  try {
+    await models.Place.update(
+      { diaChi, 
+        khuVuc, 
+        loaiVT, 
+        hinhThuc, 
+        quyHoach: isQuyHoach ? "ĐÃ QUY HOẠCH" : "CHƯA QUY HOẠCH"
+      },
+      {where: {id}}
+    );
+    res.send("Đã cập nhật điểm đặt!");
+  } catch (error) {
+    res.send("Không thể cập nhật điểm đặt!");
+    console.error(error);
+  }
+}
+
+controller.deletePlace = async (req, res) => {
+  let id = isNaN(req.params.id) ? 0 : parseInt(req.params.id);
+  try {
+    await models.Place.destroy(
+      {where: {id}}
+    );
+    res.send("Đã xoá điểm đặt!");
+  } catch (error) {
+    res.send("Không thể xoá điểm đặt!");
     console.error(error);
   }
 }
