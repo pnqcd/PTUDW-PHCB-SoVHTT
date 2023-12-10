@@ -78,6 +78,31 @@ document.querySelectorAll(".ward-delete-btn").forEach((btnConfirm) => {
   });
 });
 
+document.querySelectorAll(".place-delete-btn").forEach((btnConfirm) => {
+  btnConfirm.addEventListener("click", (e) => {
+    let id = e.target.dataset.id;
+    const options = {
+      title: "Bạn có chắc chắn muốn xoá?",
+      type: "danger",
+      btnOkText: "Xoá",
+      btnCancelText: "Thoát",
+      onConfirm: () => {
+        console.log("Confirm");
+        console.log(id);
+        deletePlace(id);
+      },
+      onCancel: () => {
+        console.log("Cancel");
+      },
+    };
+    const {
+      el,
+      content,
+      options: confirmedOptions,
+    } = bs5dialog.confirm("Bạn có chắc chắn muốn xoá?", options);
+  });
+});
+
 function showEditWardModal(btn) {
   document.querySelector("#id").value = btn.dataset.id;
   document.querySelector("#wardNameEdit").value = btn.dataset.wardName;
@@ -147,6 +172,14 @@ async function deleteUser(id) {
 
 async function deleteWard(id) {
   let res = await fetch(`/danh-sach/wards/${id}`, {
+    method: "DELETE",
+  });
+
+  location.reload();
+}
+
+async function deletePlace(id) {
+  let res = await fetch(`/danh-sach/places/${id}`, {
     method: "DELETE",
   });
 

@@ -177,7 +177,7 @@
                                     <h6 class="text-white text-capitalize ps-3">Danh sách Phường, Quận</h6>
                                 </div>
                                 <div class="col-6">
-                                    <button type="button" class="btn btn-success float-end me-6" data-bs-toggle="modal" data-bs-target="#addWardModal">
+                                    <button type="button" class="btn btn-success float-end me-6" style="min-width: 145px;" data-bs-toggle="modal" data-bs-target="#addWardModal">
                                         <i class="tf-icons fa fa-plus"></i> Thêm Phường
                                     </button>
                                 </div>
@@ -426,7 +426,7 @@
                                 </div>
                             
                                 <div class="col-6">
-                                    <button type="button" class="btn btn-success float-end me-6" data-bs-toggle="modal" data-bs-target="#addPlaceModal">
+                                    <button type="button" class="btn btn-success float-end me-6" style="min-width: 145px;" data-bs-toggle="modal" data-bs-target="#addPlaceModal">
                                         <i class="tf-icons fa fa-plus"></i> Thêm Điểm
                                     </button>
                                 </div>
@@ -452,7 +452,7 @@
                                         <td style="max-width: 250px; overflow: hidden; text-overflow: ellipsis;">
                                             <div class="d-flex px-2">
                                                 <div>
-                                                    <img src="{{#if hinhAnh}}{{hinhAnh}}{{else}}/assets/img/places/place.jpeg{{/if}}" class="avatar avatar-sm me-3 border-radius-lg" alt="spotify">
+                                                    <img src="{{#if hinhAnh}}{{hinhAnh}}{{else}}/assets/img/places/place.png{{/if}}" class="avatar avatar-sm me-3 border-radius-lg" alt="spotify">
                                                 </div>
                                                 <div class="my-auto">
                                                     <h6 class="mb-0 text-sm">{{diaChi}}</h6>
@@ -476,10 +476,10 @@
                                         <td class="align-middle text-center">
                                             <i role="button" class="fa fa-pen-to-square text-info me-3" data-bs-toggle="modal"
                                                 data-bs-target="#editPlaceModal" onclick="showEditPlaceModal(this)" 
-                                                data-id="{{places.id}}" data-dia-chi="{{diaChi}}"
+                                                data-id="{{id}}" data-dia-chi="{{diaChi}}"
                                                 data-khu-vuc="{{khuVuc}}" data-loai-vt = "{{loaiVT}}"
                                                 data-hinh-thuc="{{hinhThuc}}" data-quy-hoach="{{quyHoach}}"></i>
-                                            <i role="button" class="fa fa-trash text-danger delete-btn place-delete-btn" data-id={{places.id}}></i>
+                                            <i role="button" class="fa fa-trash text-danger delete-btn place-delete-btn" data-id={{id}}></i>
                                         </td>
                                     </tr>
                                     {{/each}}
