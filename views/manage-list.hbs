@@ -77,30 +77,30 @@
                             <input type="text" id="wardNameEdit" name="wardName" class="form-control" placeholder="Phường 1"
                             required />
                         </div>
-                    <div class="col mb-3">
-                        <label for="districtNameEdit" class="form-label">Quận</label>
-                        <input type="text" id="districtNameEdit" name="districtName" class="form-control" placeholder="Quận 5" required />
-                    </div>
+                        <div class="col mb-3">
+                            <label for="districtNameEdit" class="form-label">Quận</label>
+                            <input type="text" id="districtNameEdit" name="districtName" class="form-control" placeholder="Quận 5" required />
+                        </div>
                     </div>
                     <div class="row g-2">
                         <div class="col mb-3">
                             <label for="zipCodeEdit" class="form-label">Mã vùng</label>
                             <input type="text" id="zipCodeEdit" name="zipCode" class="form-control" placeholder="72000"/>
                         </div>
-                    <div class="col mb-3">
-                        <label for="populationEdit" class="form-label">Dân số</label>
-                        <input type="text" id="populationEdit" name="population" class="form-control" placeholder="12345" />
-                    </div>
+                        <div class="col mb-3">
+                            <label for="populationEdit" class="form-label">Dân số</label>
+                            <input type="text" id="populationEdit" name="population" class="form-control" placeholder="12345" />
+                        </div>
                     </div>
                     <div class="text-center badge bg-label-danger" id="errorMessage"></div>
                 </div>
                 <div class="modal-footer">
-                    <input type="hidden" name="id" id="id" value="" />
+                    <input type="hidden" name="id" id="idWard" value="" />
                     <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal" id="closeBtnEdit">
-                    Đóng
+                        Đóng
                     </button>
                     <button type="submit" class="btn btn-primary" >
-                    Lưu
+                        Lưu
                     </button>
                 </div>
                 </div>
@@ -161,6 +161,63 @@
                             Lưu
                         </button>
                     </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Edit Place Modal -->
+    <div class="modal fade" id="editPlaceModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <form action="" id="editPlaceForm" onsubmit="editPlace(event)">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">
+                        Chỉnh sửa thông tin điểm đặt bảng quảng cáo
+                        </h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                <div class="modal-body">
+                    <div class="row g-2">
+                        <div class="col mb-3">
+                            <label for="diaChiEdit" class="form-label">Địa Chỉ</label>
+                            <input type="text" id="diaChiEdit" name="diaChi" class="form-control" placeholder="Chợ An Đông"
+                            required />
+                        </div>
+                        <div class="col mb-3">
+                            <label for="khuVucEdit" class="form-label">Khu Vực</label>
+                            <input type="text" id="khuVucEdit" name="khuVuc" class="form-control" placeholder="Phường 9, Quận 5" required />
+                        </div>
+                    </div>
+                    <div class="row g-2">
+                        <div class="col mb-3">
+                            <label for="loaiVTEdit" class="form-label">Loại Vị Trí</label>
+                            <input type="text" id="loaiVTEdit" name="loaiVT" class="form-control" placeholder="Chợ"/>
+                        </div>
+                        <div class="col mb-3">
+                            <label for="hinhThucEdit" class="form-label">Hình Thức</label>
+                            <input type="text" id="hinhThucEdit" name="hinhThuc" class="form-control" placeholder="Quảng cáo thương mại" />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col mb-0">
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="checkbox" id="quyHoachEdit" name="isQuyHoach" value="1" />
+                                <label class="form-check-label badge bg-label-primary" for="quyHoachEdit">Quy Hoạch</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="text-center badge bg-label-danger" id="errorMessage"></div>
+                </div>
+                <div class="modal-footer">
+                    <input type="hidden" name="id" id="idPlace" value="" />
+                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal" id="closeBtnEdit">
+                        Đóng
+                    </button>
+                    <button type="submit" class="btn btn-primary" >
+                        Lưu
+                    </button>
+                </div>
                 </div>
             </form>
         </div>

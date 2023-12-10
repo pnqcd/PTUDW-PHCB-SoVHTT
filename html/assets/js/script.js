@@ -22,10 +22,16 @@ document
     document.querySelector("#wardName").focus();
   });
 
-  document
+document
   .querySelector("#addPlaceModal")
   .addEventListener("shown.bs.modal", () => {
     document.querySelector("#diaChi").focus();
+  });
+
+document
+  .querySelector("#editPlaceModal")
+  .addEventListener("shown.bs.modal", () => {
+    document.querySelector("#diaChiEdit").focus();
   });
 
 document.querySelectorAll(".user-delete-btn").forEach((btnConfirm) => {
@@ -104,11 +110,20 @@ document.querySelectorAll(".place-delete-btn").forEach((btnConfirm) => {
 });
 
 function showEditWardModal(btn) {
-  document.querySelector("#id").value = btn.dataset.id;
+  document.querySelector("#idWard").value = btn.dataset.id;
   document.querySelector("#wardNameEdit").value = btn.dataset.wardName;
   document.querySelector("#districtNameEdit").value = btn.dataset.districtName;
   document.querySelector("#zipCodeEdit").value = btn.dataset.zipCode;
   document.querySelector("#populationEdit").value = btn.dataset.population;
+}
+
+function showEditPlaceModal(btn) {
+  document.querySelector("#idPlace").value = btn.dataset.id;
+  document.querySelector("#diaChiEdit").value = btn.dataset.diaChi;
+  document.querySelector("#khuVucEdit").value = btn.dataset.khuVuc;
+  document.querySelector("#loaiVTEdit").value = btn.dataset.loaiVt;
+  document.querySelector("#hinhThucEdit").value = btn.dataset.hinhThuc;
+  document.querySelector("#quyHoachEdit").checked = btn.dataset.quyHoach == "ĐÃ QUY HOẠCH" ? true : false;
 }
 
 function showEditUserModal(btn) {
@@ -131,6 +146,27 @@ async function editWard(e) {
   // }
 
   let res = await fetch('/danh-sach/wards', {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(data),
+  });
+
+  location.reload();
+}
+
+async function editPlace(e) {
+  e.preventDefault();
+
+  const formData = new FormData(document.getElementById("editPlaceForm"));
+  const data = Object.fromEntries(formData.entries());
+
+  // data = {
+  //   wardName: document.querySelector('#wardNameEdit').value,
+  // }
+
+  let res = await fetch('/danh-sach/places', {
     method: "PUT",
     headers: {
       "Content-Type": "application/json",
