@@ -17,7 +17,7 @@ controller.show = async (req, res) => {
     ],
     order: [["createdAt", "DESC"]],
   });
-  res.render("user-management");
+  res.render("manage-account");
 };
 
 controller.addUser = async (req, res) => {
