@@ -229,7 +229,7 @@ function openCustomDown(elm) {
       elm.parentElement.querySelector('.customDown').style.display = "none";
 }
 
-function openViewWardDetail(elm, wardName, districtName, zipCode, population) {
+function openViewWardDetail(elm, wardName, districtName, zipCode, population, imagePath) {
   let div = document.createElement('div');
   div.classList.add('modal-backdrop', 'fade', 'show');
   document.body.appendChild(div);
@@ -241,6 +241,8 @@ function openViewWardDetail(elm, wardName, districtName, zipCode, population) {
   ancElm.querySelector('.detail-card :nth-child(1) span').textContent = wardName + ", " + districtName;
   ancElm.querySelector('.detail-card :nth-child(3) .span-content').textContent = zipCode;
   ancElm.querySelector('.detail-card :nth-child(4) .span-content').textContent = population;
+
+  if (imagePath) ancElm.querySelector('img').src = imagePath;
 }
 
 function closeViewWardDetail(elm) {
@@ -249,7 +251,7 @@ function closeViewWardDetail(elm) {
   document.querySelector('.modal-backdrop.fade.show').remove();
 }
 
-function openViewPlaceDetail(elm, diaChi, khuVuc, loaiVT, hinhThuc, quyHoach) {
+function openViewPlaceDetail(elm, diaChi, khuVuc, loaiVT, hinhThuc, quyHoach, hinhAnh) {
   let div = document.createElement('div');
   div.classList.add('modal-backdrop', 'fade', 'show');
   document.body.appendChild(div);
@@ -262,6 +264,8 @@ function openViewPlaceDetail(elm, diaChi, khuVuc, loaiVT, hinhThuc, quyHoach) {
   ancElm.querySelector('.detail-card :nth-child(3) .span-content').textContent = loaiVT;
   ancElm.querySelector('.detail-card :nth-child(4) .span-content').textContent = hinhThuc;
   ancElm.querySelector('.detail-card :nth-child(5) span').textContent = quyHoach;
+
+  if (hinhAnh) ancElm.querySelector('img').src = hinhAnh;
 }
 
 function closeViewPlaceDetail(elm) {
