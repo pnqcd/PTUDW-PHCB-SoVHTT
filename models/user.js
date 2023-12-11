@@ -24,7 +24,6 @@ module.exports = (sequelize, DataTypes) => {
       dob: DataTypes.STRING,
       isWard: DataTypes.BOOLEAN,
       isDistrict: DataTypes.BOOLEAN,
-      isDepartment: DataTypes.BOOLEAN,
     },
     {
       sequelize,

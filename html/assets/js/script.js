@@ -229,7 +229,7 @@ function openCustomDown(elm) {
       elm.parentElement.querySelector('.customDown').style.display = "none";
 }
 
-function openViewDetail(elm, wardName, districtName, zipCode, population) {
+function openViewWardDetail(elm, wardName, districtName, zipCode, population) {
   let div = document.createElement('div');
   div.classList.add('modal-backdrop', 'fade', 'show');
   document.body.appendChild(div);
@@ -243,8 +243,29 @@ function openViewDetail(elm, wardName, districtName, zipCode, population) {
   ancElm.querySelector('.detail-card :nth-child(4) .span-content').textContent = population;
 }
 
-function closeViewDetail(elm) {
+function closeViewWardDetail(elm) {
   elm.closest('.modal.detail-ward').classList.remove('show');
   elm.closest('.modal.detail-ward').style.display = "none";
+  document.querySelector('.modal-backdrop.fade.show').remove();
+}
+
+function openViewPlaceDetail(elm, diaChi, khuVuc, loaiVT, hinhThuc, quyHoach) {
+  let div = document.createElement('div');
+  div.classList.add('modal-backdrop', 'fade', 'show');
+  document.body.appendChild(div);
+
+  let ancElm = elm.parentElement.parentElement.parentElement.parentElement.querySelector('.modal');
+  ancElm.classList.add('show');
+  elm.parentElement.parentElement.parentElement.parentElement.querySelector('.modal.detail-place').style.display = "block";
+
+  ancElm.querySelector('.detail-card :nth-child(1) span').textContent = diaChi + ", " + khuVuc;
+  ancElm.querySelector('.detail-card :nth-child(3) .span-content').textContent = loaiVT;
+  ancElm.querySelector('.detail-card :nth-child(4) .span-content').textContent = hinhThuc;
+  ancElm.querySelector('.detail-card :nth-child(5) span').textContent = quyHoach;
+}
+
+function closeViewPlaceDetail(elm) {
+  elm.closest('.modal.detail-place').classList.remove('show');
+  elm.closest('.modal.detail-place').style.display = "none";
   document.querySelector('.modal-backdrop.fade.show').remove();
 }

@@ -13,7 +13,6 @@ controller.show = async (req, res) => {
       "mobile",
       "isWard",
       "isDistrict",
-      "isDepartment",
     ],
     order: [["createdAt", "DESC"]],
   });
@@ -21,7 +20,7 @@ controller.show = async (req, res) => {
 };
 
 controller.addUser = async (req, res) => {
-  let {username, firstName, lastName, mobile, dob, isWard, isDistrict, isDepartment} = req.body;
+  let {username, firstName, lastName, mobile, dob, isWard, isDistrict} = req.body;
   try {
     await models.User.create({
       username,
@@ -31,7 +30,6 @@ controller.addUser = async (req, res) => {
       dob,
       isAdmin: isWard ? true : false,
       isAdmin: isDistrict ? true : false,
-      isAdmin: isDepartment ? true : false,
     });
     res.redirect("/users");
   } catch (error) {
@@ -44,10 +42,16 @@ controller.addUser = async (req, res) => {
 }
 
 controller.editUser = async (req, res) => {
-  let {id, firstName, lastName, mobile, dob, isWard, isDistrict, isDepartment} = req.body;
+  let {id, firstName, lastName, mobile, dob, isWard, isDistrict} = req.body;
   try {
     await models.User.update(
-      {firstName, lastName, mobile, dob, isWard: isWard?true:false, isDistrict: isDistrict?true:false, isDepartment: isDepartment?true:false},
+      { firstName, 
+        lastName, 
+        mobile, 
+        dob, 
+        isWard: isWard ? true : false, 
+        isDistrict: isDistrict ? true : false
+      },
       {where: {id}}
     );
     res.send("User updated!");
