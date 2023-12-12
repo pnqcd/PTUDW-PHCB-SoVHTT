@@ -6,13 +6,13 @@ controller.show = async (req, res) => {
     attributes: [
       "id",
       "imagePath",
-      "dob",
+      "fullName",
       "username",
-      "firstName",
-      "lastName",
-      "mobile",
       "isWard",
       "isDistrict",
+      "isDepartment",
+      "wardUnit",
+      "districtUnit"
     ],
     order: [["createdAt", "DESC"]],
   });
@@ -20,18 +20,18 @@ controller.show = async (req, res) => {
 };
 
 controller.addUser = async (req, res) => {
-  let {username, firstName, lastName, mobile, dob, isWard, isDistrict} = req.body;
+  let {username, fullName, isWard, isDistrict, isDepartment, workUnit} = req.body;
   try {
     await models.User.create({
       username,
-      firstName,
-      lastName,
-      mobile,
-      dob,
-      isAdmin: isWard ? true : false,
-      isAdmin: isDistrict ? true : false,
+      fullName,
+      isWard: isWard ? true : false,
+      isDistrict: isDistrict ? true : false,
+      isDepartment: isDepartment ? true : false,
+      wardUnit,
+      districtUnit
     });
-    res.redirect("/users");
+    res.redirect("/tai-khoan");
   } catch (error) {
     res.send("Can't add user");
     console.error(error);
@@ -39,26 +39,6 @@ controller.addUser = async (req, res) => {
   // res.send(req.body);
   // console.log(req);
   // res.redirect("/users");
-}
-
-controller.editUser = async (req, res) => {
-  let {id, firstName, lastName, mobile, dob, isWard, isDistrict} = req.body;
-  try {
-    await models.User.update(
-      { firstName, 
-        lastName, 
-        mobile, 
-        dob, 
-        isWard: isWard ? true : false, 
-        isDistrict: isDistrict ? true : false
-      },
-      {where: {id}}
-    );
-    res.send("User updated!");
-  } catch (error) {
-    res.send("Can't update user!");
-    console.error(error);
-  }
 }
 
 controller.deleteUser = async (req, res) => {

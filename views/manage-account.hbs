@@ -3,45 +3,48 @@
     {{>navbar curPage="Quản lý tài khoản"}}
 
     <!-- Add Account Modal -->
-    <div class="modal fade" id="addPlaceModal" tabindex="-1" aria-hidden="true">
+    <div class="modal fade" id="addAccountModal" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog" role="document">
-            <form action="/danh-sach/places" id="addPlaceForm" method="POST">
+            <form action="/tai-khoan" id="addAccountForm" method="POST">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title" id="wardModalTitle">
-                            Thêm Điểm Đặt Bảng Quảng Cáo
+                            Thêm Tài Khoản
                         </h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
                         <div class="row g-2">
                             <div class="col mb-3">
-                            <label for="diaChi" class="form-label">Địa chỉ</label>
-                            <input type="text" id="diaChi" name="diaChi" class="form-control" placeholder="Chợ An Đông"
-                                required data-autofocus />
+                                <label for="username" class="form-label">Tên đăng nhập</label>
+                                <input type="text" id="username" name="username" class="form-control" placeholder="admin"
+                                    required data-autofocus />
                             </div>
                             <div class="col mb-3">
-                            <label for="khuVuc" class="form-label">Khu vực</label>
-                            <input type="text" id="khuVuc" name="khuVuc" class="form-control" placeholder="Phường 9, Quận 5"
-                                required />
+                                <label for="fullName" class="form-label">Họ tên</label>
+                                <input type="text" id="fullName" name="fullName" class="form-control" placeholder="Phường 9, Quận 5"
+                                    required />
                             </div>
                         </div>
                         <div class="row g-2">
                             <div class="col mb-3">
-                            <label for="loaiVT" class="form-label">Loại vị trí</label>
-                            <input type="text" id="loaiVT" name="loaiVT" class="form-control" placeholder="Chợ"
-                                required />
-                            </div>
-                            <div class="col mb-3">
-                            <label for="hinhThuc" class="form-label">Hình thức</label>
-                            <input type="text" id="hinhThuc" name="hinhThuc" class="form-control" placeholder="Quảng cáo thương mại" />
+                                <label for="chucVu" class="form-label">Chức vụ</label>
+                                <select id="chucVu" class="form-control select-form-control" onchange="disableWardInput()">
+                                    <option value="Cán bộ phường" selected="selected">Cán bộ phường</option>
+                                    <option value="Cán bộ quận">Cán bộ quận</option>
+                                </select>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col mb-0">
-                                <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="checkbox" id="isQuyHoach" name="isQuyHoach" value="1" />
-                                    <label class="form-check-label badge bg-label-primary" for="isQuyHoach">Quy hoạch</label>
+                                <label for="workUnit" class="form-label">Đơn vị</label>
+                                <div class="row">
+                                    <div class="col mb-0">
+                                        <input type="text" id="districtUnit" name="districtUnit" class="form-control" placeholder="Quận 5" />
+                                    </div>
+                                    <div class="col mb-0">
+                                        <input type="text" id="wardUnit" name="wardUnit" class="form-control" placeholder="Phường 4" />
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -60,63 +63,6 @@
         </div>
     </div>
 
-    <!-- Edit Account Modal -->
-    <div class="modal fade" id="editPlaceModal" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <form action="" id="editPlaceForm" onsubmit="editPlace(event)">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title">
-                        Chỉnh sửa thông tin điểm đặt bảng quảng cáo
-                        </h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                <div class="modal-body">
-                    <div class="row g-2">
-                        <div class="col mb-3">
-                            <label for="diaChiEdit" class="form-label">Địa Chỉ</label>
-                            <input type="text" id="diaChiEdit" name="diaChi" class="form-control" placeholder="Chợ An Đông"
-                            required />
-                        </div>
-                        <div class="col mb-3">
-                            <label for="khuVucEdit" class="form-label">Khu Vực</label>
-                            <input type="text" id="khuVucEdit" name="khuVuc" class="form-control" placeholder="Phường 9, Quận 5" required />
-                        </div>
-                    </div>
-                    <div class="row g-2">
-                        <div class="col mb-3">
-                            <label for="loaiVTEdit" class="form-label">Loại Vị Trí</label>
-                            <input type="text" id="loaiVTEdit" name="loaiVT" class="form-control" placeholder="Chợ"/>
-                        </div>
-                        <div class="col mb-3">
-                            <label for="hinhThucEdit" class="form-label">Hình Thức</label>
-                            <input type="text" id="hinhThucEdit" name="hinhThuc" class="form-control" placeholder="Quảng cáo thương mại" />
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col mb-0">
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="checkbox" id="quyHoachEdit" name="isQuyHoach" value="1" />
-                                <label class="form-check-label badge bg-label-primary" for="quyHoachEdit">Quy Hoạch</label>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="text-center badge bg-label-danger" id="errorMessage"></div>
-                </div>
-                <div class="modal-footer">
-                    <input type="hidden" name="id" id="idPlace" value="" />
-                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal" id="closeBtnEdit">
-                        Đóng
-                    </button>
-                    <button type="submit" class="btn btn-primary" >
-                        Lưu
-                    </button>
-                </div>
-                </div>
-            </form>
-        </div>
-    </div>
-
     <div class="container-fluid py-4">
         <div class="row">
             <div class="col-12">
@@ -128,7 +74,7 @@
                                     <h6 class="text-white text-capitalize ps-3">Danh sách tài khoản cán bộ</h6>
                                 </div>
                                 <div class="col-6">
-                                    <button type="button" class="btn btn-success float-end me-6" style="min-width: 145px;" data-bs-toggle="modal" data-bs-target="#addWardModal">
+                                    <button type="button" class="btn btn-success float-end me-6" style="min-width: 145px;" data-bs-toggle="modal" data-bs-target="#addAccountModal">
                                         <i class="tf-icons fa fa-plus"></i> Thêm tài khoản
                                     </button>
                                 </div>
@@ -138,103 +84,39 @@
                     </div>
                     <div class="card-body px-0 pb-2">
                         <div class="table-responsive p-0">
-                            <!-- Detail Ward Modal -->
-                            <div class="modal detail-ward fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                                <div class="modal-dialog modal-lg">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <div>
-                                                <h5 class="modal-title" id="staticBackdropLabel">Xem chi tiết</h5>
-                                            </div>
-                                            <button class="btn-close toast-btn" type="button" onclick="closeViewDetail(this)"
-                                                data-bs-dismiss="modal" aria-label="Close"
-                                                data-target="infoToast" style="margin-bottom: 0;">
-                                                <i class="fa fa-times text-dark  fs-4" aria-hidden="true"></i>
-                                            </button>
-
-                                        </div>
-                                        <div class="modal-body">
-                                            <div class="container-fluid">
-                                                <div class="row">
-                                                    <div class="col-12">
-                                                        <h6>Thông Tin Chung</h6>
-                                                        <div class="card">
-                                                            <div class="card-body">
-                                                                <div class="d-flex flex-column justify-content-center detail-card">
-                                                                    <h6 class="text-sm font-weight-normal mb-1">
-                                                                        <span class="font-weight-bold"></span>
-                                                                    </h6>
-                                                                    <h6 class="text-sm font-weight-normal mb-1">
-                                                                        <span class="font-weight-bold">Khu vực: </span> TP Hồ Chí Minh, Việt Nam
-                                                                    </h6>
-                                                                    <h6 class="text-sm font-weight-normal mb-1">
-                                                                        <span class="font-weight-bold">Mã vùng: </span>
-                                                                        <span class="span-content"></span>
-                                                                    </h6>
-                                                                    <h6 class="text-sm font-weight-normal mb-1">
-                                                                        <span class="font-weight-bold">Dân số: </span>
-                                                                        <span class = span-content></span>
-                                                                    </h6>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                        
-                                                </div>
-                                                <div class="row mt-3">
-                                                    <div class="col-12">
-                                                        <div class="card text-white">
-                                                            <img src="/assets/img/wards/city.jpeg"
-                                                                class="card-img" alt="..."
-                                                                style="box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;">
-                                                            <div class="card-img-overlay">
-                                                                <h5 class="card-title text-white">
-                                                                    Phường 4, Quận 5
-                                                                </h5>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            
                             <table class="table align-items-center mb-0">
                                 <thead>
                                     <tr>
-                                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Phường</th>
-                                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Quận</th>
-                                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Mã vùng</th>
-                                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Dân số</th>
-                                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder text-center opacity-7">Tuỳ chọn</th>
+                                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Họ tên</th>
+                                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Tên đăng nhập</th>
+                                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Chức vụ</th>
+                                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Đơn vị</th>
+                                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder text-center opacity-7"></th>
                                     </tr>
                                 </thead>
                                 
                                 <tbody>
-                                    {{#each wards}}
+                                    {{#each users}}
                                     <tr>
-                                        <td onclick="openViewDetail(this, '{{wardName}}', '{{districtName}}', '{{zipCode}}', '{{population}}')" style="cursor: pointer;">
+                                        <td>
                                             <div class="d-flex px-2 py-1">
                                                 <div>
-                                                    <img src="{{#if imagePath}}{{imagePath}}{{else}}/assets/img/wards/city.jpeg{{/if}}" class="avatar avatar-sm me-3 border-radius-lg" alt="ward">
+                                                    <img src="{{#if imagePath}}{{imagePath}}{{else}}/assets/img/avatars/0.jpeg{{/if}}" class="avatar avatar-sm me-3 border-radius-lg" alt="ward">
                                                 </div>
 
                                                 <div class="d-flex flex-column justify-content-center">
-                                                    <h6 class="mb-0 text-sm">{{wardName}}</h6>
+                                                    <h6 class="mb-0 text-sm">{{fullName}}</h6>
                                                 </div>
                                             </div>
                                         </td>
                                         <td>
-                                            <p class="text-xs font-weight-bold mb-0">{{districtName}}</p>
-                                            <p class="text-xs text-secondary mb-0">TP Hồ Chí Minh</p>
+                                            <p class="text-xs font-weight-bold mb-0">{{username}}</p>
                                         </td>
                                         <td class="align-middle text-center text-sm">
-                                            <span class="badge badge-sm bg-gradient-success">{{zipCode}}</span>
+                                            <span class="badge badge-sm bg-gradient-success">Cán bộ {{#if isWard}}Phường{{else}}Quận{{/if}}</span>
                                         </td>
                                         <td class="align-middle text-center">
-                                            <span class="text-secondary text-xs font-weight-bold">{{population}}</span>
+                                            <span class="text-secondary text-xs font-weight-bold">{{workUnit}}</span>
                                         </td>
                                         {{!-- <td class="align-middle" id="custom-phuong-1">
                                             <a href="javascript:;" class="text-secondary font-weight-bold text-xs"  onclick="openCustomDown(this)" data-toggle="tooltip" data-original-title="Edit user">
@@ -350,11 +232,6 @@
                                             </div>
                                         </td> --}}
                                         <td class="align-middle text-center">
-                                            <i role="button" class="fa fa-pen-to-square text-info me-3" data-bs-toggle="modal"
-                                                data-bs-target="#editWardModal" onclick="showEditWardModal(this)" 
-                                                data-id="{{id}}" data-ward-name="{{wardName}}"
-                                                data-district-name="{{districtName}}" data-zip-code = "{{zipCode}}"
-                                                data-population="{{population}}"></i>
                                             <i role="button" class="fa fa-trash text-danger delete-btn ward-delete-btn" data-id={{id}}></i>
                                         </td>
                                     </tr>

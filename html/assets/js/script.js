@@ -34,6 +34,12 @@ document
     document.querySelector("#diaChiEdit").focus();
   });
 
+document
+  .querySelector("#addAccountModal")
+  .addEventListener("shown.bs.modal", () => {
+    document.querySelector("#username").focus();
+  });
+
 document.querySelectorAll(".user-delete-btn").forEach((btnConfirm) => {
   btnConfirm.addEventListener("click", (e) => {
     let id = e.target.dataset.id;
@@ -272,4 +278,13 @@ function closeViewPlaceDetail(elm) {
   elm.closest('.modal.detail-place').classList.remove('show');
   elm.closest('.modal.detail-place').style.display = "none";
   document.querySelector('.modal-backdrop.fade.show').remove();
+}
+
+function disableWardInput() {
+  let chucVuEle = document.querySelector("#chucVu");
+  let wardUnitEle = document.querySelector("#wardUnit");
+
+  if (chucVuEle.value === "Cán bộ quận")
+    wardUnitEle.disabled = true;
+  else wardUnitEle.disabled = false;
 }
