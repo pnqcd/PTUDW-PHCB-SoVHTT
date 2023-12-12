@@ -20,14 +20,14 @@ controller.show = async (req, res) => {
 };
 
 controller.addUser = async (req, res) => {
-  let {username, fullName, isWard, isDistrict, isDepartment, workUnit} = req.body;
+  let {username, fullName, chucVu, wardUnit, districtUnit} = req.body;
   try {
     await models.User.create({
       username,
       fullName,
-      isWard: isWard ? true : false,
-      isDistrict: isDistrict ? true : false,
-      isDepartment: isDepartment ? true : false,
+      isWard: chucVu=="Cán bộ phường" ? true : false,
+      isDistrict: chucVu=="Cán bộ quận" ? true : false,
+      isDepartment: false,
       wardUnit,
       districtUnit
     });

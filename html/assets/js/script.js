@@ -1,44 +1,37 @@
-// document
-//   .querySelector("#editUserModal")
-//   .addEventListener("shown.bs.modal", () => {
-//     document.querySelector("#firstNameEdit").focus();
-//   });
-
-// document
-//   .querySelector("#addUserModal")
-//   .addEventListener("shown.bs.modal", () => {
-//     document.querySelector("#firstName").focus();
-//   });
-
-document
-  .querySelector("#editWardModal")
-  .addEventListener("shown.bs.modal", () => {
+let editWardEle = document.querySelector("#editWardModal");
+if (editWardEle) {
+  editWardEle.addEventListener("shown.bs.modal", () => {
     document.querySelector("#wardNameEdit").focus();
   });
+}
 
-document
-  .querySelector("#addWardModal")
-  .addEventListener("shown.bs.modal", () => {
+let addWardEle = document.querySelector("#addWardModal");
+if (addWardEle) {
+  addWardEle.addEventListener("shown.bs.modal", () => {
     document.querySelector("#wardName").focus();
   });
+}
 
-document
-  .querySelector("#addPlaceModal")
-  .addEventListener("shown.bs.modal", () => {
+let addPlaceEle = document.querySelector("#addPlaceModal")
+if (addPlaceEle) {
+  addPlaceEle.addEventListener("shown.bs.modal", () => {
     document.querySelector("#diaChi").focus();
   });
+}
 
-document
-  .querySelector("#editPlaceModal")
-  .addEventListener("shown.bs.modal", () => {
+let editPlaceEle = document.querySelector("#editPlaceModal");
+if (editPlaceEle) {
+  editPlaceEle.addEventListener("shown.bs.modal", () => {
     document.querySelector("#diaChiEdit").focus();
   });
+}
 
-document
-  .querySelector("#addAccountModal")
-  .addEventListener("shown.bs.modal", () => {
+let addAccountEle = document.querySelector("#addAccountModal");
+if (addAccountEle) {
+  addAccountEle.addEventListener("shown.bs.modal", () => {
     document.querySelector("#username").focus();
   });
+}
 
 document.querySelectorAll(".user-delete-btn").forEach((btnConfirm) => {
   btnConfirm.addEventListener("click", (e) => {

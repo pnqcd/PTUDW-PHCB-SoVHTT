@@ -18,18 +18,17 @@
                             <div class="col mb-3">
                                 <label for="username" class="form-label">Tên đăng nhập</label>
                                 <input type="text" id="username" name="username" class="form-control" placeholder="admin"
-                                    required data-autofocus />
+                                    required data-autofocus/>
                             </div>
                             <div class="col mb-3">
                                 <label for="fullName" class="form-label">Họ tên</label>
-                                <input type="text" id="fullName" name="fullName" class="form-control" placeholder="Phường 9, Quận 5"
-                                    required />
+                                <input type="text" id="fullName" name="fullName" class="form-control" placeholder="Nguyễn Văn A" />
                             </div>
                         </div>
                         <div class="row g-2">
                             <div class="col mb-3">
                                 <label for="chucVu" class="form-label">Chức vụ</label>
-                                <select id="chucVu" class="form-control select-form-control" onchange="disableWardInput()">
+                                <select name="chucVu" id="chucVu" class="form-control select-form-control" onchange="disableWardInput()">
                                     <option value="Cán bộ phường" selected="selected">Cán bộ phường</option>
                                     <option value="Cán bộ quận">Cán bộ quận</option>
                                 </select>
@@ -37,15 +36,12 @@
                         </div>
                         <div class="row">
                             <div class="col mb-0">
-                                <label for="workUnit" class="form-label">Đơn vị</label>
-                                <div class="row">
-                                    <div class="col mb-0">
-                                        <input type="text" id="districtUnit" name="districtUnit" class="form-control" placeholder="Quận 5" />
-                                    </div>
-                                    <div class="col mb-0">
-                                        <input type="text" id="wardUnit" name="wardUnit" class="form-control" placeholder="Phường 4" />
-                                    </div>
-                                </div>
+                                <label for="districtUnit" class="form-label">Quận</label>
+                                <input type="text" id="districtUnit" name="districtUnit" class="form-control" placeholder="Quận 5" />
+                            </div>
+                            <div class="col mb-0">
+                                <label for="wardUnit" class="form-label">Phường</label>
+                                <input type="text" id="wardUnit" name="wardUnit" class="form-control" placeholder="Phường 4" />
                             </div>
                         </div>
                         <div class="text-center badge bg-label-danger" id="errorMessage"></div>
@@ -89,9 +85,9 @@
                                     <tr>
                                         <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Họ tên</th>
                                         <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Tên đăng nhập</th>
-                                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Chức vụ</th>
-                                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Đơn vị</th>
-                                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder text-center opacity-7"></th>
+                                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Chức vụ</th>
+                                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Đơn vị</th>
+                                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder text-center opacity-7">Tuỳ chọn</th>
                                     </tr>
                                 </thead>
                                 
@@ -110,13 +106,30 @@
                                             </div>
                                         </td>
                                         <td>
-                                            <p class="text-xs font-weight-bold mb-0">{{username}}</p>
+                                            <span class="text-sm text-secondary mb-0">{{username}}</span>
                                         </td>
-                                        <td class="align-middle text-center text-sm">
-                                            <span class="badge badge-sm bg-gradient-success">Cán bộ {{#if isWard}}Phường{{else}}Quận{{/if}}</span>
+                                        <td>
+                                            <span class="text-sm text-secondary">
+                                                Cán bộ 
+                                                {{#if isWard}}
+                                                    Phường
+                                                {{else}} 
+                                                    {{#if isDistrict}} 
+                                                        Quận
+                                                    {{else}} Sở
+                                                    {{/if}}
+                                                {{/if}}
+                                            </span>
                                         </td>
-                                        <td class="align-middle text-center">
-                                            <span class="text-secondary text-xs font-weight-bold">{{workUnit}}</span>
+                                        <td>
+                                            <span class="text-sm text-secondary">
+                                                {{#if isDepartment}} Sở VHTT
+                                                {{else}}
+                                                    {{#if wardUnit}}{{wardUnit}}, {{districtUnit}}
+                                                    {{else}} {{districtUnit}}
+                                                    {{/if}}
+                                                {{/if}}
+                                            </span>
                                         </td>
                                         {{!-- <td class="align-middle" id="custom-phuong-1">
                                             <a href="javascript:;" class="text-secondary font-weight-bold text-xs"  onclick="openCustomDown(this)" data-toggle="tooltip" data-original-title="Edit user">
