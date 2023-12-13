@@ -21,24 +21,28 @@ controller.show = async (req, res) => {
 
 controller.addUser = async (req, res) => {
   let {username, fullName, chucVu, wardUnit, districtUnit} = req.body;
-  try {
-    await models.User.create({
-      username,
-      fullName,
-      isWard: chucVu=="Cán bộ phường" ? true : false,
-      isDistrict: chucVu=="Cán bộ quận" ? true : false,
-      isDepartment: false,
-      wardUnit,
-      districtUnit
-    });
-    res.redirect("/tai-khoan");
-  } catch (error) {
-    res.send("Can't add user");
-    console.error(error);
+
+  const isExisted = await models.User.findOne({ where: {username} });
+  if (isExisted) {
+    return res.json({ error: true, message: 'Tên đăng nhập đã tồn tại!' });
   }
-  // res.send(req.body);
-  // console.log(req);
-  // res.redirect("/users");
+  if (!isExisted) {
+    try {
+      await models.User.create({
+        username,
+        fullName,
+        isWard: chucVu=="Cán bộ phường" ? true : false,
+        isDistrict: chucVu=="Cán bộ quận" ? true : false,
+        isDepartment: false,
+        wardUnit,
+        districtUnit
+      });
+      res.redirect("/tai-khoan");
+    } catch (error) {
+      res.send("Can't add user");
+      console.error(error);
+    }
+  }
 }
 
 controller.deleteUser = async (req, res) => {
@@ -51,6 +55,22 @@ controller.deleteUser = async (req, res) => {
   } catch (error) {
     res.send("Can't delete user!");
     console.error(error);
+  }
+}
+
+controller.checkUsername = async (req, res) => {
+  const { username } = req.query;
+  try {
+    const user = await models.User.findOne({ where: { username } });
+
+    if (user) {
+      res.json({ exists: true });
+    } else {
+      res.json({ exists: false });
+    }
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Internal server error' });
   }
 }
 

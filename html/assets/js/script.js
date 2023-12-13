@@ -314,3 +314,22 @@ function disableWardInput() {
     wardUnitEle.disabled = true;
   else wardUnitEle.disabled = false;
 }
+
+// Check username existed 
+function checkUsernameExisted(event) {
+  event.preventDefault();
+
+  let usernameElm = document.querySelector("#username");
+  let username = usernameElm.value;
+
+  fetch('/tai-khoan/checkUsernameWhenAddAccount?username=' + encodeURIComponent(username))
+    .then(response => response.json())
+    .then(data => {
+      if (data.exists) {
+        usernameElm.setCustomValidity('Tên đăng nhập đã tồn tại');
+      } else {
+        usernameElm.setCustomValidity('');
+      }
+    })
+    .catch(error => console.error(error));
+}

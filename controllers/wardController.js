@@ -25,7 +25,7 @@ controller.show = async (req, res) => {
       "hinhAnh",
     ],
     order: [["createdAt", "DESC"]],
-    limit: 10,
+    // limit: 10,
   });
 
   res.render("manage-list");
