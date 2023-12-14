@@ -28,6 +28,27 @@ controller.show = async (req, res) => {
     // limit: 10,
   });
 
+  // models.Place.hasMany(models.Placedetail, { foreignKey: 'placeId' });
+  res.locals.placedetails = await models.Placedetail.findAll({
+    include: [{
+      model: models.Place,
+      attributes: [
+        "diaChi",
+        "khuVuc",
+      ],
+    }],
+    attributes: [
+      "id",
+      "adName",
+      "adSize",
+      "adQuantity",
+      "expireDay",
+      "imagePath",
+    ],
+    order: [["createdAt", "DESC"]],
+    // limit: 10,
+  });
+
   res.render("manage-list");
 };
 
@@ -95,7 +116,8 @@ controller.editPlace = async (req, res) => {
   let {id, diaChi, khuVuc, loaiVT, hinhThuc, isQuyHoach} = req.body;
   try {
     await models.Place.update(
-      { diaChi, 
+      { 
+        diaChi, 
         khuVuc, 
         loaiVT, 
         hinhThuc, 
@@ -114,6 +136,62 @@ controller.deletePlace = async (req, res) => {
   let id = isNaN(req.params.id) ? 0 : parseInt(req.params.id);
   try {
     await models.Place.destroy(
+      {where: {id}}
+    );
+    res.send("Đã xoá điểm đặt!");
+  } catch (error) {
+    res.send("Không thể xoá điểm đặt!");
+    console.error(error);
+  }
+}
+
+controller.addAds = async (req, res) => {
+  let {adName, diaChiAds, adSize, adQuantity, expireDay} = req.body;
+  const placeId = await models.Place.findOne({ 
+    attributes: ["id"],
+    where: {diaChi: diaChiAds} 
+  });
+  let id = placeId.getDataValue("id");
+  console.log(diaChiAds);
+  console.log(id);
+  try {
+    await models.Placedetail.create({
+      placeId: id,
+      adName, 
+      adSize, 
+      adQuantity, 
+      expireDay, 
+    });
+    res.redirect("/danh-sach");
+  } catch (error) {
+    res.send("Không thể thêm điểm đặt");
+    console.error(error);
+  }
+}
+
+controller.editAds = async (req, res) => {
+  let {id, diaChi, khuVuc, loaiVT, hinhThuc, isQuyHoach} = req.body;
+  try {
+    await models.Placedetail.update(
+      { diaChi, 
+        khuVuc, 
+        loaiVT, 
+        hinhThuc, 
+        quyHoach: isQuyHoach ? "ĐÃ QUY HOẠCH" : "CHƯA QUY HOẠCH"
+      },
+      {where: {id}}
+    );
+    res.send("Đã cập nhật điểm đặt!");
+  } catch (error) {
+    res.send("Không thể cập nhật điểm đặt!");
+    console.error(error);
+  }
+}
+
+controller.deleteAds = async (req, res) => {
+  let id = isNaN(req.params.id) ? 0 : parseInt(req.params.id);
+  try {
+    await models.Placedetail.destroy(
       {where: {id}}
     );
     res.send("Đã xoá điểm đặt!");

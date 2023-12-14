@@ -26,6 +26,13 @@ if (editPlaceEle) {
   });
 }
 
+let addAdsEle = document.querySelector("#addAdsModal");
+if (addAdsEle) {
+  addAdsEle.addEventListener("shown.bs.modal", () => {
+    document.querySelector("#adName").focus();
+  });
+}
+
 let addAccountEle = document.querySelector("#addAccountModal");
 if (addAccountEle) {
   addAccountEle.addEventListener("shown.bs.modal", () => {

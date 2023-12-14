@@ -43,6 +43,8 @@ app.get('/', (req, res) => res.redirect('/danh-sach'));
 app.use('/danh-sach', require('./routes/wardRouter'));
 app.use('/tai-khoan', require('./routes/userRouter'));
 
+app.use('/thong-ke', require('./routes/statisticRouter'));
+
 app.get('/createTables', (req, res) => {
     let models = require('./models');
     models.sequelize.sync().then(() => {

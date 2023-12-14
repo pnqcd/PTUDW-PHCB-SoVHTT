@@ -83,17 +83,24 @@
     margin-bottom: 10px;
 }
 
-#addWardModal .form-label, #editWardModal .form-label,
+/* #addWardModal .form-label, #editWardModal .form-label,
 #addPlaceModal .form-label, #editPlaceModal .form-label,
 #addAccountModal .form-label, #editAccountModal .form-label {
     text-transform: uppercase;
     font-weight: 500;
+} */
+.form-label {
+    /* text-transform: uppercase; */
+    font-weight: 500;
 }
-#addWardModal .modal-header, #addWardModal .modal-footer, 
+/* #addWardModal .modal-header, #addWardModal .modal-footer, 
 #editWardModal .modal-header, #editWardModal .modal-footer,
 #addPlaceModal .modal-header, #addPlaceModal .modal-footer, 
 #editPlaceModal .modal-header, #editPlaceModal .modal-footer,
 #addAccountModal .modal-header, #addAccountModal .modal-footer {
+    border: none;
+} */
+.modal-header, .modal-footer {
     border: none;
 }
 
