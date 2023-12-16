@@ -33,6 +33,13 @@ if (addAdsEle) {
   });
 }
 
+let editAdsEle = document.querySelector("#editAdsModal");
+if (editAdsEle) {
+  editAdsEle.addEventListener("shown.bs.modal", () => {
+    document.querySelector("#adNameEdit").focus();
+  });
+}
+
 let addAccountEle = document.querySelector("#addAccountModal");
 if (addAccountEle) {
   addAccountEle.addEventListener("shown.bs.modal", () => {
@@ -49,12 +56,12 @@ document.querySelectorAll(".user-delete-btn").forEach((btnConfirm) => {
       btnOkText: "Xoá",
       btnCancelText: "Thoát",
       onConfirm: () => {
-        console.log("Confirm");
-        console.log(id);
+        // console.log("Confirm");
+        // console.log(id);
         deleteUser(id);
       },
       onCancel: () => {
-        console.log("Cancel");
+        // console.log("Cancel");
       },
     };
     const {
@@ -74,12 +81,12 @@ document.querySelectorAll(".ward-delete-btn").forEach((btnConfirm) => {
       btnOkText: "Xoá",
       btnCancelText: "Thoát",
       onConfirm: () => {
-        console.log("Confirm");
-        console.log(id);
+        // console.log("Confirm");
+        // console.log(id);
         deleteWard(id);
       },
       onCancel: () => {
-        console.log("Cancel");
+        // console.log("Cancel");
       },
     };
     const {
@@ -99,12 +106,12 @@ document.querySelectorAll(".place-delete-btn").forEach((btnConfirm) => {
       btnOkText: "Xoá",
       btnCancelText: "Thoát",
       onConfirm: () => {
-        console.log("Confirm");
-        console.log(id);
+        // console.log("Confirm");
+        // console.log(id);
         deletePlace(id);
       },
       onCancel: () => {
-        console.log("Cancel");
+        // console.log("Cancel");
       },
     };
     const {
@@ -124,12 +131,12 @@ document.querySelectorAll(".ads-delete-btn").forEach((btnConfirm) => {
       btnOkText: "Xoá",
       btnCancelText: "Thoát",
       onConfirm: () => {
-        console.log("Confirm");
-        console.log(id);
+        // console.log("Confirm");
+        // console.log(id);
         deleteAds(id);
       },
       onCancel: () => {
-        console.log("Cancel");
+        // console.log("Cancel");
       },
     };
     const {
@@ -149,12 +156,12 @@ document.querySelectorAll(".account-delete-btn").forEach((btnConfirm) => {
       btnOkText: "Xoá",
       btnCancelText: "Thoát",
       onConfirm: () => {
-        console.log("Confirm");
-        console.log(id);
+        // console.log("Confirm");
+        // console.log(id);
         deleteAccount(id);
       },
       onCancel: () => {
-        console.log("Cancel");
+        // console.log("Cancel");
       },
     };
     const {
@@ -182,6 +189,15 @@ function showEditPlaceModal(btn) {
   document.querySelector("#quyHoachEdit").checked = btn.dataset.quyHoach == "ĐÃ QUY HOẠCH" ? true : false;
 }
 
+function showEditAdsModal(btn) {
+  document.querySelector("#idAds").value = btn.dataset.id;
+  document.querySelector("#adNameEdit").value = btn.dataset.adName;
+  document.querySelector("#diaChiAdsEdit").value = btn.dataset.diaChi;
+  document.querySelector("#adSizeEdit").value = btn.dataset.adSize;
+  document.querySelector("#adQuantityEdit").value = btn.dataset.adQuantity;
+  document.querySelector("#expireDayEdit").value = btn.dataset.expireDay;
+}
+
 function showEditUserModal(btn) {
   document.querySelector("#id").value = btn.dataset.id;
   document.querySelector("#usernameEdit").value = btn.dataset.username;
@@ -196,10 +212,6 @@ async function editWard(e) {
 
   const formData = new FormData(document.getElementById("editWardForm"));
   const data = Object.fromEntries(formData.entries());
-
-  // data = {
-  //   wardName: document.querySelector('#wardNameEdit').value,
-  // }
 
   let res = await fetch('/danh-sach/wards', {
     method: "PUT",
@@ -218,11 +230,24 @@ async function editPlace(e) {
   const formData = new FormData(document.getElementById("editPlaceForm"));
   const data = Object.fromEntries(formData.entries());
 
-  // data = {
-  //   wardName: document.querySelector('#wardNameEdit').value,
-  // }
-
   let res = await fetch('/danh-sach/places', {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(data),
+  });
+
+  location.reload();
+}
+
+async function editAds(e) {
+  e.preventDefault();
+
+  const formData = new FormData(document.getElementById("editAdsForm"));
+  const data = Object.fromEntries(formData.entries());
+
+  let res = await fetch('/danh-sach/ads', {
     method: "PUT",
     headers: {
       "Content-Type": "application/json",
@@ -238,10 +263,6 @@ async function editUser(e) {
 
   const formData = new FormData(document.getElementById("editUserForm"));
   const data = Object.fromEntries(formData.entries());
-
-  // data = {
-  //   firstName: document.querySelector('#firstNameEdit').value,
-  // }
 
   let res = await fetch('/users', {
     method: "PUT",

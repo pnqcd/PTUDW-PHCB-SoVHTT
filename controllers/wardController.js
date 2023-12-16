@@ -53,7 +53,7 @@ controller.show = async (req, res) => {
   res.render("manage-list", {
     placedetails: res.locals.placedetails.map(detail => ({
       ...detail.toJSON(),
-      formattedExpireDay: moment(detail.expireDay).format('DD/MM/YYYY'),
+      formattedExpireDay: moment(detail.expireDay).format('MM/DD/YYYY'),
     })),  
   });
 };
@@ -153,16 +153,14 @@ controller.deletePlace = async (req, res) => {
 
 controller.addAds = async (req, res) => {
   let {adName, diaChiAds, adSize, adQuantity, expireDay} = req.body;
-  const placeId = await models.Place.findOne({ 
+  const adsPlace = await models.Place.findOne({ 
     attributes: ["id"],
     where: {diaChi: diaChiAds} 
   });
-  let id = placeId.getDataValue("id");
-  console.log(diaChiAds);
-  console.log(id);
+  let placeId = adsPlace.getDataValue("id");
   try {
     await models.Placedetail.create({
-      placeId: id,
+      placeId: placeId,
       adName, 
       adSize, 
       adQuantity, 
@@ -170,26 +168,32 @@ controller.addAds = async (req, res) => {
     });
     res.redirect("/danh-sach");
   } catch (error) {
-    res.send("Không thể thêm điểm đặt");
+    res.send("Không thể thêm bảng QC");
     console.error(error);
   }
 }
 
 controller.editAds = async (req, res) => {
-  let {id, diaChi, khuVuc, loaiVT, hinhThuc, isQuyHoach} = req.body;
+  let {id, adName, diaChiAds, adSize, adQuantity, expireDay} = req.body;
+  const adsPlace = await models.Place.findOne({ 
+    attributes: ["id"],
+    where: {diaChi: diaChiAds} 
+  });
+  let placeId = adsPlace.getDataValue("id");
   try {
     await models.Placedetail.update(
-      { diaChi, 
-        khuVuc, 
-        loaiVT, 
-        hinhThuc, 
-        quyHoach: isQuyHoach ? "ĐÃ QUY HOẠCH" : "CHƯA QUY HOẠCH"
+      { 
+        placeId: placeId,
+        adName, 
+        adSize, 
+        adQuantity, 
+        expireDay,
       },
       {where: {id}}
     );
-    res.send("Đã cập nhật điểm đặt!");
+    res.send("Đã cập nhật bảng QC!");
   } catch (error) {
-    res.send("Không thể cập nhật điểm đặt!");
+    res.send("Không thể cập nhật bảng QC!");
     console.error(error);
   }
 }
@@ -200,9 +204,9 @@ controller.deleteAds = async (req, res) => {
     await models.Placedetail.destroy(
       {where: {id}}
     );
-    res.send("Đã xoá điểm đặt!");
+    res.send("Đã xoá bảng QC!");
   } catch (error) {
-    res.send("Không thể xoá điểm đặt!");
+    res.send("Không thể xoá bảng QC!");
     console.error(error);
   }
 }
