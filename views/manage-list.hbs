@@ -273,7 +273,7 @@
                             </div>
                             <div class="col mb-3">
                                 <label for="expireDay" class="form-label">Ngày hết hạn</label>
-                                <input type="text" id="expireDay" name="expireDay" class="form-control" placeholder="09/12/2024" required/>
+                                <input type="text" id="expireDay" name="expireDay" class="form-control" placeholder="MM/DD/YYYY" required/>
                             </div>
                         </div>
                         <div class="text-center badge bg-label-danger" id="errorMessage"></div>
@@ -418,11 +418,6 @@
                                                             <img src="/assets/img/wards/city.jpeg"
                                                                 class="card-img" alt="..."
                                                                 style="box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;">
-                                                            {{!-- <div class="card-img-overlay">
-                                                                <h5 class="card-title text-white">
-                                                                    Phường 4, Quận 5
-                                                                </h5>
-                                                            </div> --}}
                                                         </div>
                                                     </div>
                                                 </div>
@@ -824,8 +819,8 @@
                                     <tr>
                                         <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Tên bảng</th>
                                         <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Địa chỉ</th>
-                                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder text-center opacity-7 ps-2">Kích thước</th>
-                                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder text-center opacity-7 ps-2">Số lượng</th>
+                                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder text-center opacity-7">Kích thước</th>
+                                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder text-center opacity-7">Số lượng</th>
                                         <th class="text-uppercase text-secondary text-xxs font-weight-bolder text-center opacity-7">Ngày hết hạn</th>
                                         <th class="text-uppercase text-secondary text-xxs font-weight-bolder text-center opacity-7">Tuỳ chọn</th>
                                     </tr>
@@ -843,26 +838,24 @@
                                                 </div>
                                             </div>
                                         </td>
-                                        <td style="max-width: 160px; overflow: hidden; text-overflow: ellipsis;">
+                                        <td style="max-width: 245px; overflow: hidden; text-overflow: ellipsis;">
                                             <span class="text-xs text-secondary mb-0">{{Place.diaChi}}, {{Place.khuVuc}}</span>
                                         </td>
                                         <td class="align-middle text-center">
                                             <span class="text-xs text-secondary">{{adSize}}</span>
                                         </td>
                                         <td class="align-middle text-center">
-                                            <div class="d-flex align-items-center">
-                                                <span class="me-2 text-xs text-secondary">{{adQuantity}}</span>
-                                            </div>
+                                            <span class="me-2 text-xs text-secondary">{{adQuantity}}</span>
                                         </td>
                                         <td class="align-middle text-center">
-                                            <span class="text-xs text-secondary">{{expireDay}}</span>
+                                            <span class="text-xs text-secondary">{{formattedExpireDay}}</span>
                                         </td>
                                         <td class="align-middle text-center">
                                             <i role="button" class="fa fa-pen-to-square text-info me-3" data-bs-toggle="modal"
-                                                data-bs-target="#editPlaceModal" onclick="showEditPlaceModal(this)" 
+                                                data-bs-target="#editAdsModal" onclick="showEditAdsModal(this)" 
                                                 data-id="{{id}}" data-ad-name="{{adName}}" data-ad-size = "{{adSize}}"
                                                 data-ad-quantity="{{adQuantity}}" data-expire-day="{{expireDay}}"></i>
-                                            <i role="button" class="fa fa-trash text-danger delete-btn placedetails-delete-btn" data-id={{id}}></i>
+                                            <i role="button" class="fa fa-trash text-danger delete-btn ads-delete-btn" data-id={{id}}></i>
                                         </td>
                                     </tr>
                                     {{/each}}

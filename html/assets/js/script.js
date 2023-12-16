@@ -44,7 +44,7 @@ document.querySelectorAll(".user-delete-btn").forEach((btnConfirm) => {
   btnConfirm.addEventListener("click", (e) => {
     let id = e.target.dataset.id;
     const options = {
-      title: "Bạn có chắc chắn muốn xoá?",
+      title: "Xác nhận để xoá",
       type: "danger",
       btnOkText: "Xoá",
       btnCancelText: "Thoát",
@@ -61,7 +61,7 @@ document.querySelectorAll(".user-delete-btn").forEach((btnConfirm) => {
       el,
       content,
       options: confirmedOptions,
-    } = bs5dialog.confirm("Bạn có chắc chắn muốn xoá?", options);
+    } = bs5dialog.confirm("Bạn chắc chắn muốn xoá người dùng này?", options);
   });
 });
 
@@ -69,7 +69,7 @@ document.querySelectorAll(".ward-delete-btn").forEach((btnConfirm) => {
   btnConfirm.addEventListener("click", (e) => {
     let id = e.target.dataset.id;
     const options = {
-      title: "Bạn có chắc chắn xoá phường này?",
+      title: "Xác nhận để xoá",
       type: "danger",
       btnOkText: "Xoá",
       btnCancelText: "Thoát",
@@ -86,7 +86,7 @@ document.querySelectorAll(".ward-delete-btn").forEach((btnConfirm) => {
       el,
       content,
       options: confirmedOptions,
-    } = bs5dialog.confirm("Bạn có chắc chắn xoá phường này?", options);
+    } = bs5dialog.confirm("Bạn chắc chắn muốn xoá phường này?", options);
   });
 });
 
@@ -94,7 +94,7 @@ document.querySelectorAll(".place-delete-btn").forEach((btnConfirm) => {
   btnConfirm.addEventListener("click", (e) => {
     let id = e.target.dataset.id;
     const options = {
-      title: "Bạn có chắc chắn muốn xoá?",
+      title: "Xác nhận để xoá",
       type: "danger",
       btnOkText: "Xoá",
       btnCancelText: "Thoát",
@@ -111,7 +111,32 @@ document.querySelectorAll(".place-delete-btn").forEach((btnConfirm) => {
       el,
       content,
       options: confirmedOptions,
-    } = bs5dialog.confirm("Bạn có chắc chắn muốn xoá?", options);
+    } = bs5dialog.confirm("Bạn chắc chắn muốn xoá địa điểm này?", options);
+  });
+});
+
+document.querySelectorAll(".ads-delete-btn").forEach((btnConfirm) => {
+  btnConfirm.addEventListener("click", (e) => {
+    let id = e.target.dataset.id;
+    const options = {
+      title: "Xác nhận để xoá",
+      type: "danger",
+      btnOkText: "Xoá",
+      btnCancelText: "Thoát",
+      onConfirm: () => {
+        console.log("Confirm");
+        console.log(id);
+        deleteAds(id);
+      },
+      onCancel: () => {
+        console.log("Cancel");
+      },
+    };
+    const {
+      el,
+      content,
+      options: confirmedOptions,
+    } = bs5dialog.confirm("Bạn chắc chắn muốn xoá bảng QC này?", options);
   });
 });
 
@@ -119,7 +144,7 @@ document.querySelectorAll(".account-delete-btn").forEach((btnConfirm) => {
   btnConfirm.addEventListener("click", (e) => {
     let id = e.target.dataset.id;
     const options = {
-      title: "Bạn có chắc chắn muốn xoá?",
+      title: "Xác nhận để xoá",
       type: "danger",
       btnOkText: "Xoá",
       btnCancelText: "Thoát",
@@ -136,7 +161,7 @@ document.querySelectorAll(".account-delete-btn").forEach((btnConfirm) => {
       el,
       content,
       options: confirmedOptions,
-    } = bs5dialog.confirm("Bạn có chắc chắn muốn xoá?", options);
+    } = bs5dialog.confirm("Bạn chắc chắn muốn xoá tài khoản?", options);
   });
 });
 
@@ -247,6 +272,14 @@ async function deleteWard(id) {
 
 async function deletePlace(id) {
   let res = await fetch(`/danh-sach/places/${id}`, {
+    method: "DELETE",
+  });
+
+  location.reload();
+}
+
+async function deleteAds(id) {
+  let res = await fetch(`/danh-sach/ads/${id}`, {
     method: "DELETE",
   });
 

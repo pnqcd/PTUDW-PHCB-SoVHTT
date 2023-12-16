@@ -1,5 +1,6 @@
 const controller = {};
 const models = require("../models");
+const moment = require('moment');
 
 controller.show = async (req, res) => {
   res.locals.wards = await models.Ward.findAll({
@@ -49,7 +50,12 @@ controller.show = async (req, res) => {
     // limit: 10,
   });
 
-  res.render("manage-list");
+  res.render("manage-list", {
+    placedetails: res.locals.placedetails.map(detail => ({
+      ...detail.toJSON(),
+      formattedExpireDay: moment(detail.expireDay).format('DD/MM/YYYY'),
+    })),  
+  });
 };
 
 controller.addWard = async (req, res) => {
