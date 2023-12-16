@@ -394,3 +394,17 @@ function checkUsernameExisted(event) {
     })
     .catch(error => console.error(error));
 }
+
+// Check valid date 
+function checkValidDate(elm, event) {
+  event.preventDefault();
+
+  const inputDate = elm.value;
+  const isValidDate = moment(inputDate, 'MM/DD/YYYY', true).isValid();
+
+  if (!isValidDate) {
+    elm.setCustomValidity('Ngày không hợp lệ');
+  } else {
+    elm.setCustomValidity('');
+  }
+}

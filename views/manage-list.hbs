@@ -265,7 +265,7 @@
                             </div>
                             <div class="col mb-3">
                                 <label for="expireDay" class="form-label">Ngày hết hạn</label>
-                                <input type="text" id="expireDay" name="expireDay" class="form-control" placeholder="MM/DD/YYYY" required/>
+                                <input type="text" id="expireDay" name="expireDay" class="form-control" placeholder="MM/DD/YYYY" oninput="checkValidDate(this, event)" required/>
                             </div>
                         </div>
                         <div class="text-center badge bg-label-danger" id="errorMessage"></div>
@@ -323,7 +323,7 @@
                         </div>
                         <div class="col mb-3">
                             <label for="expireDayEdit" class="form-label">Ngày hết hạn</label>
-                            <input type="text" id="expireDayEdit" name="expireDay" class="form-control" placeholder="Quảng cáo thương mại" />
+                            <input type="text" id="expireDayEdit" name="expireDay" class="form-control" placeholder="Quảng cáo thương mại" oninput="checkValidDate(this, event)"/>
                         </div>
                     </div>
                     <div class="text-center badge bg-label-danger" id="errorMessage"></div>

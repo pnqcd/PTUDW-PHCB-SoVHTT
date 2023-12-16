@@ -153,11 +153,21 @@ controller.deletePlace = async (req, res) => {
 
 controller.addAds = async (req, res) => {
   let {adName, diaChiAds, adSize, adQuantity, expireDay} = req.body;
+
+  const parsedDate = moment(expireDay, 'MM/DD/YYYY', true);
+  const isValidDate = parsedDate.isValid();
+
+  if (!isValidDate) {
+    return res.json({ error: true, message: 'Ngày không hợp lệ!' });
+  }
+
   const adsPlace = await models.Place.findOne({ 
     attributes: ["id"],
     where: {diaChi: diaChiAds} 
   });
+
   let placeId = adsPlace.getDataValue("id");
+
   try {
     await models.Placedetail.create({
       placeId: placeId,
@@ -175,11 +185,21 @@ controller.addAds = async (req, res) => {
 
 controller.editAds = async (req, res) => {
   let {id, adName, diaChiAds, adSize, adQuantity, expireDay} = req.body;
+
+  const parsedDate = moment(expireDay, 'MM/DD/YYYY', true);
+  const isValidDate = parsedDate.isValid();
+
+  if (!isValidDate) {
+    return res.json({ error: true, message: 'Ngày không hợp lệ!' });
+  }
+
   const adsPlace = await models.Place.findOne({ 
     attributes: ["id"],
     where: {diaChi: diaChiAds} 
   });
+
   let placeId = adsPlace.getDataValue("id");
+
   try {
     await models.Placedetail.update(
       { 
