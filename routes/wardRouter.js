@@ -20,4 +20,8 @@ router.post("/adstype", controller.addAdstype);
 router.put("/adstype", controller.editAdstype);
 router.delete("/adstype/:id", controller.deleteAdstype);
 
+router.post("/reporttype", controller.addReporttype);
+router.put("/reporttype", controller.editReporttype);
+router.delete("/reporttype/:id", controller.deleteReporttype);
+
 module.exports = router;

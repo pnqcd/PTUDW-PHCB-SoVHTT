@@ -242,6 +242,11 @@ function showEditAdstypeModal(btn) {
   document.querySelector("#adstypeNameEdit").value = btn.dataset.name;
 }
 
+function showEditReporttypeModal(btn) {
+  document.querySelector("#idReporttype").value = btn.dataset.id;
+  document.querySelector("#adstypeNameEdit").value = btn.dataset.name;
+}
+
 function showEditUserModal(btn) {
   document.querySelector("#id").value = btn.dataset.id;
   document.querySelector("#usernameEdit").value = btn.dataset.username;

@@ -390,7 +390,7 @@
                 <div class="modal-body">
                     <div class="row g-2">
                         <div class="col mb-3">
-                            <label for="adstypeNameEdit" class="form-label">Tên bảng QC</label>
+                            <label for="adstypeNameEdit" class="form-label">Tên loại hình quảng cáo</label>
                             <input type="text" id="adstypeNameEdit" name="adstypeName" class="form-control" placeholder="Xã hội hoá"
                             required />
                         </div>
@@ -399,6 +399,75 @@
                 </div>
                 <div class="modal-footer">
                     <input type="hidden" name="id" id="idAdstype" value="" />
+                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal" id="closeBtnEdit">
+                        Đóng
+                    </button>
+                    <button type="submit" class="btn btn-primary" >
+                        Lưu
+                    </button>
+                </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Add Report type Modal -->
+    <div class="modal fade" id="addReporttypeModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <form action="/danh-sach/reporttype" id="addReporttypeForm" method="POST">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="reporttypeModalTitle">
+                            Thêm Hình Thức Báo Cáo
+                        </h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row g-2">
+                            <div class="col mb-3">
+                                <label for="reporttypeName" class="form-label">Tên hình thức báo cáo</label>
+                                <input type="text" id="reporttypeName" name="reporttypeName" class="form-control" placeholder="Tố giác tội phạm"
+                                    required data-autofocus />
+                            </div>
+                        </div>
+                        <div class="text-center badge bg-label-danger" id="errorMessage"></div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal" id="closeBtn">
+                            Đóng
+                        </button>
+                        <button type="submit" class="btn btn-primary">
+                            Lưu
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Edit Report type Modal -->
+    <div class="modal fade" id="editReporttypeModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <form action="" id="editReporttypeForm" onsubmit="editReporttype(event)">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">
+                            Chỉnh sửa hình thức báo cáo
+                        </h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                <div class="modal-body">
+                    <div class="row g-2">
+                        <div class="col mb-3">
+                            <label for="reporttypeNameEdit" class="form-label">Tên hình thức báo cáo</label>
+                            <input type="text" id="reporttypeNameEdit" name="reporttypeName" class="form-control" placeholder="Xã hội hoá"
+                            required />
+                        </div>
+                    </div>
+                    <div class="text-center badge bg-label-danger" id="errorMessage"></div>
+                </div>
+                <div class="modal-footer">
+                    <input type="hidden" name="id" id="idReporttype" value="" />
                     <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal" id="closeBtnEdit">
                         Đóng
                     </button>
@@ -968,6 +1037,56 @@
                                                 data-bs-target="#editAdstypeModal" onclick="showEditAdstypeModal(this)" 
                                                 data-id="{{id}}" data-name="{{name}}"></i>
                                             <i role="button" class="fa fa-trash text-danger delete-btn adstype-delete-btn" data-id={{id}}></i>
+                                        </td>
+                                    </tr>
+                                    {{/each}}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6">
+                <div class="card my-4">
+                    <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
+                        <div class="bg-gradient-primary shadow-primary border-radius-lg pt-4 pb-3">
+                            <div class="row">
+                                <div class="col-6">
+                                    <h6 class="text-white text-capitalize ps-3">Danh sách hình thức báo cáo</h6>
+                                </div>
+                            
+                                <div class="col-6">
+                                    <button type="button" class="btn btn-success float-end me-6" style="min-width: 100px;" data-bs-toggle="modal" data-bs-target="#addReporttypeModal">
+                                        <i class="tf-icons fa fa-plus"></i> Thêm
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body px-0 pb-2">
+                        <div class="table-responsive p-0">
+                            <table class="table align-items-center justify-content-center mb-0">
+                                <thead>
+                                    <tr>
+                                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Hình thức báo cáo</th>
+                                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder text-center opacity-7">Tuỳ chọn</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {{#each reporttypes}}
+                                    <tr>
+                                        <td style="cursor: pointer; max-width: 250px; overflow: hidden; text-overflow: ellipsis;" onclick="openViewPlaceDetail(this, '{{adName}}', '{{adSize}}', '{{adQuantity}}', '{{expireDay}}')">
+                                            <div class="d-flex px-2">
+                                                <div class="my-auto ps-3">
+                                                    <span class="mb-0 text-sm font-weight-bold">{{name}}</span>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td class="align-middle text-center">
+                                            <i role="button" class="fa fa-pen-to-square text-info me-3" data-bs-toggle="modal"
+                                                data-bs-target="#editReporttypeModal" onclick="showEditReporttypeModal(this)" 
+                                                data-id="{{id}}" data-name="{{name}}"></i>
+                                            <i role="button" class="fa fa-trash text-danger delete-btn reporttype-delete-btn" data-id={{id}}></i>
                                         </td>
                                     </tr>
                                     {{/each}}

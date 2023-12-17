@@ -58,6 +58,14 @@ controller.show = async (req, res) => {
     order: [["createdAt", "DESC"]],
   });
 
+  res.locals.reporttypes = await models.Reporttype.findAll({
+    attributes: [
+      "id",
+      "name",
+    ],
+    order: [["createdAt", "DESC"]],
+  });
+
   res.render("manage-list", {
     placedetails: res.locals.placedetails.map(detail => ({
       ...detail.toJSON(),
@@ -247,7 +255,7 @@ controller.addAdstype = async (req, res) => {
     });
     res.redirect("/danh-sach");
   } catch (error) {
-    res.send("Không thể thêm phường");
+    res.send("Không thể thêm loại hình QC");
     console.error(error);
   }
 }
@@ -259,9 +267,9 @@ controller.editAdstype = async (req, res) => {
       {name: adstypeName},
       {where: {id}}
     );
-    res.send("Đã cập nhật phường!");
+    res.send("Đã cập nhật loại hình QC!");
   } catch (error) {
-    res.send("Không thể cập nhật phường!");
+    res.send("Không thể cập nhật loại hình QC!");
     console.error(error);
   }
 }
@@ -272,9 +280,49 @@ controller.deleteAdstype = async (req, res) => {
     await models.Adstype.destroy(
       {where: {id}}
     );
-    res.send("Đã xoá phường!");
+    res.send("Đã xoá loại hình QC!");
   } catch (error) {
-    res.send("Không thể xoá phường!");
+    res.send("Không thể xoá loại hình QC!");
+    console.error(error);
+  }
+}
+
+controller.addReporttype = async (req, res) => {
+  let {reporttypeName} = req.body;
+  try {
+    await models.Reporttype.create({
+      name: reporttypeName
+    });
+    res.redirect("/danh-sach");
+  } catch (error) {
+    res.send("Không thể thêm hình thức báo cáo");
+    console.error(error);
+  }
+}
+
+controller.editReporttype = async (req, res) => {
+  let {id, reporttypeName} = req.body;
+  try {
+    await models.Reporttype.update(
+      {name: reporttypeName},
+      {where: {id}}
+    );
+    res.send("Đã cập nhật hình thức báo cáo!");
+  } catch (error) {
+    res.send("Không thể cập nhật hình thức báo cáo!");
+    console.error(error);
+  }
+}
+
+controller.deleteReporttype = async (req, res) => {
+  let id = isNaN(req.params.id) ? 0 : parseInt(req.params.id);
+  try {
+    await models.Reporttype.destroy(
+      {where: {id}}
+    );
+    res.send("Đã xoá hình thức báo cáo!");
+  } catch (error) {
+    res.send("Không thể xoá hình thức báo cáo!");
     console.error(error);
   }
 }
