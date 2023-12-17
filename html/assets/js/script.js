@@ -65,7 +65,7 @@ document.querySelectorAll(".user-delete-btn").forEach((btnConfirm) => {
   btnConfirm.addEventListener("click", (e) => {
     let id = e.target.dataset.id;
     const options = {
-      title: "Xác nhận để xoá",
+      title: "Xác nhận xoá",
       type: "danger",
       btnOkText: "Xoá",
       btnCancelText: "Thoát",
@@ -90,7 +90,7 @@ document.querySelectorAll(".ward-delete-btn").forEach((btnConfirm) => {
   btnConfirm.addEventListener("click", (e) => {
     let id = e.target.dataset.id;
     const options = {
-      title: "Xác nhận để xoá",
+      title: "Xác nhận xoá",
       type: "danger",
       btnOkText: "Xoá",
       btnCancelText: "Thoát",
@@ -115,7 +115,7 @@ document.querySelectorAll(".place-delete-btn").forEach((btnConfirm) => {
   btnConfirm.addEventListener("click", (e) => {
     let id = e.target.dataset.id;
     const options = {
-      title: "Xác nhận để xoá",
+      title: "Xác nhận xoá",
       type: "danger",
       btnOkText: "Xoá",
       btnCancelText: "Thoát",
@@ -140,7 +140,7 @@ document.querySelectorAll(".ads-delete-btn").forEach((btnConfirm) => {
   btnConfirm.addEventListener("click", (e) => {
     let id = e.target.dataset.id;
     const options = {
-      title: "Xác nhận để xoá",
+      title: "Xác nhận xoá",
       type: "danger",
       btnOkText: "Xoá",
       btnCancelText: "Thoát",
@@ -161,11 +161,36 @@ document.querySelectorAll(".ads-delete-btn").forEach((btnConfirm) => {
   });
 });
 
+document.querySelectorAll(".adstype-delete-btn").forEach((btnConfirm) => {
+  btnConfirm.addEventListener("click", (e) => {
+    let id = e.target.dataset.id;
+    const options = {
+      title: "Xác nhận xoá",
+      type: "danger",
+      btnOkText: "Xoá",
+      btnCancelText: "Thoát",
+      onConfirm: () => {
+        // console.log("Confirm");
+        // console.log(id);
+        deleteAdstype(id);
+      },
+      onCancel: () => {
+        // console.log("Cancel");
+      },
+    };
+    const {
+      el,
+      content,
+      options: confirmedOptions,
+    } = bs5dialog.confirm("Bạn chắc chắn muốn xoá loại hình QC này?", options);
+  });
+});
+
 document.querySelectorAll(".account-delete-btn").forEach((btnConfirm) => {
   btnConfirm.addEventListener("click", (e) => {
     let id = e.target.dataset.id;
     const options = {
-      title: "Xác nhận để xoá",
+      title: "Xác nhận xoá",
       type: "danger",
       btnOkText: "Xoá",
       btnCancelText: "Thoát",
@@ -337,6 +362,14 @@ async function deletePlace(id) {
 
 async function deleteAds(id) {
   let res = await fetch(`/danh-sach/ads/${id}`, {
+    method: "DELETE",
+  });
+
+  location.reload();
+}
+
+async function deleteAdstype(id) {
+  let res = await fetch(`/danh-sach/adstype/${id}`, {
     method: "DELETE",
   });
 
