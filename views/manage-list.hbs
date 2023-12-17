@@ -342,6 +342,99 @@
         </div>
     </div>
 
+    <!-- Add Ads type Modal -->
+    <div class="modal fade" id="addAdstypeModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <form action="/danh-sach/adstype" id="addAdstypeForm" method="POST">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="adstypeModalTitle">
+                            Thêm Loại Hình Quảng Cáo
+                        </h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row g-2">
+                            <div class="col mb-3">
+                                <label for="adstypeName" class="form-label">Tên loại hình quảng cáo</label>
+                                <input type="text" id="adstypeName" name="adstypeName" class="form-control" placeholder="Quảng cáo thương mại"
+                                    required data-autofocus />
+                            </div>
+                        </div>
+                        <div class="text-center badge bg-label-danger" id="errorMessage"></div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal" id="closeBtn">
+                            Đóng
+                        </button>
+                        <button type="submit" class="btn btn-primary">
+                            Lưu
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Edit Ads type Modal -->
+    <div class="modal fade" id="editAdsModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <form action="" id="editAdsForm" onsubmit="editAds(event)">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">
+                            Chỉnh sửa thông tin bảng quảng cáo
+                        </h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                <div class="modal-body">
+                    <div class="row g-2">
+                        <div class="col mb-3">
+                            <label for="adNameEdit" class="form-label">Tên bảng QC</label>
+                            <input type="text" id="adNameEdit" name="adName" class="form-control" placeholder="Chợ An Đông"
+                            required />
+                        </div>
+                        <div class="col mb-3">
+                            <label for="adSizeEdit" class="form-label">Kích thước</label>
+                            <input type="text" id="adSizeEdit" name="adSize" class="form-control" placeholder="Phường 9, Quận 5" required />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col mb-3">
+                            <label for="diaChiAdsEdit" class="form-label">Địa chỉ</label>
+                            <select id="diaChiAdsEdit" name="diaChiAds" class="form-control select-form-control">
+                                {{#each places}}
+                                <option value="{{diaChi}}" selected="selected">{{diaChi}}</option>
+                                {{/each}}
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row g-2">
+                        <div class="col mb-3">
+                            <label for="adQuantityEdit" class="form-label">Số lượng</label>
+                            <input type="text" id="adQuantityEdit" name="adQuantity" class="form-control" placeholder="Chợ"/>
+                        </div>
+                        <div class="col mb-3">
+                            <label for="expireDayEdit" class="form-label">Ngày hết hạn</label>
+                            <input type="text" id="expireDayEdit" name="expireDay" class="form-control" placeholder="Quảng cáo thương mại" oninput="checkValidDate(this, event)"/>
+                        </div>
+                    </div>
+                    <div class="text-center badge bg-label-danger" id="errorMessage"></div>
+                </div>
+                <div class="modal-footer">
+                    <input type="hidden" name="id" id="idAds" value="" />
+                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal" id="closeBtnEdit">
+                        Đóng
+                    </button>
+                    <button type="submit" class="btn btn-primary" >
+                        Lưu
+                    </button>
+                </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
     <div class="container-fluid py-4">
         <div class="row">
             <div class="col-12">
@@ -750,7 +843,7 @@
                                             <div>
                                                 <h5 class="modal-title" id="staticBackdropLabel">Xem chi tiết</h5>
                                             </div>
-                                            <button class="btn-close toast-btn" type="button" onclick="closeViewPlaceDetail(this)"
+                                            <button class="btn-close toast-btn" type="button" onclick="closeViewAdsDetail(this)"
                                                 data-bs-dismiss="modal" aria-label="Close"
                                                 data-target="infoToast" style="margin-bottom: 0;">
                                                 <i class="fa fa-times text-dark  fs-4" aria-hidden="true"></i>
@@ -769,18 +862,20 @@
                                                                         <span class="font-weight-bold"></span>
                                                                     </h6>
                                                                     <h6 class="text-sm font-weight-normal mb-1">
-                                                                        <span class="font-weight-bold">Khu vực: </span> TP Hồ Chí Minh, Việt Nam
-                                                                    </h6>
-                                                                    <h6 class="text-sm font-weight-normal mb-1">
-                                                                        <span class="font-weight-bold">Loại vị trí: </span>
+                                                                        <span class="font-weight-bold">Địa chỉ: </span>
                                                                         <span class="span-content"></span>
                                                                     </h6>
                                                                     <h6 class="text-sm font-weight-normal mb-1">
-                                                                        <span class="font-weight-bold">Hình thức: </span>
+                                                                        <span class="font-weight-bold">Kích thước: </span>
                                                                         <span class="span-content"></span>
                                                                     </h6>
                                                                     <h6 class="text-sm font-weight-normal mb-1">
-                                                                        <span class="font-weight-bold"></span>
+                                                                        <span class="font-weight-bold">Số lượng: </span>
+                                                                        <span class="span-content"></span>
+                                                                    </h6>
+                                                                    <h6 class="text-sm font-weight-normal mb-1">
+                                                                        <span class="font-weight-bold">Ngày hết hạn: </span>
+                                                                        <span class="span-content"></span>
                                                                     </h6>
                                                                 </div>
                                                             </div>
@@ -791,14 +886,9 @@
                                                 <div class="row mt-3">
                                                     <div class="col-12">
                                                         <div class="card text-white">
-                                                            <img src="{{#if hinhAnh}}{{hinhAnh}}{{else}}/assets/img/places/place.png{{/if}}"
+                                                            <img src="{{#if imagePath}}{{imagePath}}{{else}}/assets/img/ads/ads.jpeg{{/if}}"
                                                                 class="card-img" alt="..."
                                                                 style="box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;">
-                                                            {{!-- <div class="card-img-overlay">
-                                                                <h5 class="card-title text-white">
-                                                                    Phường 4, Quận 5
-                                                                </h5>
-                                                            </div> --}}
                                                         </div>
                                                     </div>
                                                 </div>
@@ -822,7 +912,7 @@
                                 <tbody>
                                     {{#each placedetails}}
                                     <tr>
-                                        <td style="cursor: pointer; max-width: 250px; overflow: hidden; text-overflow: ellipsis;" onclick="openViewPlaceDetail(this, '{{adName}}', '{{adSize}}', '{{adQuantity}}', '{{expireDay}}')">
+                                        <td style="cursor: pointer; max-width: 250px; overflow: hidden; text-overflow: ellipsis;" onclick="openViewAdsDetail(this, '{{adName}}', '{{Place.diaChi}}', '{{Place.khuVuc}}', '{{adSize}}', '{{adQuantity}}', '{{formattedExpireDay}}', '{{imagePath}}')">
                                             <div class="d-flex px-2">
                                                 <div>
                                                     <img src="{{#if imagePath}}{{imagePath}}{{else}}/assets/img/ads/ads.jpeg{{/if}}" class="avatar avatar-sm me-3 border-radius-lg" alt="spotify">
@@ -850,6 +940,58 @@
                                                 data-id="{{id}}" data-ad-name="{{adName}}" data-dia-chi="{{Place.diaChi}}" data-ad-size = "{{adSize}}"
                                                 data-ad-quantity="{{adQuantity}}" data-expire-day="{{formattedExpireDay}}"></i>
                                             <i role="button" class="fa fa-trash text-danger delete-btn ads-delete-btn" data-id={{id}}></i>
+                                        </td>
+                                    </tr>
+                                    {{/each}}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-6">
+                <div class="card my-4">
+                    <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
+                        <div class="bg-gradient-primary shadow-primary border-radius-lg pt-4 pb-3">
+                            <div class="row">
+                                <div class="col-6">
+                                    <h6 class="text-white text-capitalize ps-3">Danh sách loại hình quảng cáo</h6>
+                                </div>
+                            
+                                <div class="col-6">
+                                    <button type="button" class="btn btn-success float-end me-6" style="min-width: 100px;" data-bs-toggle="modal" data-bs-target="#addAdstypeModal">
+                                        <i class="tf-icons fa fa-plus"></i> Thêm
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body px-0 pb-2">
+                        <div class="table-responsive p-0">
+                            <table class="table align-items-center justify-content-center mb-0">
+                                <thead>
+                                    <tr>
+                                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Loại hình quảng cáo</th>
+                                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder text-center opacity-7">Tuỳ chọn</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {{#each adstypes}}
+                                    <tr>
+                                        <td style="cursor: pointer; max-width: 250px; overflow: hidden; text-overflow: ellipsis;" onclick="openViewPlaceDetail(this, '{{adName}}', '{{adSize}}', '{{adQuantity}}', '{{expireDay}}')">
+                                            <div class="d-flex px-2">
+                                                <div class="my-auto ps-3">
+                                                    <span class="mb-0 text-sm font-weight-bold">{{name}}</span>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td class="align-middle text-center">
+                                            <i role="button" class="fa fa-pen-to-square text-info me-3" data-bs-toggle="modal"
+                                                data-bs-target="#editAdstypeModal" onclick="showEditAdstypeModal(this)" 
+                                                data-id="{{id}}" data-name="{{name}}"></i>
+                                            <i role="button" class="fa fa-trash text-danger delete-btn adstype-delete-btn" data-id={{id}}></i>
                                         </td>
                                     </tr>
                                     {{/each}}

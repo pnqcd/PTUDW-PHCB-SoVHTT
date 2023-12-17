@@ -75,7 +75,10 @@
     background-color: var(--bs-dropdown-link-hover-bg);
 }
 
-.detail-ward .modal-lg, .detail-place .modal-lg {
+/* .detail-ward .modal-lg, .detail-place .modal-lg {
+    max-width: 500px;
+} */
+.modal-lg{
     max-width: 500px;
 }
 
@@ -93,16 +96,10 @@
     /* text-transform: uppercase; */
     font-weight: 500;
 }
-/* #addWardModal .modal-header, #addWardModal .modal-footer, 
-#editWardModal .modal-header, #editWardModal .modal-footer,
-#addPlaceModal .modal-header, #addPlaceModal .modal-footer, 
-#editPlaceModal .modal-header, #editPlaceModal .modal-footer,
-#addAccountModal .modal-header, #addAccountModal .modal-footer {
+
+/* .modal-header, .modal-footer {
     border: none;
 } */
-.modal-header, .modal-footer {
-    border: none;
-}
 
 .form-check {
     padding-left: 0.125rem;
