@@ -54,6 +54,20 @@ if (editAdstypeEle) {
   });
 }
 
+let addReporttypeEle = document.querySelector("#addReporttypeModal");
+if (addReporttypeEle) {
+  addReporttypeEle.addEventListener("shown.bs.modal", () => {
+    document.querySelector("#reporttypeName").focus();
+  });
+}
+
+let editReporttypeEle = document.querySelector("#editReporttypeModal");
+if (editReporttypeEle) {
+  editReporttypeEle.addEventListener("shown.bs.modal", () => {
+    document.querySelector("#reporttypeNameEdit").focus();
+  });
+}
+
 let addAccountEle = document.querySelector("#addAccountModal");
 if (addAccountEle) {
   addAccountEle.addEventListener("shown.bs.modal", () => {
@@ -244,7 +258,7 @@ function showEditAdstypeModal(btn) {
 
 function showEditReporttypeModal(btn) {
   document.querySelector("#idReporttype").value = btn.dataset.id;
-  document.querySelector("#adstypeNameEdit").value = btn.dataset.name;
+  document.querySelector("#reporttypeNameEdit").value = btn.dataset.name;
 }
 
 function showEditUserModal(btn) {
@@ -314,6 +328,23 @@ async function editAdstype(e) {
   const data = Object.fromEntries(formData.entries());
 
   let res = await fetch('/danh-sach/adstype', {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(data),
+  });
+
+  location.reload();
+}
+
+async function editReporttype(e) {
+  e.preventDefault();
+
+  const formData = new FormData(document.getElementById("editReporttypeForm"));
+  const data = Object.fromEntries(formData.entries());
+
+  let res = await fetch('/danh-sach/reporttype', {
     method: "PUT",
     headers: {
       "Content-Type": "application/json",
