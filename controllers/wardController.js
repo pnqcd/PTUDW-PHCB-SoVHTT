@@ -239,4 +239,44 @@ controller.deleteAds = async (req, res) => {
   }
 }
 
+controller.addAdstype = async (req, res) => {
+  let {adstypeName} = req.body;
+  try {
+    await models.Adstype.create({
+      name: adstypeName
+    });
+    res.redirect("/danh-sach");
+  } catch (error) {
+    res.send("Không thể thêm phường");
+    console.error(error);
+  }
+}
+
+controller.editAdstype = async (req, res) => {
+  let {id, adstypeName} = req.body;
+  try {
+    await models.Adstype.update(
+      {name: adstypeName},
+      {where: {id}}
+    );
+    res.send("Đã cập nhật phường!");
+  } catch (error) {
+    res.send("Không thể cập nhật phường!");
+    console.error(error);
+  }
+}
+
+controller.deleteAdstype = async (req, res) => {
+  let id = isNaN(req.params.id) ? 0 : parseInt(req.params.id);
+  try {
+    await models.Adstype.destroy(
+      {where: {id}}
+    );
+    res.send("Đã xoá phường!");
+  } catch (error) {
+    res.send("Không thể xoá phường!");
+    console.error(error);
+  }
+}
+
 module.exports = controller;
