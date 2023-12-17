@@ -212,6 +212,11 @@ function showEditAdsModal(btn) {
   document.querySelector("#expireDayEdit").value = btn.dataset.expireDay;
 }
 
+function showEditAdstypeModal(btn) {
+  document.querySelector("#idAdstype").value = btn.dataset.id;
+  document.querySelector("#adstypeNameEdit").value = btn.dataset.name;
+}
+
 function showEditUserModal(btn) {
   document.querySelector("#id").value = btn.dataset.id;
   document.querySelector("#usernameEdit").value = btn.dataset.username;
@@ -262,6 +267,23 @@ async function editAds(e) {
   const data = Object.fromEntries(formData.entries());
 
   let res = await fetch('/danh-sach/ads', {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(data),
+  });
+
+  location.reload();
+}
+
+async function editAdstype(e) {
+  e.preventDefault();
+
+  const formData = new FormData(document.getElementById("editAdstypeForm"));
+  const data = Object.fromEntries(formData.entries());
+
+  let res = await fetch('/danh-sach/adstype', {
     method: "PUT",
     headers: {
       "Content-Type": "application/json",
