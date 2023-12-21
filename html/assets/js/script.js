@@ -286,6 +286,15 @@ function showEditReporttypeModal(btn) {
   document.querySelector("#reporttypeNameEdit").value = btn.dataset.name;
 }
 
+function showRequestEditAdsModal(btn) {
+  document.querySelector("#idAdsEditRequest").value = btn.dataset.id;
+  document.querySelector("#adNameRequestEdit").value = btn.dataset.adName;
+  document.querySelector("#diaChiAdsRequestEdit").value = btn.dataset.diaChi;
+  document.querySelector("#adSizeRequestEdit").value = btn.dataset.adSize;
+  document.querySelector("#adQuantityRequestEdit").value = btn.dataset.adQuantity;
+  document.querySelector("#expireDayRequestEdit").value = btn.dataset.expireDay;
+}
+
 function showEditUserModal(btn) {
   document.querySelector("#id").value = btn.dataset.id;
   document.querySelector("#usernameEdit").value = btn.dataset.username;

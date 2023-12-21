@@ -14,61 +14,66 @@
                     </div>
                     <div class="card-body px-0 pb-2">
                         <div class="table-responsive p-0">
-                            <!-- Detail Ward Modal -->
-                            <div class="modal fade detail-ward" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                                <div class="modal-dialog modal-lg">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <div>
-                                                <h5 class="modal-title" id="staticBackdropLabel">Xem chi tiết</h5>
+                            <!-- Detail Request Edit Ads Modal -->
+                            <div class="modal fade" id="requestEditAdsModal" tabindex="-1" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <form action="" id="requestEditAdsForm" onsubmit="requestEditAds(event)">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title">
+                                                    Yêu cầu chỉnh sửa bảng quảng cáo
+                                                </h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                             </div>
-                                            <button class="btn-close toast-btn" type="button" onclick="closeViewWardDetail(this)"
-                                                data-bs-dismiss="modal" aria-label="Close"
-                                                data-target="infoToast" style="margin-bottom: 0;">
-                                                <i class="fa fa-times text-dark  fs-4" aria-hidden="true"></i>
-                                            </button>
-
-                                        </div>
                                         <div class="modal-body">
-                                            <div class="container-fluid">
-                                                <div class="row">
-                                                    <div class="col-12">
-                                                        <h6>Thông Tin Chung</h6>
-                                                        <div class="card">
-                                                            <div class="card-body">
-                                                                <div class="d-flex flex-column justify-content-center detail-card">
-                                                                    <h6 class="text-sm font-weight-normal mb-1">
-                                                                        <span class="font-weight-bold"></span>
-                                                                    </h6>
-                                                                    <h6 class="text-sm font-weight-normal mb-1">
-                                                                        <span class="font-weight-bold">Khu vực: </span> TP Hồ Chí Minh, Việt Nam
-                                                                    </h6>
-                                                                    <h6 class="text-sm font-weight-normal mb-1">
-                                                                        <span class="font-weight-bold">Mã vùng: </span>
-                                                                        <span class="span-content"></span>
-                                                                    </h6>
-                                                                    <h6 class="text-sm font-weight-normal mb-1">
-                                                                        <span class="font-weight-bold">Dân số: </span>
-                                                                        <span class ="span-content"></span>
-                                                                    </h6>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                        
+                                            <div class="row g-2">
+                                                <div class="col mb-3">
+                                                    <label for="adNameRequestEdit" class="form-label">Tên bảng QC</label>
+                                                    <input type="text" id="adNameRequestEdit" name="adNameRequest" class="form-control" readonly />
                                                 </div>
-                                                <div class="row mt-3">
-                                                    <div class="col-12">
-                                                        <div class="card text-white">
-                                                            <img src="/assets/img/wards/city.jpeg"
-                                                                class="card-img" alt="..."
-                                                                style="box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;">
-                                                        </div>
-                                                    </div>
+                                                <div class="col mb-3">
+                                                    <label for="adSizeRequestEdit" class="form-label">Kích thước</label>
+                                                    <input type="text" id="adSizeRequestEdit" name="adSizeRequest" class="form-control" readonly />
                                                 </div>
                                             </div>
+                                            <div class="row">
+                                                <div class="col mb-3">
+                                                    <label for="diaChiAdsRequestEdit" class="form-label">Địa chỉ</label>
+                                                    <input type="text" id="diaChiAdsRequestEdit" name="diaChiAdsRequest" class="form-control" readonly />
+                                                </div>
+                                            </div>
+                                            <div class="row g-2">
+                                                <div class="col mb-3">
+                                                    <label for="adQuantityRequestEdit" class="form-label">Số lượng</label>
+                                                    <input type="text" id="adQuantityRequestEdit" name="adQuantityRequest" class="form-control" readonly/>
+                                                </div>
+                                                <div class="col mb-3">
+                                                    <label for="expireDayRequestEdit" class="form-label">Ngày hết hạn</label>
+                                                    <input type="text" id="expireDayRequestEdit" name="expireDayRequest" class="form-control" readonly/>
+                                                </div>
+                                            </div>
+                                            <div class="row g-2">
+                                                <div class="col mb-3">
+                                                    <label for="handleAdsEditRequest" class="form-label">Xử lý yêu cầu</label>
+                                                    <select id="handleAdsEditRequest" name="handleAdsEditRequest" class="form-control select-form-control">
+                                                        <option value="Phê duyệt" selected="selected">Phê duyệt</option>
+                                                        <option value="Không phê duyệt" selected="selected">Không phê duyệt</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="text-center badge bg-label-danger" id="errorMessage"></div>
                                         </div>
-                                    </div>
+                                        <div class="modal-footer">
+                                            <input type="hidden" name="id" id="idAdsEditRequest" value="" />
+                                            <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal" id="closeBtnEdit">
+                                                Đóng
+                                            </button>
+                                            <button type="submit" class="btn btn-primary" >
+                                                Lưu
+                                            </button>
+                                        </div>
+                                        </div>
+                                    </form>
                                 </div>
                             </div>
                             
@@ -84,9 +89,12 @@
                                 </thead>
                                 
                                 <tbody>
-                                    {{#each requests}}
+                                    {{#each editAdsRequests}}
                                     <tr>
-                                        <td style="cursor: pointer; max-width: 250px; overflow: hidden; text-overflow: ellipsis;" onclick="openViewEditAdsDetail(this, '{{adName}}', '{{diaChi}}', '{{khuVuc}}', '{{adSize}}', '{{adQuantity}}', '{{expireDay}}', '{{imagePath}}')">
+                                        <td style="cursor: pointer; max-width: 250px; overflow: hidden; text-overflow: ellipsis;"
+                                            data-bs-toggle="modal" data-bs-target="#requestEditAdsModal" onclick="showRequestEditAdsModal(this)" 
+                                            data-id="{{id}}" data-ad-name="{{adName}}" data-dia-chi="{{diaChi}}" data-ad-size = "{{adSize}}"
+                                            data-ad-quantity="{{adQuantity}}" data-expire-day="{{expireDay}}">
                                             <div class="d-flex px-2">
                                                 <div>
                                                     <img src="{{#if imagePath}}{{imagePath}}{{else}}/assets/img/ads/ads.jpeg{{/if}}" class="avatar avatar-sm me-3 border-radius-lg" alt="spotify">
