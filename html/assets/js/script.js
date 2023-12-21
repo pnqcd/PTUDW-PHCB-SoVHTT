@@ -288,11 +288,15 @@ function showEditReporttypeModal(btn) {
 
 function showRequestEditAdsModal(btn) {
   document.querySelector("#idAdsEditRequest").value = btn.dataset.id;
+  document.querySelector("#placeIdAdsEditRequest").value = btn.dataset.placeId;
+  document.querySelector("#originIdAdsEditRequest").value = btn.dataset.originId;
   document.querySelector("#adNameRequestEdit").value = btn.dataset.adName;
   document.querySelector("#diaChiAdsRequestEdit").value = btn.dataset.diaChi;
+  document.querySelector("#khuVucAdsRequestEdit").value = btn.dataset.khuVuc;
   document.querySelector("#adSizeRequestEdit").value = btn.dataset.adSize;
   document.querySelector("#adQuantityRequestEdit").value = btn.dataset.adQuantity;
   document.querySelector("#expireDayRequestEdit").value = btn.dataset.expireDay;
+  document.querySelector("#liDoRequestEdit").value = btn.dataset.liDoChinhSua;
 }
 
 function showEditUserModal(btn) {
@@ -578,4 +582,21 @@ function checkValidDate(elm, event) {
   } else {
     elm.setCustomValidity('');
   }
+}
+
+async function requestEditAds(e) {
+  e.preventDefault();
+
+  const formData = new FormData(document.getElementById("requestEditAdsForm"));
+  const data = Object.fromEntries(formData.entries());
+
+  let res = await fetch('/yeu-cau/request-edit-ads', {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(data),
+  });
+
+  location.reload();
 }

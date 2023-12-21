@@ -3,9 +3,7 @@ const router = express.Router();
 const controller = require("../controllers/requestController");
 
 router.get("/", controller.show);
-
-// router.post("/wards", controller.addWard);
-// router.put("/wards", controller.editWard);
+router.put("/request-edit-ads", controller.requestEditAds);
 // router.delete("/wards/:id", controller.deleteWard);
 
 // router.post("/places", controller.addPlace);

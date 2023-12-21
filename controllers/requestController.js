@@ -1,18 +1,9 @@
 const controller = {};
 const moment = require('moment');
-
-const Pool = require('pg').Pool
-const fs = require('fs');
-const pool = new Pool({
-    user: "yoaqtxvl",
-    host: "rain.db.elephantsql.com",
-    database: "yoaqtxvl",
-    password: "PPr7gzt67BbTzFagQlqq_MzwzfpzX2Hr",
-    port: 5432
-});
+const pool = require("../database/database");
 
 controller.show = async (req, res) => {
-    const editAdsQuery = pool.query(`SELECT p.id, r."adName", r."placeId", p."diaChi", p."khuVuc", r."adSize", r."adQuantity", r."expireDay", r."imagePath", r."liDoChinhSua" 
+    const editAdsQuery = pool.query(`SELECT r.id, r."placeId", r."originId", r."adName", p."diaChi", p."khuVuc", r."adSize", r."adQuantity", r."expireDay", r."imagePath", r."liDoChinhSua" 
         FROM "Requesteditads" r JOIN "Places" p ON r."placeId" = p.id 
         ORDER BY r."createdAt" DESC`);
 
@@ -32,5 +23,37 @@ controller.show = async (req, res) => {
         console.log("Error: ", error);
     }
 };
+
+controller.requestEditAds = async (req, res) => {
+    let {id, originId, placeId, adNameRequest, adSizeRequest, adQuantityRequest, expireDayRequest, handleAdsEditRequest} = req.body;
+
+    try {
+        if (handleAdsEditRequest == "Phê duyệt") {
+            const updateQuery = `UPDATE "Placedetails"
+                                SET "placeId" = $1, "adName" = $2, "adSize" = $3, "adQuantity" = $4, "expireDay" = $5
+                                WHERE id = $6`;
+            await pool.query(updateQuery, [
+                placeId,
+                adNameRequest,
+                adSizeRequest,
+                adQuantityRequest,
+                expireDayRequest,
+                originId
+            ]);
+            res.send("Đã cập nhật bảng QC!");
+        } 
+
+        // Delete handled request
+        const deleteQuery = `
+            DELETE FROM "Requesteditads"
+            WHERE id = $1
+        `;
+        await pool.query(deleteQuery, [id]);
+        res.send('Xoá yêu cầu đã xử lý thành công');
+    } catch (error) {
+        // res.send("Lỗi rồi");
+        console.error(error);
+    }
+}
 
 module.exports = controller;

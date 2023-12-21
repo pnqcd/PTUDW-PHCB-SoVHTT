@@ -36,10 +36,14 @@
                                                     <input type="text" id="adSizeRequestEdit" name="adSizeRequest" class="form-control" readonly />
                                                 </div>
                                             </div>
-                                            <div class="row">
+                                            <div class="row g-2">
                                                 <div class="col mb-3">
                                                     <label for="diaChiAdsRequestEdit" class="form-label">Địa chỉ</label>
                                                     <input type="text" id="diaChiAdsRequestEdit" name="diaChiAdsRequest" class="form-control" readonly />
+                                                </div>
+                                                <div class="col mb-3">
+                                                    <label for="khuVucAdsRequestEdit" class="form-label">Địa chỉ</label>
+                                                    <input type="text" id="khuVucAdsRequestEdit" name="khuVucAdsRequest" class="form-control" readonly />
                                                 </div>
                                             </div>
                                             <div class="row g-2">
@@ -50,6 +54,12 @@
                                                 <div class="col mb-3">
                                                     <label for="expireDayRequestEdit" class="form-label">Ngày hết hạn</label>
                                                     <input type="text" id="expireDayRequestEdit" name="expireDayRequest" class="form-control" readonly/>
+                                                </div>
+                                            </div>
+                                            <div class="row g-2">
+                                                <div class="col mb-3">
+                                                    <label for="liDoRequestEdit" class="form-label">Lí do chỉnh sửa</label>
+                                                    <input type="text" id="liDoRequestEdit" name="liDoRequest" class="form-control" readonly/>
                                                 </div>
                                             </div>
                                             <div class="row g-2">
@@ -65,11 +75,13 @@
                                         </div>
                                         <div class="modal-footer">
                                             <input type="hidden" name="id" id="idAdsEditRequest" value="" />
+                                            <input type="hidden" name="placeId" id="placeIdAdsEditRequest" value="" />
+                                            <input type="hidden" name="originId" id="originIdAdsEditRequest" value="" />
                                             <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal" id="closeBtnEdit">
                                                 Đóng
                                             </button>
                                             <button type="submit" class="btn btn-primary" >
-                                                Lưu
+                                                Chỉnh sửa
                                             </button>
                                         </div>
                                         </div>
@@ -93,8 +105,9 @@
                                     <tr>
                                         <td style="cursor: pointer; max-width: 250px; overflow: hidden; text-overflow: ellipsis;"
                                             data-bs-toggle="modal" data-bs-target="#requestEditAdsModal" onclick="showRequestEditAdsModal(this)" 
-                                            data-id="{{id}}" data-ad-name="{{adName}}" data-dia-chi="{{diaChi}}" data-ad-size = "{{adSize}}"
-                                            data-ad-quantity="{{adQuantity}}" data-expire-day="{{expireDay}}">
+                                            data-id="{{id}}" data-origin-id="{{originId}}" data-place-id="{{placeId}}" data-ad-name="{{adName}}" 
+                                            data-dia-chi="{{diaChi}}" data-khu-vuc="{{khuVuc}}" data-ad-size = "{{adSize}}"
+                                            data-ad-quantity="{{adQuantity}}" data-expire-day="{{expireDay}}" data-li-do-chinh-sua="{{liDoChinhSua}}">
                                             <div class="d-flex px-2">
                                                 <div>
                                                     <img src="{{#if imagePath}}{{imagePath}}{{else}}/assets/img/ads/ads.jpeg{{/if}}" class="avatar avatar-sm me-3 border-radius-lg" alt="spotify">
