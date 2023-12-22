@@ -4,11 +4,8 @@ const controller = require("../controllers/requestController");
 
 router.get("/", controller.show);
 router.put("/request-edit-ads", controller.requestEditAds);
-// router.delete("/wards/:id", controller.deleteWard);
 
-// router.post("/places", controller.addPlace);
-// router.put("/places", controller.editPlace);
-// router.delete("/places/:id", controller.deletePlace);
+router.put("/request-edit-place", controller.requestEditPlace);
 
 // router.post("/ads", controller.addAds);
 // router.put("/ads", controller.editAds);

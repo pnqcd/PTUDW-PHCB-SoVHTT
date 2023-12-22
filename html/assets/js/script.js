@@ -611,3 +611,20 @@ async function requestEditAds(e) {
 
   location.reload();
 }
+
+async function requestEditPlace(e) {
+  e.preventDefault();
+
+  const formData = new FormData(document.getElementById("requestEditPlaceForm"));
+  const data = Object.fromEntries(formData.entries());
+
+  let res = await fetch('/yeu-cau/request-edit-place', {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(data),
+  });
+
+  location.reload();
+}

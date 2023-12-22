@@ -59,4 +59,36 @@ controller.requestEditAds = async (req, res) => {
     }
 }
 
+controller.requestEditPlace = async (req, res) => {
+    let {id, placeId, diaChiRequest, khuVucRequest, loaiVtRequest, hinhThucRequest, isQuyHoach, handlePlaceEditRequest} = req.body;
+
+    try {
+        if (handlePlaceEditRequest == "Phê duyệt") {
+            const updateQuery = `UPDATE "Places"
+                                SET "diaChi" = $1, "khuVuc" = $2, "loaiVT" = $3, "hinhThuc" = $4, "quyHoach" = $5
+                                WHERE id = $6`;
+            await pool.query(updateQuery, [
+                diaChiRequest,
+                khuVucRequest,
+                loaiVtRequest,
+                hinhThucRequest,
+                isQuyHoach ? "ĐÃ QUY HOẠCH" : "CHƯA QUY HOẠCH",
+                placeId
+            ]);
+            res.send("Đã cập nhật điểm đặt!");
+        } 
+
+        // Delete handled request
+        const deleteQuery = `
+            DELETE FROM "Requesteditplaces"
+            WHERE id = $1
+        `;
+        await pool.query(deleteQuery, [id]);
+        res.send('Xoá yêu cầu đã xử lý thành công');
+    } catch (error) {
+        // res.send("Lỗi rồi");
+        console.error(error);
+    }
+}
+
 module.exports = controller;
