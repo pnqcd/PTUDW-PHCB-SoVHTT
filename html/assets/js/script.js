@@ -296,7 +296,18 @@ function showRequestEditAdsModal(btn) {
   document.querySelector("#adSizeRequestEdit").value = btn.dataset.adSize;
   document.querySelector("#adQuantityRequestEdit").value = btn.dataset.adQuantity;
   document.querySelector("#expireDayRequestEdit").value = btn.dataset.expireDay;
-  document.querySelector("#liDoRequestEdit").value = btn.dataset.liDoChinhSua;
+  document.querySelector("#liDoRequestEditAds").value = btn.dataset.liDoChinhSua;
+}
+
+function showRequestEditPlaceModal(btn) {
+  document.querySelector("#idPlaceEditRequest").value = btn.dataset.id;
+  document.querySelector("#placeIdPlaceEditRequest").value = btn.dataset.placeId;
+  document.querySelector("#diaChiRequestEdit").value = btn.dataset.diaChi;
+  document.querySelector("#khuVucRequestEdit").value = btn.dataset.khuVuc;
+  document.querySelector("#loaiVtRequestEdit").value = btn.dataset.loaiVt;
+  document.querySelector("#hinhThucRequestEdit").value = btn.dataset.hinhThuc;
+  document.querySelector("#quyHoachRequestEdit").checked = btn.dataset.quyHoach == "ĐÃ QUY HOẠCH" ? true : false;
+  document.querySelector("#liDoRequestEditPlace").value = btn.dataset.liDoChinhSua;
 }
 
 function showEditUserModal(btn) {

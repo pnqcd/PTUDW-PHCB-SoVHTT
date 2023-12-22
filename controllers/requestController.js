@@ -7,16 +7,19 @@ controller.show = async (req, res) => {
         FROM "Requesteditads" r JOIN "Places" p ON r."placeId" = p.id 
         ORDER BY r."createdAt" DESC`);
 
-    const editPlaceQuery = pool.query(`SELECT id, "diaChi", "khuVuc", "loaiVT", "hinhThuc", "hinhAnh", "quyHoach", "liDoChinhSua"
+    const editPlaceQuery = pool.query(`SELECT id, "placeId", "diaChi", "khuVuc", "loaiVT", "hinhThuc", "hinhAnh", "quyHoach", "liDoChinhSua"
         FROM "Requesteditplaces" 
         ORDER BY "createdAt" DESC`);
 
     try {
-        const [editAdsResult] = await Promise.all([editAdsQuery]);
+        const [editAdsResult, editPlaceResult] = await Promise.all([editAdsQuery, editPlaceQuery]);
+
         res.locals.editAdsRequests = editAdsResult.rows.map((row) => ({
             ...row,
             expireDay: moment(row.expireDay).format('MM/DD/YYYY'),
         }));
+
+        res.locals.editPlaceRequests = editPlaceResult.rows;
 
         res.render("request");
     } catch (error) {

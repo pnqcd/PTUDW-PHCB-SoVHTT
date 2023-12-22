@@ -20,7 +20,7 @@ controller.show = async (req, res) => {
 };
 
 controller.addUser = async (req, res) => {
-  let {username, fullName, chucVu, wardUnit, districtUnit} = req.body;
+  let {username, fullName, chucVu, wardUnit, districtUnit, password} = req.body;
 
   const isExisted = await models.User.findOne({ where: {username} });
   if (isExisted) {
@@ -30,6 +30,7 @@ controller.addUser = async (req, res) => {
     try {
       await models.User.create({
         username,
+        password,
         fullName,
         isWard: chucVu=="Cán bộ phường" ? true : false,
         isDistrict: chucVu=="Cán bộ quận" ? true : false,
