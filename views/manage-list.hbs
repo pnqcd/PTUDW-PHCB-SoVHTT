@@ -136,8 +136,15 @@
                         <div class="row g-2">
                             <div class="col mb-3">
                                 <label for="loaiVT" class="form-label">Loại vị trí</label>
-                                <input type="text" id="loaiVT" name="loaiVT" class="form-control" placeholder="Chợ"
-                                    required />
+                                {{!-- <input type="text" id="loaiVT" name="loaiVT" class="form-control" placeholder="Chợ" required /> --}}
+                                <select name="loaiVT" id="loaiVT" class="form-control select-form-control">
+                                    <option value="Trung tâm thương mại" selected="selected">Trung tâm thương mại</option>
+                                    <option value="Chợ">Chợ</option>
+                                    <option value="Cây xăng">Cây xăng</option>
+                                    <option value="Nhà chờ xe buýt">Nhà chờ xe buýt</option>
+                                    <option value="Đất tư nhân/Nhà ở riêng lẻ">Đất tư nhân/Nhà ở riêng lẻ</option>
+                                    <option value="Đất công/Công viên/Hành lang an toàn giao thông">Đất công/Công viên/Hành lang an toàn giao thông</option>
+                                </select>
                             </div>
                             <div class="col mb-3">
                                 <label for="hinhThuc" class="form-label">Hình thức</label>
@@ -197,7 +204,15 @@
                     <div class="row g-2">
                         <div class="col mb-3">
                             <label for="loaiVTEdit" class="form-label">Loại Vị Trí</label>
-                            <input type="text" id="loaiVTEdit" name="loaiVT" class="form-control" placeholder="Chợ"/>
+                            {{!-- <input type="text" id="loaiVTEdit" name="loaiVT" class="form-control" placeholder="Chợ"/> --}}
+                            <select name="loaiVT" id="loaiVTEdit" class="form-control select-form-control">
+                                <option value="Trung tâm thương mại">Trung tâm thương mại</option>
+                                <option value="Chợ">Chợ</option>
+                                <option value="Cây xăng">Cây xăng</option>
+                                <option value="Nhà chờ xe buýt">Nhà chờ xe buýt</option>
+                                <option value="Đất tư nhân/Nhà ở riêng lẻ">Đất tư nhân/Nhà ở riêng lẻ</option>
+                                <option value="Đất công/Công viên/Hành lang an toàn giao thông">Đất công/Công viên/Hành lang an toàn giao thông</option>
+                            </select>
                         </div>
                         <div class="col mb-3">
                             <label for="hinhThucEdit" class="form-label">Hình Thức</label>
@@ -489,7 +504,7 @@
     </div>
 
     <div class="container-fluid py-4">
-        <div class="row">
+        <div class="row" id="ward-list">
             <div class="col-12">
                 <div class="card my-4">
                     <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
@@ -732,7 +747,7 @@
                 </div>
             </div>
         </div>
-        <div class="row">
+        <div class="row" id="place-list">
             <div class="col-12">
                 <div class="card my-4">
                     <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
@@ -868,7 +883,7 @@
                 </div>
             </div>
         </div>
-        <div class="row">
+        <div class="row" id="ads-list">
             <div class="col-12">
                 <div class="card my-4">
                     <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
@@ -1003,7 +1018,7 @@
                 </div>
             </div>
         </div>
-        <div class="row">
+        <div class="row" id="type-list">
             <div class="col-6">
                 <div class="card my-4">
                     <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">

@@ -287,6 +287,148 @@
                 </div>
             </div>
         </div>
+        <div class="row">
+            <div class="col-12">
+                <div class="card my-4">
+                    <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
+                        <div class="bg-gradient-primary shadow-primary border-radius-lg pt-4 pb-3">
+                            <h6 class="text-white text-capitalize ps-3">Yêu cầu cấp phép bảng quảng cáo</h6>
+                        </div>
+                    </div>
+                    <div class="card-body px-0 pb-2">
+                        <div class="table-responsive p-0">
+                            <!-- Detail Request Edit Ads Modal -->
+                            <div class="modal fade" id="requestEditAdsModal" tabindex="-1" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <form action="" id="requestEditAdsForm" onsubmit="requestEditAds(event)">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title">
+                                                    Yêu cầu chỉnh sửa bảng quảng cáo
+                                                </h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+                                        <div class="modal-body">
+                                            <div class="row g-2">
+                                                <div class="col mb-3">
+                                                    <label for="adNameRequestEdit" class="form-label">Tên bảng QC</label>
+                                                    <input type="text" id="adNameRequestEdit" name="adNameRequest" class="form-control" readonly />
+                                                </div>
+                                                <div class="col mb-3">
+                                                    <label for="adSizeRequestEdit" class="form-label">Kích thước</label>
+                                                    <input type="text" id="adSizeRequestEdit" name="adSizeRequest" class="form-control" readonly />
+                                                </div>
+                                            </div>
+                                            <div class="row g-2">
+                                                <div class="col mb-3">
+                                                    <label for="diaChiAdsRequestEdit" class="form-label">Địa chỉ</label>
+                                                    <input type="text" id="diaChiAdsRequestEdit" name="diaChiAdsRequest" class="form-control" readonly />
+                                                </div>
+                                                <div class="col mb-3">
+                                                    <label for="khuVucAdsRequestEdit" class="form-label">Địa chỉ</label>
+                                                    <input type="text" id="khuVucAdsRequestEdit" name="khuVucAdsRequest" class="form-control" readonly />
+                                                </div>
+                                            </div>
+                                            <div class="row g-2">
+                                                <div class="col mb-3">
+                                                    <label for="adQuantityRequestEdit" class="form-label">Số lượng</label>
+                                                    <input type="text" id="adQuantityRequestEdit" name="adQuantityRequest" class="form-control" readonly/>
+                                                </div>
+                                                <div class="col mb-3">
+                                                    <label for="expireDayRequestEdit" class="form-label">Ngày hết hạn</label>
+                                                    <input type="text" id="expireDayRequestEdit" name="expireDayRequest" class="form-control" readonly/>
+                                                </div>
+                                            </div>
+                                            <div class="row g-2">
+                                                <div class="col mb-3">
+                                                    <label for="liDoRequestEditAds" class="form-label">Lí do chỉnh sửa</label>
+                                                    <input type="text" id="liDoRequestEditAds" name="liDoRequest" class="form-control" readonly/>
+                                                </div>
+                                            </div>
+                                            <div class="row g-2">
+                                                <div class="col mb-3">
+                                                    <label for="handleAdsEditRequest" class="form-label">Xử lý yêu cầu</label>
+                                                    <select id="handleAdsEditRequest" name="handleAdsEditRequest" class="form-control select-form-control">
+                                                        <option value="Phê duyệt">Phê duyệt</option>
+                                                        <option value="Không phê duyệt" selected="selected">Không phê duyệt</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col mb-0">
+                                                    <div class="form-check form-switch">
+                                                        <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheck2" onchange="showOriginAdsDetail(this, event)">
+                                                        <label class="form-check-label text-md" for="flexSwitchCheck2">Xem thông tin gốc</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="text-center badge bg-label-danger" id="errorMessage"></div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <input type="hidden" name="id" id="idAdsEditRequest" value="" />
+                                            <input type="hidden" name="placeId" id="placeIdAdsEditRequest" value="" />
+                                            <input type="hidden" name="originId" id="originIdAdsEditRequest" value="" />
+                                            <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal" id="closeBtnEdit">
+                                                Đóng
+                                            </button>
+                                            <button type="submit" class="btn btn-primary" >
+                                                Chỉnh sửa
+                                            </button>
+                                        </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                            
+                            <table class="table align-items-center mb-0">
+                                <thead>
+                                    <tr>
+                                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Địa chỉ</th>
+                                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Công ty</th>
+                                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder text-center opacity-7">Tên bảng QC</th>
+                                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder text-center opacity-7">Hình thức</th>
+                                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder text-center opacity-7">Tình trạng</th>
+                                    </tr>
+                                </thead>
+                                
+                                <tbody>
+                                    {{#each adsLicenseRequests}}
+                                    <tr>
+                                        <td style="cursor: pointer; max-width: 250px; overflow: hidden; text-overflow: ellipsis;"
+                                            data-bs-toggle="modal" data-bs-target="#requestEditAdsModal" onclick="showRequestEditAdsModal(this)" 
+                                            data-id="{{id}}" data-origin-id="{{originId}}" data-place-id="{{placeId}}" data-ad-name="{{adName}}" 
+                                            data-dia-chi="{{diaChi}}" data-khu-vuc="{{khuVuc}}" data-ad-size = "{{adSize}}"
+                                            data-ad-quantity="{{adQuantity}}" data-expire-day="{{expireDay}}" data-li-do-chinh-sua="{{liDoChinhSua}}">
+                                            <div class="d-flex px-2">
+                                                <div>
+                                                    <img src="{{#if hinhAnh}}{{hinhAnh}}{{else}}/assets/img/ads/ads.jpeg{{/if}}" class="avatar avatar-sm me-3 border-radius-lg" alt="spotify">
+                                                </div>
+                                                <div class="my-auto">
+                                                    <h6 class="mb-0 text-sm">{{diaChi}}</h6>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td style="max-width: 200px; overflow: hidden; text-overflow: ellipsis;">
+                                            <span class="text-xs text-secondary mb-0">{{congTy}}</span>
+                                        </td>
+                                        <td class="align-middle text-center">
+                                            <span class="text-xs text-secondary">{{tenBangQuangCao}}</span>
+                                        </td>
+                                        <td class="align-middle text-center">
+                                            <span class="me-2 text-xs text-secondary">{{loaiQC}}</span>
+                                        </td>
+                                        <td class="align-middle text-center">
+                                            <span class="text-xs text-secondary">{{tinhTrang}}</span>
+                                        </td>
+                                    </tr>
+                                    {{/each}}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
         {{>footer}}
     </div>
 </main>

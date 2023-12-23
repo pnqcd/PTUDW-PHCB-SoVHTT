@@ -127,7 +127,7 @@ controller.addPlace = async (req, res) => {
       hinhThuc, 
       quyHoach: isQuyHoach ? "ĐÃ QUY HOẠCH" : "CHƯA QUY HOẠCH"
     });
-    res.redirect("/danh-sach");
+    res.redirect("/danh-sach/#place-list");
   } catch (error) {
     res.send("Không thể thêm điểm đặt");
     console.error(error);
@@ -192,7 +192,7 @@ controller.addAds = async (req, res) => {
       adQuantity, 
       expireDay, 
     });
-    res.redirect("/danh-sach");
+    res.redirect("/danh-sach/#ads-list");
   } catch (error) {
     res.send("Không thể thêm bảng QC");
     console.error(error);
@@ -253,7 +253,7 @@ controller.addAdstype = async (req, res) => {
     await models.Adstype.create({
       name: adstypeName
     });
-    res.redirect("/danh-sach");
+    res.redirect("/danh-sach/#type-list");
   } catch (error) {
     res.send("Không thể thêm loại hình QC");
     console.error(error);
@@ -293,7 +293,7 @@ controller.addReporttype = async (req, res) => {
     await models.Reporttype.create({
       name: reporttypeName
     });
-    res.redirect("/danh-sach");
+    res.redirect("/danh-sach/#type-list");
   } catch (error) {
     res.send("Không thể thêm hình thức báo cáo");
     console.error(error);

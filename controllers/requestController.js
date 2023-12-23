@@ -11,8 +11,12 @@ controller.show = async (req, res) => {
         FROM "Requesteditplaces" 
         ORDER BY "createdAt" DESC`);
 
+    const adsLicenseQuery = pool.query(`SELECT r."congTy", r."diaChiCongTy", r."dienThoai", r.email, r."placeId", p."diaChi", r."tenBangQuangCao", r."loaiQC", r."kichThuoc", r."soLuong", r."ngayBatDau", r."ngayKetThuc", r."tinhTrang"
+        FROM "Requestads" r JOIN "Places" p ON r."placeId" = p.id
+        ORDER BY r."createdAt" DESC`);
+
     try {
-        const [editAdsResult, editPlaceResult] = await Promise.all([editAdsQuery, editPlaceQuery]);
+        const [editAdsResult, editPlaceResult, adsLicenseResult] = await Promise.all([editAdsQuery, editPlaceQuery, adsLicenseQuery]);
 
         res.locals.editAdsRequests = editAdsResult.rows.map((row) => ({
             ...row,
@@ -20,6 +24,13 @@ controller.show = async (req, res) => {
         }));
 
         res.locals.editPlaceRequests = editPlaceResult.rows;
+
+        res.locals.adsLicenseRequests = adsLicenseResult.rows
+        // .map((row) => ({
+        //     ...row, 
+        //     ngayBatDau: moment(row.ngayBatDau).format('MM/DD/YYYY'),
+        //     ngayKetThuc: moment(row.ngayKetThuc).format('MM/DD/YYYY')
+        // }));
 
         res.render("request");
     } catch (error) {
