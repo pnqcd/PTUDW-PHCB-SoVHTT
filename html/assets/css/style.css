@@ -105,8 +105,25 @@
     padding-left: 0.125rem;
 }
 
+.form-switch {
+    padding-left: 2.375rem;
+}
+
+.form-switch .form-check-input:checked {
+    border-color: #0074D9;
+    background-color: #0074D9;
+}
+
+.form-check.form-switch .form-check-input[type="checkbox"] {
+    margin-top: 0.25rem;
+}
+
+.form-switch .form-check-input:checked:after {
+    border-color: #0074D9;
+}
+
 .form-check-label {
-    color: rgb(0, 116, 217);
+    color: #0074D9;
 }
 
 .bg-label-primary {

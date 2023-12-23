@@ -91,4 +91,42 @@ controller.requestEditPlace = async (req, res) => {
     }
 }
 
+controller.showOriginPlaceDetail = async (req, res) => {
+    const { placeId } = req.query;
+    if (placeId) {
+    pool.query(`SELECT * FROM "Places" WHERE id = ` + placeId, (error, results) => {
+        if (error) {
+            res.status(500).json({ error });
+            console.log("loi roi")
+        } else {
+            res.json({ originPlace: results.rows });
+        }
+    });
+    }
+
+    const { requestId } = req.query;
+    if (requestId) {
+    pool.query(`SELECT * FROM "Requesteditplaces" WHERE id = ` + requestId, (error, results) => {
+        if (error) {
+            res.status(500).json({ error });
+            console.log("loi roi")
+        } else {
+            res.json({ requestPlace: results.rows });
+        }
+    });
+    }
+}
+
+controller.showOriginAdsDetail = async (req, res) => {
+    const { adsId } = req.query;
+    pool.query("SELECT * FROM 'Placedetails' WHERE id = " + adsId, (error, results) => {
+        if (error) {
+            res.status(500).json({ error });
+            console.log("loi roi")
+        } else {
+            res.json({ place: results.rows });
+        }
+    });
+}
+
 module.exports = controller;

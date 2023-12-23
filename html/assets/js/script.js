@@ -581,6 +581,38 @@ function checkUsernameExisted(event) {
     .catch(error => console.error(error));
 }
 
+// Show origin place details if checked 
+function showOriginPlaceDetail(elm, event) {
+  event.preventDefault();
+
+  if (elm.checked == true) { // show origin details
+    let placeId = document.querySelector("#placeIdPlaceEditRequest").value;
+    fetch('/yeu-cau/showOriginPlaceDetail?placeId=' + encodeURIComponent(placeId))
+      .then(response => response.json())
+      .then(data => {
+        document.querySelector("#diaChiRequestEdit").value = data.originPlace[0].diaChi;
+        document.querySelector("#khuVucRequestEdit").value = data.originPlace[0].khuVuc;
+        document.querySelector("#loaiVtRequestEdit").value = data.originPlace[0].loaiVT;
+        document.querySelector("#hinhThucRequestEdit").value = data.originPlace[0].hinhThuc;
+        document.querySelector("#quyHoachRequestEdit").checked = data.originPlace[0].quyHoach == "ĐÃ QUY HOẠCH" ? true : false;
+      })
+      .catch(error => console.error(error));
+  } else {
+    let id = document.querySelector("#idPlaceEditRequest").value;
+    fetch('/yeu-cau/showOriginPlaceDetail?requestId=' + encodeURIComponent(id))
+      .then(response => response.json())
+      .then(data => {
+        document.querySelector("#diaChiRequestEdit").value = data.requestPlace[0].diaChi;
+        document.querySelector("#khuVucRequestEdit").value = data.requestPlace[0].khuVuc;
+        document.querySelector("#loaiVtRequestEdit").value = data.requestPlace[0].loaiVT;
+        document.querySelector("#hinhThucRequestEdit").value = data.requestPlace[0].hinhThuc;
+        document.querySelector("#quyHoachRequestEdit").checked = data.requestPlace[0].quyHoach == "ĐÃ QUY HOẠCH" ? true : false;
+      })
+      .catch(error => console.error(error));
+  }
+}
+
+
 // Check valid date 
 function checkValidDate(elm, event) {
   event.preventDefault();
