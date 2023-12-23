@@ -485,73 +485,76 @@ function openCustomDown(elm) {
 }
 
 function openViewWardDetail(elm, wardName, districtName, zipCode, population, imagePath) {
-  let div = document.createElement('div');
-  div.classList.add('modal-backdrop', 'fade', 'show');
-  document.body.appendChild(div);
+  // let div = document.createElement('div');
+  // div.classList.add('modal-backdrop', 'fade', 'show');
+  // document.body.appendChild(div);
 
-  let ancElm = elm.parentElement.parentElement.parentElement.parentElement.querySelector('.modal');
-  ancElm.classList.add('show');
-  elm.parentElement.parentElement.parentElement.parentElement.querySelector('.modal.detail-ward').style.display = "block";
+  // let ancElm = elm.parentElement.parentElement.parentElement.parentElement.querySelector('.modal');
+  // ancElm.classList.add('show');
+  // elm.parentElement.parentElement.parentElement.parentElement.querySelector('.modal.detail-ward').style.display = "block";
+  let modal = document.querySelector("#viewWardDetailModal");
 
-  ancElm.querySelector('.detail-card :nth-child(1) span').textContent = wardName + ", " + districtName;
-  ancElm.querySelector('.detail-card :nth-child(3) .span-content').textContent = zipCode;
-  ancElm.querySelector('.detail-card :nth-child(4) .span-content').textContent = population;
+  modal.querySelector('.detail-card :nth-child(1) span').textContent = wardName + ", " + districtName;
+  modal.querySelector('.detail-card :nth-child(3) .span-content').textContent = zipCode;
+  modal.querySelector('.detail-card :nth-child(4) .span-content').textContent = population;
 
-  if (imagePath) ancElm.querySelector('img').src = imagePath;
+  if (imagePath) modal.querySelector('img').src = imagePath;
 }
 
-function closeViewWardDetail(elm) {
-  elm.closest('.modal.detail-ward').classList.remove('show');
-  elm.closest('.modal.detail-ward').style.display = "none";
-  document.querySelector('.modal-backdrop.fade.show').remove();
-}
+// function closeViewWardDetail(elm) {
+//   elm.closest('.modal.detail-ward').classList.remove('show');
+//   elm.closest('.modal.detail-ward').style.display = "none";
+//   document.querySelector('.modal-backdrop.fade.show').remove();
+// }
 
 function openViewPlaceDetail(elm, diaChi, khuVuc, loaiVT, hinhThuc, quyHoach, hinhAnh) {
-  let div = document.createElement('div');
-  div.classList.add('modal-backdrop', 'fade', 'show');
-  document.body.appendChild(div);
+  // let div = document.createElement('div');
+  // div.classList.add('modal-backdrop', 'fade', 'show');
+  // document.body.appendChild(div);
 
-  let ancElm = elm.parentElement.parentElement.parentElement.parentElement.querySelector('.modal');
-  ancElm.classList.add('show');
-  elm.parentElement.parentElement.parentElement.parentElement.querySelector('.modal.detail-place').style.display = "block";
+  // let ancElm = elm.parentElement.parentElement.parentElement.parentElement.querySelector('.modal');
+  // ancElm.classList.add('show');
+  // elm.parentElement.parentElement.parentElement.parentElement.querySelector('.modal.detail-place').style.display = "block";
+  let modal = document.querySelector("#viewPlaceDetailModal");
 
-  ancElm.querySelector('.detail-card :nth-child(1) span').textContent = diaChi + ", " + khuVuc;
-  ancElm.querySelector('.detail-card :nth-child(3) .span-content').textContent = loaiVT;
-  ancElm.querySelector('.detail-card :nth-child(4) .span-content').textContent = hinhThuc;
-  ancElm.querySelector('.detail-card :nth-child(5) span').textContent = quyHoach;
+  modal.querySelector('.detail-card :nth-child(1) span').textContent = diaChi + ", " + khuVuc;
+  modal.querySelector('.detail-card :nth-child(3) .span-content').textContent = loaiVT;
+  modal.querySelector('.detail-card :nth-child(4) .span-content').textContent = hinhThuc;
+  modal.querySelector('.detail-card :nth-child(5) span').textContent = quyHoach;
 
-  if (hinhAnh) ancElm.querySelector('img').src = hinhAnh;
+  if (hinhAnh) modal.querySelector('img').src = hinhAnh;
 }
 
-function closeViewPlaceDetail(elm) {
-  elm.closest('.modal.detail-place').classList.remove('show');
-  elm.closest('.modal.detail-place').style.display = "none";
-  document.querySelector('.modal-backdrop.fade.show').remove();
-}
+// function closeViewPlaceDetail(elm) {
+//   elm.closest('.modal.detail-place').classList.remove('show');
+//   elm.closest('.modal.detail-place').style.display = "none";
+//   document.querySelector('.modal-backdrop.fade.show').remove();
+// }
 
 function openViewAdsDetail(elm, adName, diaChi, khuVuc, adSize, adQuantity, expireDay, imagePath) {
-  let div = document.createElement('div');
-  div.classList.add('modal-backdrop', 'fade', 'show');
-  document.body.appendChild(div);
+  // let div = document.createElement('div');
+  // div.classList.add('modal-backdrop', 'fade', 'show');
+  // document.body.appendChild(div);
 
-  let ancElm = elm.parentElement.parentElement.parentElement.parentElement.querySelector('.modal');
-  ancElm.classList.add('show');
-  elm.parentElement.parentElement.parentElement.parentElement.querySelector('.modal.detail-ads').style.display = "block";
+  // let ancElm = elm.parentElement.parentElement.parentElement.parentElement.querySelector('.modal');
+  // ancElm.classList.add('show');
+  // elm.parentElement.parentElement.parentElement.parentElement.querySelector('.modal.detail-ads').style.display = "block";
+  let modal = document.querySelector("#viewAdsDetailModal");
 
-  ancElm.querySelector('.detail-card :nth-child(1) span').textContent = adName;
-  ancElm.querySelector('.detail-card :nth-child(2) .span-content').textContent = diaChi + ", " + khuVuc;
-  ancElm.querySelector('.detail-card :nth-child(3) .span-content').textContent = adSize;
-  ancElm.querySelector('.detail-card :nth-child(4) .span-content').textContent = adQuantity;
-  ancElm.querySelector('.detail-card :nth-child(5) .span-content').textContent = expireDay;
+  modal.querySelector('.detail-card :nth-child(1) span').textContent = adName;
+  modal.querySelector('.detail-card :nth-child(2) .span-content').textContent = diaChi + ", " + khuVuc;
+  modal.querySelector('.detail-card :nth-child(3) .span-content').textContent = adSize;
+  modal.querySelector('.detail-card :nth-child(4) .span-content').textContent = adQuantity;
+  modal.querySelector('.detail-card :nth-child(5) .span-content').textContent = expireDay;
 
-  if (imagePath) ancElm.querySelector('img').src = imagePath;
+  if (imagePath) modal.querySelector('img').src = imagePath;
 }
 
-function closeViewAdsDetail(elm) {
-  elm.closest('.modal.detail-ads').classList.remove('show');
-  elm.closest('.modal.detail-ads').style.display = "none";
-  document.querySelector('.modal-backdrop.fade.show').remove();
-}
+// function closeViewAdsDetail(elm) {
+//   elm.closest('.modal.detail-ads').classList.remove('show');
+//   elm.closest('.modal.detail-ads').style.display = "none";
+//   document.querySelector('.modal-backdrop.fade.show').remove();
+// }
 
 function disableWardInput() {
   let chucVuEle = document.querySelector("#chucVu");

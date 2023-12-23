@@ -525,14 +525,14 @@
                     <div class="card-body px-0 pb-2">
                         <div class="table-responsive p-0">
                             <!-- Detail Ward Modal -->
-                            <div class="modal fade detail-ward" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                            <div class="modal fade detail-ward" id="viewWardDetailModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                                 <div class="modal-dialog modal-lg">
                                     <div class="modal-content">
                                         <div class="modal-header">
                                             <div>
                                                 <h5 class="modal-title" id="staticBackdropLabel">Xem chi tiết</h5>
                                             </div>
-                                            <button class="btn-close toast-btn" type="button" onclick="closeViewWardDetail(this)"
+                                            <button class="btn-close toast-btn" type="button"
                                                 data-bs-dismiss="modal" aria-label="Close"
                                                 data-target="infoToast" style="margin-bottom: 0;">
                                                 <i class="fa fa-times text-dark  fs-4" aria-hidden="true"></i>
@@ -596,7 +596,7 @@
                                 <tbody>
                                     {{#each wards}}
                                     <tr>
-                                        <td onclick="openViewWardDetail(this, '{{wardName}}', '{{districtName}}', '{{zipCode}}', '{{population}}', '{{imagePath}}')" style="cursor: pointer;">
+                                        <td data-bs-toggle="modal" data-bs-target="#viewWardDetailModal" onclick="openViewWardDetail(this, '{{wardName}}', '{{districtName}}', '{{zipCode}}', '{{population}}', '{{imagePath}}')" style="cursor: pointer;">
                                             <div class="d-flex px-2 py-1">
                                                 <div>
                                                     <img src="{{#if imagePath}}{{imagePath}}{{else}}/assets/img/wards/city.jpeg{{/if}}" class="avatar avatar-sm me-3 border-radius-lg" alt="ward">
@@ -768,14 +768,14 @@
                     <div class="card-body px-0 pb-2">
                         <div class="table-responsive p-0">
                             <!-- Detail Place Modal -->
-                            <div class="modal detail-place fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                            <div class="modal detail-place fade" id="viewPlaceDetailModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                                 <div class="modal-dialog modal-lg">
                                     <div class="modal-content">
                                         <div class="modal-header">
                                             <div>
                                                 <h5 class="modal-title" id="staticBackdropLabel">Xem chi tiết</h5>
                                             </div>
-                                            <button class="btn-close toast-btn" type="button" onclick="closeViewPlaceDetail(this)"
+                                            <button class="btn-close toast-btn" type="button"
                                                 data-bs-dismiss="modal" aria-label="Close"
                                                 data-target="infoToast" style="margin-bottom: 0;">
                                                 <i class="fa fa-times text-dark  fs-4" aria-hidden="true"></i>
@@ -842,7 +842,9 @@
                                 <tbody>
                                     {{#each places}}
                                     <tr>
-                                        <td style="cursor: pointer; max-width: 250px; overflow: hidden; text-overflow: ellipsis;" onclick="openViewPlaceDetail(this, '{{diaChi}}', '{{khuVuc}}', '{{loaiVT}}', '{{hinhThuc}}', '{{quyHoach}}', '{{hinhAnh}}')">
+                                        <td style="cursor: pointer; max-width: 250px; overflow: hidden; text-overflow: ellipsis;" 
+                                            data-bs-toggle="modal" data-bs-target="#viewPlaceDetailModal"
+                                            onclick="openViewPlaceDetail(this, '{{diaChi}}', '{{khuVuc}}', '{{loaiVT}}', '{{hinhThuc}}', '{{quyHoach}}', '{{hinhAnh}}')">
                                             <div class="d-flex px-2">
                                                 <div>
                                                     <img src="{{#if hinhAnh}}{{hinhAnh}}{{else}}/assets/img/places/place.png{{/if}}" class="avatar avatar-sm me-3 border-radius-lg" alt="spotify">
@@ -904,14 +906,14 @@
                     <div class="card-body px-0 pb-2">
                         <div class="table-responsive p-0">
                             <!-- Detail Ads Modal -->
-                            <div class="modal detail-ads fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                            <div class="modal detail-ads fade" id="viewAdsDetailModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                                 <div class="modal-dialog modal-lg">
                                     <div class="modal-content">
                                         <div class="modal-header">
                                             <div>
                                                 <h5 class="modal-title" id="staticBackdropLabel">Xem chi tiết</h5>
                                             </div>
-                                            <button class="btn-close toast-btn" type="button" onclick="closeViewAdsDetail(this)"
+                                            <button class="btn-close toast-btn" type="button"
                                                 data-bs-dismiss="modal" aria-label="Close"
                                                 data-target="infoToast" style="margin-bottom: 0;">
                                                 <i class="fa fa-times text-dark  fs-4" aria-hidden="true"></i>
@@ -980,7 +982,9 @@
                                 <tbody>
                                     {{#each placedetails}}
                                     <tr>
-                                        <td style="cursor: pointer; max-width: 250px; overflow: hidden; text-overflow: ellipsis;" onclick="openViewAdsDetail(this, '{{adName}}', '{{Place.diaChi}}', '{{Place.khuVuc}}', '{{adSize}}', '{{adQuantity}}', '{{formattedExpireDay}}', '{{imagePath}}')">
+                                        <td style="cursor: pointer; max-width: 250px; overflow: hidden; text-overflow: ellipsis;" 
+                                            data-bs-toggle="modal" data-bs-target="#viewAdsDetailModal"
+                                            onclick="openViewAdsDetail(this, '{{adName}}', '{{Place.diaChi}}', '{{Place.khuVuc}}', '{{adSize}}', '{{adQuantity}}', '{{formattedExpireDay}}', '{{imagePath}}')">
                                             <div class="d-flex px-2">
                                                 <div>
                                                     <img src="{{#if imagePath}}{{imagePath}}{{else}}/assets/img/ads/ads.jpeg{{/if}}" class="avatar avatar-sm me-3 border-radius-lg" alt="spotify">
