@@ -94,39 +94,65 @@ controller.requestEditPlace = async (req, res) => {
 controller.showOriginPlaceDetail = async (req, res) => {
     const { placeId } = req.query;
     if (placeId) {
-    pool.query(`SELECT * FROM "Places" WHERE id = ` + placeId, (error, results) => {
-        if (error) {
-            res.status(500).json({ error });
-            console.log("loi roi")
-        } else {
-            res.json({ originPlace: results.rows });
-        }
-    });
+        pool.query(`SELECT * FROM "Places" WHERE id = ` + placeId, (error, results) => {
+            if (error) {
+                res.status(500).json({ error });
+                console.log("loi roi")
+            } else {
+                res.json({ originPlace: results.rows });
+            }
+        });
     }
 
     const { requestId } = req.query;
     if (requestId) {
-    pool.query(`SELECT * FROM "Requesteditplaces" WHERE id = ` + requestId, (error, results) => {
-        if (error) {
-            res.status(500).json({ error });
-            console.log("loi roi")
-        } else {
-            res.json({ requestPlace: results.rows });
-        }
-    });
+        pool.query(`SELECT * FROM "Requesteditplaces" WHERE id = ` + requestId, (error, results) => {
+            if (error) {
+                res.status(500).json({ error });
+                console.log("loi roi")
+            } else {
+                res.json({ requestPlace: results.rows });
+            }
+        });
     }
 }
 
 controller.showOriginAdsDetail = async (req, res) => {
     const { adsId } = req.query;
-    pool.query("SELECT * FROM 'Placedetails' WHERE id = " + adsId, (error, results) => {
-        if (error) {
-            res.status(500).json({ error });
-            console.log("loi roi")
-        } else {
-            res.json({ place: results.rows });
-        }
-    });
+    if (adsId) {
+        pool.query(`SELECT d."adName", p."diaChi", p."khuVuc", d."adSize", d."adQuantity", d."expireDay" 
+                    FROM "Placedetails" d JOIN "Places" p ON d."placeId" = p.id 
+                    WHERE d.id = ` + adsId, (error, results) => {
+                        if (error) {
+                            res.status(500).json({ error });
+                            console.log("loi roi");
+                        } else {
+                            let formattedResults = results.rows.map(row => ({
+                                ...row,
+                                expireDay: moment(row.expireDay).format("MM/DD/YYYY")
+                            }));
+                            res.json({ originAds: formattedResults });
+                        }
+        });
+    }
+
+    const { requestId } = req.query;
+    if (requestId) {
+        pool.query(`SELECT r."adName", p."diaChi", p."khuVuc", r."adSize", r."adQuantity", r."expireDay" 
+                    FROM "Requesteditads" r JOIN "Places" p ON r."placeId" = p.id 
+                    WHERE r.id = ` + requestId, (error, results) => {
+                        if (error) {
+                            res.status(500).json({ error });
+                            console.log("loi roi");
+                        } else {
+                            let formattedResults = results.rows.map(row => ({
+                                ...row,
+                                expireDay: moment(row.expireDay).format("MM/DD/YYYY")
+                            }));
+                            res.json({ requestAds: formattedResults });
+                        }
+                    });
+    }
 }
 
 module.exports = controller;

@@ -597,7 +597,7 @@ function showOriginPlaceDetail(elm, event) {
         document.querySelector("#quyHoachRequestEdit").checked = data.originPlace[0].quyHoach == "ĐÃ QUY HOẠCH" ? true : false;
       })
       .catch(error => console.error(error));
-  } else {
+  } else { // show requested details
     let id = document.querySelector("#idPlaceEditRequest").value;
     fetch('/yeu-cau/showOriginPlaceDetail?requestId=' + encodeURIComponent(id))
       .then(response => response.json())
@@ -607,6 +607,39 @@ function showOriginPlaceDetail(elm, event) {
         document.querySelector("#loaiVtRequestEdit").value = data.requestPlace[0].loaiVT;
         document.querySelector("#hinhThucRequestEdit").value = data.requestPlace[0].hinhThuc;
         document.querySelector("#quyHoachRequestEdit").checked = data.requestPlace[0].quyHoach == "ĐÃ QUY HOẠCH" ? true : false;
+      })
+      .catch(error => console.error(error));
+  }
+}
+
+// Show origin ads details if checked 
+function showOriginAdsDetail(elm, event) {
+  event.preventDefault();
+
+  if (elm.checked == true) { // show origin details
+    let placeId = document.querySelector("#originIdAdsEditRequest").value;
+    fetch('/yeu-cau/showOriginAdsDetail?adsId=' + encodeURIComponent(placeId))
+      .then(response => response.json())
+      .then(data => {
+        document.querySelector("#adNameRequestEdit").value = data.originAds[0].adName;
+        document.querySelector("#diaChiAdsRequestEdit").value = data.originAds[0].diaChi;
+        document.querySelector("#khuVucAdsRequestEdit").value = data.originAds[0].khuVuc;
+        document.querySelector("#adSizeRequestEdit").value = data.originAds[0].adSize;
+        document.querySelector("#adQuantityRequestEdit").value = data.originAds[0].adQuantity;
+        document.querySelector("#expireDayRequestEdit").value = data.originAds[0].expireDay;
+      })
+      .catch(error => console.error(error));
+  } else { // show requested details
+    let id = document.querySelector("#idAdsEditRequest").value;
+    fetch('/yeu-cau/showOriginAdsDetail?requestId=' + encodeURIComponent(id))
+      .then(response => response.json())
+      .then(data => {
+        document.querySelector("#adNameRequestEdit").value = data.requestAds[0].adName;
+        document.querySelector("#diaChiAdsRequestEdit").value = data.requestAds[0].diaChi;
+        document.querySelector("#khuVucAdsRequestEdit").value = data.requestAds[0].khuVuc;
+        document.querySelector("#adSizeRequestEdit").value = data.requestAds[0].adSize;
+        document.querySelector("#adQuantityRequestEdit").value = data.requestAds[0].adQuantity;
+        document.querySelector("#expireDayRequestEdit").value = data.requestAds[0].expireDay;
       })
       .catch(error => console.error(error));
   }
