@@ -166,4 +166,30 @@ controller.showOriginAdsDetail = async (req, res) => {
     }
 }
 
+controller.approveAds = async (req, res) => {
+    let {id, placeId, tenBangQuangCao, kichThuoc, soLuong, ngayKetThuc} = req.body;
+    
+    const insertQuery = `INSERT INTO "Placedetails" ("placeId", "adName", "adSize", "adQuantity", "expireDay", "createdAt", "updatedAt")
+                        VALUES ($1, $2, $3, $4, $5, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP)`;
+    pool.query(insertQuery, [placeId, tenBangQuangCao, kichThuoc, soLuong, ngayKetThuc], (error, result) => {
+        if (error) {
+            console.error(error);
+            // res.send("Lỗi phê duyệt");
+        } else {
+            // res.send("Đã phê duyệt yêu cầu cấp phép bảng QC");
+            res.redirect("/yeu-cau");
+        }
+    });
+
+    try {
+        const updateQuery = `UPDATE "Requestads"
+                            SET "tinhTrang" = $1
+                            WHERE id = $2`;
+        await pool.query(updateQuery, ["Đã phê duyệt", id]);
+        // res.send("Đã cập nhật điểm đặt!");
+    } catch (error) {
+        console.error(error);
+    }
+}
+
 module.exports = controller;

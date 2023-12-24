@@ -10,12 +10,6 @@ router.get("/showOriginAdsDetail", controller.showOriginAdsDetail);
 router.put("/request-edit-place", controller.requestEditPlace);
 router.get("/showOriginPlaceDetail", controller.showOriginPlaceDetail);
 
-// router.post("/ads", controller.addAds);
-// router.put("/ads", controller.editAds);
-// router.delete("/ads/:id", controller.deleteAds);
-
-// router.post("/adstype", controller.addAdstype);
-// router.put("/adstype", controller.editAdstype);
-// router.delete("/adstype/:id", controller.deleteAdstype);
+router.post("/approve-ads", controller.approveAds);
 
 module.exports = router;

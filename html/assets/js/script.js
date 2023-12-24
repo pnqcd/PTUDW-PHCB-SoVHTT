@@ -327,6 +327,13 @@ function showRequestLicenseAdsModal(btn) {
   document.querySelector("#licenseState").value = btn.dataset.tinhTrang;
 
   if (btn.dataset.hinhAnh) document.querySelector('#hinhAnhBQC img').src = hinhAnh;
+  
+  // if approved then disable button 
+  if (btn.dataset.tinhTrang != "Chờ phê duyệt") {
+    document.querySelectorAll(".btn-phe-duyet").forEach((button) => {
+      button.disabled = true;
+    })
+  }
 }
 
 function showEditUserModal(btn) {
