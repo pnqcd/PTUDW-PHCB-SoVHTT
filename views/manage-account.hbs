@@ -36,11 +36,17 @@
                         <div class="row">
                             <div class="col mb-0">
                                 <label for="districtUnit" class="form-label">Quận</label>
-                                <input type="text" id="districtUnit" name="districtUnit" class="form-control" placeholder="Quận 5" required/>
+                                <select name="districtUnit" id="districtUnit" class="form-control select-form-control" onchange="fetchWardsByDistrict(this.value)">
+                                    {{#each districts}}
+                                    <option value="{{districtName}}">{{districtName}}</option>
+                                    {{/each}}
+                                </select>
                             </div>
                             <div class="col mb-0">
                                 <label for="wardUnit" class="form-label">Phường</label>
-                                <input type="text" id="wardUnit" name="wardUnit" class="form-control" placeholder="Phường 4" required/>
+                                <select name="wardUnit" id="wardUnit" class="form-control select-form-control">
+                                    
+                                </select>
                             </div>
                         </div>
                         <div class="text-center badge bg-label-danger" id="errorMessage"></div>
@@ -70,7 +76,8 @@
                                     <h6 class="text-white text-capitalize ps-3">Danh sách tài khoản cán bộ</h6>
                                 </div>
                                 <div class="col-6">
-                                    <button type="button" class="btn btn-success float-end me-6" style="min-width: 145px;" data-bs-toggle="modal" data-bs-target="#addAccountModal">
+                                    <button type="button" class="btn btn-success float-end me-6" style="min-width: 145px;" data-bs-toggle="modal" data-bs-target="#addAccountModal"
+                                        onclick="autoSelectWards()">
                                         <i class="tf-icons fa fa-plus"></i> Thêm tài khoản
                                     </button>
                                 </div>

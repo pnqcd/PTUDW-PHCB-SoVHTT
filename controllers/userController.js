@@ -1,5 +1,6 @@
 const controller = {};
 const models = require("../models");
+const pool = require("../database/database");
 
 controller.show = async (req, res) => {
   res.locals.users = await models.User.findAll({
@@ -16,6 +17,16 @@ controller.show = async (req, res) => {
     ],
     order: [["createdAt", "DESC"]],
   });
+
+  // res.locals.districts = await models.Ward.findAll({
+  //   attributes: ['districtName'],
+  //   distinct: true,
+  //   col: 'districtName'
+  // })
+  const result = await pool.query(`SELECT DISTINCT "districtName" FROM "Wards"`);
+  res.locals.districts = result.rows;
+
+
   res.render("manage-account");
 };
 
@@ -69,6 +80,21 @@ controller.checkUsername = async (req, res) => {
     } else {
       res.json({ exists: false });
     }
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+}
+
+controller.wardsByDistrict = async (req, res) => {
+  const { district } = req.query;
+  try {
+    const ward = await models.Ward.findAll({ 
+      where: { districtName: district } 
+    });
+
+    res.json(ward);
+
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: 'Internal server error' });

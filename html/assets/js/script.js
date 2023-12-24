@@ -739,3 +739,27 @@ async function requestEditPlace(e) {
 
   location.reload();
 }
+
+function fetchWardsByDistrict(district) {
+  fetch('/tai-khoan/wardsByDistrict?district=' + district)
+    .then(response => response.json())
+    .then(data => {
+      const wardUnit = document.getElementById('wardUnit');
+      wardUnit.innerHTML = '';
+
+      data.forEach(ward => {
+        const option = document.createElement('option');
+        option.value = ward.wardName;
+        option.text = ward.wardName;
+        wardUnit.appendChild(option);
+      });
+    })
+    .catch(error => {
+      console.error('Error fetching wards:', error);
+    });
+}
+
+function autoSelectWards() {
+  const selectedDistrict = document.getElementById('districtUnit').value;
+  fetchWardsByDistrict(selectedDistrict);
+}
