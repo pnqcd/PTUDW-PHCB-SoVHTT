@@ -336,6 +336,23 @@ function showRequestLicenseAdsModal(btn) {
   }
 }
 
+async function notAproveAds(e) {
+  e.preventDefault();
+
+  const formData = new FormData(document.getElementById("requestLicenseAdsForm"));
+  const data = Object.fromEntries(formData.entries());
+
+  let res = await fetch('/yeu-cau/not-approve-ads', {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(data),
+  });
+
+  location.reload();
+}
+
 function showEditUserModal(btn) {
   document.querySelector("#id").value = btn.dataset.id;
   document.querySelector("#usernameEdit").value = btn.dataset.username;

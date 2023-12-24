@@ -301,7 +301,7 @@
                             <div class="modal fade" id="requestLicenseAdsModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
                                 aria-hidden="true">
                                 <div class="modal-dialog modal-lg" role="document">
-                                    <form action="/yeu-cau/approve-ads" id="requestLicenseAdsForm" onsubmit="requestLicenseAds(event)" method="POST">
+                                    <form action="/yeu-cau/approve-ads" id="requestLicenseAdsForm" method="POST">
                                         <div class="modal-content">
                                             <div class="modal-header">
                                                 <div class="col-6 px-2">
@@ -428,7 +428,7 @@
                                                 <input type="hidden" name="id" id="idAdsLicenseRequest" value="" />
                                                 <input type="hidden" name="placeId" id="placeIdAdsLicenseRequest" value="" />
                                                 <input type="hidden" name="licenseState" id="licenseState" value="" />
-                                                <button type="button" class="btn btn-outline-secondary btn-phe-duyet">
+                                                <button type="button" class="btn btn-outline-secondary btn-phe-duyet" onclick="notAproveAds(event)">
                                                     KHÔNG PHÊ DUYỆT
                                                 </button>
                                                 <button type="submit" class="btn btn-primary btn-phe-duyet">PHÊ DUYỆT</button>
@@ -476,7 +476,14 @@
                                             <span class="me-2 text-xs text-secondary">{{loaiQC}}</span>
                                         </td>
                                         <td>
-                                            <span class="text-xs text-secondary font-weight-bold text-success {{#if_eq tinhTrang "Chờ phê duyệt"}}text-warning{{/if_eq}}">{{tinhTrang}}</span>
+                                            <span class="text-xs text-secondary font-weight-bold 
+                                                        {{#if_eq tinhTrang "Đã phê duyệt"}} text-success 
+                                                            {{else}}
+                                                            {{#if_eq tinhTrang "Chờ phê duyệt"}} text-warning
+                                                                {{else}} text-danger 
+                                                            {{/if_eq}}
+                                                        {{/if_eq}}">{{tinhTrang}}
+                                            </span>
                                         </td>
                                     </tr>
                                     {{/each}}

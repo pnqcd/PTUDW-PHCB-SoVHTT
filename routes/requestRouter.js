@@ -11,5 +11,7 @@ router.put("/request-edit-place", controller.requestEditPlace);
 router.get("/showOriginPlaceDetail", controller.showOriginPlaceDetail);
 
 router.post("/approve-ads", controller.approveAds);
+router.put("/not-approve-ads", controller.notApproveAds);
+
 
 module.exports = router;

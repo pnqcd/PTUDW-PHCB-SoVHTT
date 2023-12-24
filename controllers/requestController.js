@@ -192,4 +192,17 @@ controller.approveAds = async (req, res) => {
     }
 }
 
+controller.notApproveAds = async (req, res) => {
+    let { id } = req.body;
+    try {
+        const updateQuery = `UPDATE "Requestads"
+                            SET "tinhTrang" = $1
+                            WHERE id = $2`;
+        await pool.query(updateQuery, ["Không phê duyệt", id]);
+        res.send("Đã không phê duyệt");
+    } catch (error) {
+        console.error(error);
+    }
+}
+
 module.exports = controller;
