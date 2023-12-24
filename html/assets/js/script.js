@@ -310,6 +310,25 @@ function showRequestEditPlaceModal(btn) {
   document.querySelector("#liDoRequestEditPlace").value = btn.dataset.liDoChinhSua;
 }
 
+function showRequestLicenseAdsModal(btn) {
+  document.querySelector("#idAdsLicenseRequest").value = btn.dataset.id;
+  document.querySelector("#placeIdAdsLicenseRequest").value = btn.dataset.placeId;
+  document.querySelector("#congTy").value = btn.dataset.congTy;
+  document.querySelector("#diaChiCongTy").value = btn.dataset.diaChiCongTy;
+  document.querySelector("#dienThoaiCT").value = btn.dataset.dienThoai;
+  document.querySelector("#emailCT").value = btn.dataset.email;
+  document.querySelector("#diaChiQC").value = btn.dataset.diaChi;
+  document.querySelector("#loaiQC").value = btn.dataset.hinhThuc;
+  document.querySelector("#tenBangQuangCao").value = btn.dataset.tenBangQuangCao;
+  document.querySelector("#kichThuocQC").value = btn.dataset.kichThuoc;
+  document.querySelector("#soLuongQC").value = btn.dataset.soLuong;
+  document.querySelector("#ngayBatDau").value = btn.dataset.ngayBatDau;
+  document.querySelector("#ngayKetThuc").value = btn.dataset.ngayKetThuc;
+  document.querySelector("#licenseState").value = btn.dataset.tinhTrang;
+
+  if (btn.dataset.hinhAnh) document.querySelector('#hinhAnhBQC img').src = hinhAnh;
+}
+
 function showEditUserModal(btn) {
   document.querySelector("#id").value = btn.dataset.id;
   document.querySelector("#usernameEdit").value = btn.dataset.username;
@@ -556,6 +575,7 @@ function openViewAdsDetail(elm, adName, diaChi, khuVuc, adSize, adQuantity, expi
 //   document.querySelector('.modal-backdrop.fade.show').remove();
 // }
 
+// Disable ward input if user is District officer
 function disableWardInput() {
   let chucVuEle = document.querySelector("#chucVu");
   let wardUnitEle = document.querySelector("#wardUnit");
@@ -647,7 +667,6 @@ function showOriginAdsDetail(elm, event) {
       .catch(error => console.error(error));
   }
 }
-
 
 // Check valid date 
 function checkValidDate(elm, event) {

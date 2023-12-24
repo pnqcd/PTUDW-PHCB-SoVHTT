@@ -11,7 +11,7 @@ controller.show = async (req, res) => {
         FROM "Requesteditplaces" 
         ORDER BY "createdAt" DESC`);
 
-    const adsLicenseQuery = pool.query(`SELECT r."congTy", r."diaChiCongTy", r."dienThoai", r.email, r."placeId", p."diaChi", r."tenBangQuangCao", r."loaiQC", r."kichThuoc", r."soLuong", r."ngayBatDau", r."ngayKetThuc", r."tinhTrang"
+    const adsLicenseQuery = pool.query(`SELECT r.id, r."congTy", r."diaChiCongTy", r."dienThoai", r.email, r."placeId", p."diaChi", r."tenBangQuangCao", r."loaiQC", r."kichThuoc", r."soLuong", r."hinhAnh", r."ngayBatDau", r."ngayKetThuc", r."tinhTrang"
         FROM "Requestads" r JOIN "Places" p ON r."placeId" = p.id
         ORDER BY r."createdAt" DESC`);
 
@@ -26,11 +26,11 @@ controller.show = async (req, res) => {
         res.locals.editPlaceRequests = editPlaceResult.rows;
 
         res.locals.adsLicenseRequests = adsLicenseResult.rows
-        // .map((row) => ({
-        //     ...row, 
-        //     ngayBatDau: moment(row.ngayBatDau).format('MM/DD/YYYY'),
-        //     ngayKetThuc: moment(row.ngayKetThuc).format('MM/DD/YYYY')
-        // }));
+        .map((row) => ({
+            ...row, 
+            ngayBatDau: moment(row.ngayBatDau).format('MM/DD/YYYY'),
+            ngayKetThuc: moment(row.ngayKetThuc).format('MM/DD/YYYY')
+        }));
 
         res.render("request");
     } catch (error) {
