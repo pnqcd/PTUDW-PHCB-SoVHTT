@@ -318,7 +318,7 @@ function showRequestLicenseAdsModal(btn) {
   document.querySelector("#dienThoaiCT").value = btn.dataset.dienThoai;
   document.querySelector("#emailCT").value = btn.dataset.email;
   document.querySelector("#diaChiQC").value = btn.dataset.diaChi;
-  document.querySelector("#loaiQC").value = btn.dataset.hinhThuc;
+  document.querySelector("#noiDungQC").value = btn.dataset.noiDung;
   document.querySelector("#tenBangQuangCao").value = btn.dataset.tenBangQuangCao;
   document.querySelector("#kichThuocQC").value = btn.dataset.kichThuoc;
   document.querySelector("#soLuongQC").value = btn.dataset.soLuong;

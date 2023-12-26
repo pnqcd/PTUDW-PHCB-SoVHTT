@@ -366,8 +366,8 @@
                                                         <div class="row mb-3">
                                                             <div class="col">
                                                                 <div class="input">
-                                                                    <label for="loaiQC" class="form-label">Hình Thức</label>
-                                                                    <input type="text" id="loaiQC" name="loaiQC" class="form-control" readonly />
+                                                                    <label for="noiDungQC" class="form-label">Nội dung QC</label>
+                                                                    <input type="text" id="noiDungQC" name="noiDungQC" class="form-control" readonly />
                                                                 </div>
                                                             </div>
                                                             <div class="col">
@@ -444,7 +444,7 @@
                                         <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Địa chỉ</th>
                                         <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Công ty</th>
                                         <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Tên bảng QC</th>
-                                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Hình thức</th>
+                                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Nội dung QC</th>
                                         <th class="text-uppercase text-secondary text-xxs font-weight-bolder text-center opacity-7">Tình trạng</th>
                                     </tr>
                                 </thead>
@@ -455,7 +455,7 @@
                                         <td style="cursor: pointer; max-width: 250px; overflow: hidden; text-overflow: ellipsis;"
                                             data-bs-toggle="modal" data-bs-target="#requestLicenseAdsModal" onclick="showRequestLicenseAdsModal(this)" 
                                             data-id="{{id}}" data-place-id="{{placeId}}" data-cong-ty="{{congTy}}" data-dia-chi-cong-ty="{{diaChiCongTy}}" data-dien-thoai="{{dienThoai}}" 
-                                            data-email="{{email}}" data-dia-chi="{{diaChi}}" data-hinh-thuc = "{{loaiQC}}" data-ten-bang-quang-cao="{{tenBangQuangCao}}" data-tinh-trang="{{tinhTrang}}"
+                                            data-email="{{email}}" data-dia-chi="{{diaChi}}" data-noi-dung = "{{noiDungQC}}" data-ten-bang-quang-cao="{{tenBangQuangCao}}" data-tinh-trang="{{tinhTrang}}"
                                             data-kich-thuoc="{{kichThuoc}}" data-so-luong="{{soLuong}}" data-ngay-bat-dau="{{ngayBatDau}}" data-ngay-ket-thuc="{{ngayKetThuc}}" data-hinh-anh="{{hinhAnh}}">
                                             <div class="d-flex px-2">
                                                 <div>
@@ -472,10 +472,10 @@
                                         <td>
                                             <span class="text-xs text-secondary">{{tenBangQuangCao}}</span>
                                         </td>
-                                        <td>
-                                            <span class="me-2 text-xs text-secondary">{{loaiQC}}</span>
+                                        <td style="cursor: pointer; max-width: 200px; overflow: hidden; text-overflow: ellipsis;">
+                                            <span class="me-2 text-xs text-secondary">{{noiDungQC}}</span>
                                         </td>
-                                        <td>
+                                        <td class="align-middle text-center">
                                             <span class="text-xs text-secondary font-weight-bold 
                                                         {{#if_eq tinhTrang "Đã phê duyệt"}} text-success 
                                                             {{else}}

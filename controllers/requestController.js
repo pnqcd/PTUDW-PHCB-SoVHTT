@@ -11,7 +11,7 @@ controller.show = async (req, res) => {
         FROM "Requesteditplaces" 
         ORDER BY "createdAt" DESC`);
 
-    const adsLicenseQuery = pool.query(`SELECT r.id, r."congTy", r."diaChiCongTy", r."dienThoai", r.email, r."placeId", p."diaChi", r."tenBangQuangCao", r."loaiQC", r."kichThuoc", r."soLuong", r."hinhAnh", r."ngayBatDau", r."ngayKetThuc", r."tinhTrang"
+    const adsLicenseQuery = pool.query(`SELECT r.id, r."congTy", r."diaChiCongTy", r."dienThoai", r.email, r."placeId", p."diaChi", r."tenBangQuangCao", r."noiDungQC", r."kichThuoc", r."soLuong", r."hinhAnh", r."ngayBatDau", r."ngayKetThuc", r."tinhTrang"
         FROM "Requestads" r JOIN "Places" p ON r."placeId" = p.id
         ORDER BY r."createdAt" DESC`);
 
