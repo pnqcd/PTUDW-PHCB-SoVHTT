@@ -886,8 +886,10 @@ async function displayHandleMethod(district) {
   });
 }
 
+statisticByDistrict(null);
+
 function statisticByDistrict(elm) {
-  let district = elm.textContent;
+  let district = elm ? elm.textContent : "Quận 1";
   let wards = [];
   let locTotal = [];
   let adsTotal = [];
