@@ -50,6 +50,7 @@ app.use('/tai-khoan', require('./routes/userRouter'));
 app.use('/yeu-cau', require('./routes/requestRouter'));
 app.use('/thong-ke', require('./routes/statisticRouter'));
 app.use('/profile', require('./routes/profileRouter'));
+app.use('/change-password', require('./routes/passwordRouter'));
 
 app.get('/createTables', (req, res) => {
     let models = require('./models');
