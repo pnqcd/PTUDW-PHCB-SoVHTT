@@ -1,16 +1,28 @@
 const controller = {};
 const models = require("../models");
 const pool = require("../database/database");
+const cheerio = require('cheerio');
 
 controller.show = async (req, res) => {
     let result = await pool.query(`SELECT DISTINCT "districtName" FROM "Wards"`);
     res.locals.districts = result.rows;
     
-    const locationCount = await pool.query(`SELECT COUNT(locationreport) FROM reports WHERE locationreport=true`);
+    let locationCount = await pool.query(`SELECT COUNT(locationreport) FROM reports WHERE locationreport=true`);
     res.locals.locationReports = locationCount.rows[0].count;
 
-    const adsCount = await pool.query(`SELECT COUNT(locationreport) FROM reports WHERE locationreport=false`);
+    let adsCount = await pool.query(`SELECT COUNT(locationreport) FROM reports WHERE locationreport=false`);
     res.locals.adsReports = adsCount.rows[0].count;
+
+    let reportResult = await pool.query(`SELECT * FROM reports`);
+    let reports = reportResult.rows;
+    reports.forEach(report => {
+        const htmlString = report.reportcontent;
+        const $ = cheerio.load(htmlString);
+        const paragraphContent = $('p').text();
+        
+        report.reportcontent = paragraphContent;
+    });
+    res.locals.reports = reports;
 
     res.render("statistic");
 };

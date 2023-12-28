@@ -792,8 +792,8 @@ async function countReports() {
         dupName[key] = name;
 
         if (report.adbannerreportid)
-          reportCountListAds[name] = 1;
-        else reportCountListLoc[name] = 1;
+          reportCountListAds[name] = (reportCountListAds[name] || 0) + 1;
+        else reportCountListLoc[name] = (reportCountListLoc[name] || 0) + 1;
 
         isDup[key] = 1;
       } else {
@@ -848,11 +848,51 @@ async function getNumberReport(ward, district) {
   // }
 }
 
-function wardListByDistrict(elm) {
+async function displayHandleMethod(district) {
+  let allReports = await fetchAllReportsFromDatabase();
+  filteredReports = allReports.filter(report => {
+    // console.log(report.id);
+    let addressParts = report.reportlocation.split(',');
+    let reportDistrict = addressParts[addressParts.length - 1].trim();
+    return reportDistrict == district;
+  });
+  // console.log(filteredReports);
+
+  let tbody = document.querySelector('#reportsTable tbody');
+  tbody.innerHTML = '';
+
+  filteredReports.forEach(report => {
+    let row = document.createElement('tr');
+    row.innerHTML = `
+      <td style="cursor: pointer; max-width: 160px; overflow: hidden; text-overflow: ellipsis;">
+        <div class="d-flex px-2">
+          <div>
+            <img src="${report.imagepath1 ? report.imagepath1 : '/assets/img/ads/ads.jpeg'}" class="avatar avatar-sm me-3 border-radius-lg" alt="spotify">
+          </div>
+          <div class="my-auto">
+            <h6 class="mb-0 text-sm">${report.typeofreport}</h6>
+          </div>
+        </div>
+      </td>
+      <td style="overflow: hidden; text-overflow: ellipsis;">
+        <span class="text-xs text-secondary font-weight-bold mb-0">${report.reportcontent}</span>
+      </td>
+      <td>
+        <span class="text-sm text-secondary font-weight-bold">${report.handlemethod ? report.handlemethod : 'Chưa xử lý'}</span>
+      </td>
+    `;
+
+    tbody.appendChild(row);
+  });
+}
+
+function statisticByDistrict(elm) {
   let district = elm.textContent;
   let wards = [];
   let locTotal = [];
   let adsTotal = [];
+
+  displayHandleMethod(district);
 
   fetch('/tai-khoan/wardsByDistrict?district=' + district)
     .then(response => response.json())
@@ -875,7 +915,7 @@ function wardListByDistrict(elm) {
         .then(results => {
           results.forEach((result, index) => {
             let { countLoc, countAds } = result;
-            // console.log(countLoc, countAds);
+            console.log(countLoc, countAds);
             locTotal.push(countLoc);
             adsTotal.push(countAds);
           });
