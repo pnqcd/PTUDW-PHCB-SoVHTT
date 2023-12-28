@@ -49,6 +49,7 @@ app.use('/danh-sach', require('./routes/wardRouter'));
 app.use('/tai-khoan', require('./routes/userRouter'));
 app.use('/yeu-cau', require('./routes/requestRouter'));
 app.use('/thong-ke', require('./routes/statisticRouter'));
+app.use('/profile', require('./routes/profileRouter'));
 
 app.get('/createTables', (req, res) => {
     let models = require('./models');

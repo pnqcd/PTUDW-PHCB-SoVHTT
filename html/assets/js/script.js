@@ -917,7 +917,7 @@ function statisticByDistrict(elm) {
         .then(results => {
           results.forEach((result, index) => {
             let { countLoc, countAds } = result;
-            console.log(countLoc, countAds);
+            // console.log(countLoc, countAds);
             locTotal.push(countLoc);
             adsTotal.push(countAds);
           });
