@@ -3,18 +3,65 @@
     {{>navbar curPage="Thống kê"}}
 
     <div class="container-fluid py-4">
+        <div class="card-body mb-4">
+            <div class="row">
+                <div class="col-lg-2">
+                    <button class="btn bg-gradient-secondary w-100 mb-0 toast-btn" type="button" style="cursor:default">
+                        TP Hồ Chí Minh
+                    </button>
+                </div>
+                <div class="col-lg-2">
+                    <div class="dropdown">
+                        <button
+                            class="btn btn-secondary bg-gradient-info dropdown-toggle w-100 mb-0"
+                            type="button"
+                            id="quanButton"
+                            data-bs-toggle="dropdown"
+                            aria-haspopup="true"
+                            aria-expanded="false"
+                        >
+                            Quận
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="quanButton">
+                            {{#each districts}}
+                                <button class="dropdown-item" onclick="wardListByDistrict(this)">{{districtName}}</button>
+                            {{/each}}
+                        </div>
+                    </div>
+                </div>
+                {{!-- <div class="col-lg-2">
+                    <div class="dropdown">
+                        <button
+                            class="btn btn-secondary bg-gradient-info dropdown-toggle w-100 mb-0"
+                            type="button"
+                            id="phuongButton"
+                            data-bs-toggle="dropdown"
+                            aria-haspopup="true"
+                            aria-expanded="false"
+                        >
+                            Phường
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="phuongButton" id="wardList">
+                        
+                        </div>
+                    </div>
+                </div> --}}
+            </div>
+        </div>
+
         <div class="row">
             <div class="col-12">
                 <div class="card my-4">
                     <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
                         <div class="bg-gradient-primary shadow-primary border-radius-lg pt-4 pb-3">
-                                <h6 class="text-white text-capitalize ps-3">Thống kê báo cáo Phường, Quận</h6>
+                            <h6 class="text-white text-capitalize ps-3">Thống kê báo cáo Phường, Quận</h6>
                         </div>
-                        
                     </div>
                     <div class="card-body px-0 pb-2">
                         <div class="table-responsive p-0">
-                            
+                            <canvas id="reportChart" data-location-reports="{{locationReports}}"
+                                    data-ads-report="{{adsReports}}"></canvas>
+                            {{!-- <h6>{{adsReports}}, {{locationReports}}</h6> --}}
                         </div>
                     </div>
                 </div>

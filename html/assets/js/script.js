@@ -84,19 +84,13 @@ document.querySelectorAll(".user-delete-btn").forEach((btnConfirm) => {
       btnOkText: "Xoá",
       btnCancelText: "Thoát",
       onConfirm: () => {
-        // console.log("Confirm");
-        // console.log(id);
         deleteUser(id);
       },
       onCancel: () => {
         // console.log("Cancel");
       },
     };
-    const {
-      el,
-      content,
-      options: confirmedOptions,
-    } = bs5dialog.confirm("Bạn chắc chắn muốn xoá người dùng này?", options);
+    const {el, content, options: confirmedOptions, } = bs5dialog.confirm("Bạn chắc chắn muốn xoá người dùng này?", options);
   });
 });
 
@@ -762,4 +756,193 @@ function fetchWardsByDistrict(district) {
 function autoSelectWards() {
   const selectedDistrict = document.getElementById('districtUnit').value;
   fetchWardsByDistrict(selectedDistrict);
+}
+
+// Tính sẵn số lượng report trước và lưu vào mảng 
+// gọi nhiều lần sẽ bị lỗi Too Many Requests
+async function fetchAllReportsFromDatabase() {
+  try {
+    const response = await fetch('/thong-ke/all-reports');
+    const data = await response.json();
+    // console.log(data);
+    return data;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+}
+
+const apiKey = 'ynWfufabHmDYZyjIEMBK7fPyoxCd_l8vcgyiuu9PXYU';
+let reportCountListLoc = {};
+let reportCountListAds = {};
+async function countReports() {
+  try {
+    const allReports = await fetchAllReportsFromDatabase();
+
+    let isDup = {};
+    let dupName = {};
+    // let reportCountList = {};
+
+    for (let report of allReports) {
+      let key = `${report.lat}-${report.lng}`;
+      if (!isDup[key]) {
+        let { city, district } = await getCityAndDistrict(report.lat, report.lng);
+        // console.log(district, city);
+        let name = `${district}-${city}`;
+        dupName[key] = name;
+
+        if (report.adbannerreportid)
+          reportCountListAds[name] = 1;
+        else reportCountListLoc[name] = 1;
+
+        isDup[key] = 1;
+      } else {
+        if (report.adbannerreportid)
+          reportCountListAds[dupName[key]]++;
+        else reportCountListLoc[dupName[key]]++;
+        
+      }
+    }
+
+    // return reportCountList;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+}
+
+async function getCityAndDistrict(lat, lng) {
+  let url = `https://revgeocode.search.hereapi.com/v1/revgeocode?at=${lat}%2C${lng}&lang=vi-VN&apiKey=${apiKey}`;
+  try {
+    const response = await fetch(url);
+    const data = await response.json();
+
+    const city = data.items[0].address.city;
+    const district = data.items[0].address.district;
+
+    // console.log(city, district);
+    return { city, district };
+  } catch (error) {
+    console.error('Error getting city and district:', error);
+    throw error;
+  }
+}
+
+countReports();
+
+async function getNumberReport(ward, district) {
+  let countLoc = reportCountListLoc[`${ward}-${district}`];
+  let countAds = reportCountListAds[`${ward}-${district}`];
+  if (!countLoc) countLoc = 0;
+  if (!countAds) countAds = 0;
+  // console.log(count);
+  return { countLoc, countAds };
+  // let address = ward + ', ' + district;
+  // try {
+  //   const response = await fetch('/thong-ke/all-reports?address=' + address);
+  //   const data = await response.json();
+  //   return data.length;
+  // } catch (error) {
+  //   console.error('Error fetching reports:', error);
+  //   throw error;
+  // }
+}
+
+function wardListByDistrict(elm) {
+  let district = elm.textContent;
+  let wards = [];
+  let locTotal = [];
+  let adsTotal = [];
+
+  fetch('/tai-khoan/wardsByDistrict?district=' + district)
+    .then(response => response.json())
+    .then(data => {
+      // let wardList = document.getElementById('wardList');
+      // wardList.innerHTML = '';
+      
+      let promiseNum = [];
+      data.forEach(ward => {
+        // const button = document.createElement('button');
+        // button.textContent = ward.wardName;
+        // console.log(ward.wardName);
+        // button.classList.add("dropdown-item");
+        // wardList.appendChild(button);
+        wards.push(ward.wardName);
+        promiseNum.push(getNumberReport(ward.wardName, district));
+      });
+
+      Promise.all(promiseNum)
+        .then(results => {
+          results.forEach((result, index) => {
+            let { countLoc, countAds } = result;
+            // console.log(countLoc, countAds);
+            locTotal.push(countLoc);
+            adsTotal.push(countAds);
+          });
+
+          barChart(wards, district, locTotal, adsTotal);
+        })
+        .catch(error => {
+          console.error('Error getting count:', error);
+        });
+    })
+    .catch(error => {
+      console.error('Error fetching wards:', error);
+    });
+
+}
+
+let canvas = document.querySelector("#reportChart");
+let ctx = canvas.getContext('2d');
+let myChart = null;
+
+function barChart(wards, district, locTotal, adsTotal) {
+  // Chart number of reports 
+  if (myChart) {
+    myChart.destroy();
+  }
+  // console.log(wards, total)
+  let data = {
+    labels: wards,
+    datasets: [
+      {
+        label: 'Báo cáo địa điểm',
+        data: locTotal,
+        backgroundColor: '#4BC0C0',
+      },
+      {
+        label: 'Báo cáo bảng quảng cáo', 
+        data: adsTotal,
+        backgroundColor: '#FF6484',
+      }
+    ]
+  }
+
+  let options = {
+    type: 'bar',
+    data: data,
+    options: {
+      plugins: {
+          title: {
+              display: true,
+              text: `Số lượng báo cáo của ${district}`,
+              font: {
+                family: 'Playfair Display, sans-serif',
+                // style: 'italic',
+                size: 22
+              },
+              padding: {
+                  top: 10,
+                  bottom: 20
+              }
+          },
+          legend:{
+            display:true,
+            // position:'right',
+          },
+      }
+    },
+  }
+
+  myChart = new Chart(ctx, options);
 }

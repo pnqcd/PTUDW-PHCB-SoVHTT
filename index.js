@@ -12,6 +12,11 @@ Handlebars.registerHelper('if_eq', function (a, b, options) {
     }
 });
 
+Handlebars.registerHelper('getUniqueValues', function (array, property, options) {
+    const uniqueValues = [...new Set(array.map(item => item[property]))];
+    return uniqueValues.map(value => options.fn(value));
+});
+
 app.use(express.static(__dirname + '/html'));
 
 app.engine('hbs', expressHbs.engine({
