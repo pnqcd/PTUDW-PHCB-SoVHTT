@@ -1,3 +1,19 @@
+document.addEventListener("DOMContentLoaded", function () {
+  let searchInput = document.getElementById("searchInput");
+  searchInput.addEventListener("input", function () {
+    let searchText = searchInput.value.toLowerCase();
+    let tableRows = document.querySelectorAll("tbody tr");
+    tableRows.forEach((row) => {
+      let rowText = row.textContent.toLowerCase();
+      if (rowText.includes(searchText)) {
+        row.style.display = ""; // Show the row if it matches the search
+      } else {
+        row.style.display = "none"; // Hide the row if it doesn't match
+      }
+    });
+  });
+});
+
 let editWardEle = document.querySelector("#editWardModal");
 if (editWardEle) {
   editWardEle.addEventListener("shown.bs.modal", () => {
