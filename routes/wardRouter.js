@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const controller = require("../controllers/wardController");
+const upload = require("../middlewares/multer");
 
 router.get("/", controller.show);
 
@@ -8,8 +9,8 @@ router.post("/wards", controller.addWard);
 router.put("/wards", controller.editWard);
 router.delete("/wards/:id", controller.deleteWard);
 
-router.post("/places", controller.addPlace);
-router.put("/places", controller.editPlace);
+router.post("/places",upload.single('ImageUrl'), controller.addPlace);
+router.put("/places",upload.single('ImageUrl'), controller.editPlace);
 router.delete("/places/:id", controller.deletePlace);
 
 router.post("/ads", controller.addAds);

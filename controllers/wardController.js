@@ -1,6 +1,7 @@
 const controller = {};
 const models = require("../models");
 const moment = require('moment');
+const cloudinary=require('../middlewares/cloudinary');
 
 controller.show = async (req, res) => {
   res.locals.wards = await models.Ward.findAll({
@@ -24,6 +25,9 @@ controller.show = async (req, res) => {
       "hinhThuc",
       "quyHoach",
       "hinhAnh",
+      "hinhAnhId",
+      "longitude",
+      "latitude"
     ],
     order: [["createdAt", "DESC"]],
     // limit: 10,
@@ -45,6 +49,7 @@ controller.show = async (req, res) => {
       "adQuantity",
       "expireDay",
       "imagePath",
+      "publicImageId"
     ],
     order: [["createdAt", "DESC"]],
     // limit: 10,
@@ -118,14 +123,22 @@ controller.deleteWard = async (req, res) => {
 }
 
 controller.addPlace = async (req, res) => {
-  let {diaChi, khuVuc, loaiVT, hinhThuc, isQuyHoach} = req.body;
+  let {diaChi, khuVuc, loaiVT, hinhThuc, isQuyHoach,longitude,latitude} = req.body;
   try {
+    const result = await cloudinary.uploader.upload(req.file.path,{
+      folder:'places'
+    });
+
     await models.Place.create({
       diaChi, 
       khuVuc, 
       loaiVT, 
       hinhThuc, 
-      quyHoach: isQuyHoach ? "ĐÃ QUY HOẠCH" : "CHƯA QUY HOẠCH"
+      longitude,
+      latitude,
+      quyHoach: isQuyHoach ? "ĐÃ QUY HOẠCH" : "CHƯA QUY HOẠCH",
+      hinhAnh:result.secure_url,
+      hinhAnhId:result.public_id,
     });
     res.redirect("/danh-sach/#place-list");
   } catch (error) {
@@ -135,15 +148,24 @@ controller.addPlace = async (req, res) => {
 }
 
 controller.editPlace = async (req, res) => {
-  let {id, diaChi, khuVuc, loaiVT, hinhThuc, isQuyHoach} = req.body;
+  let {id, diaChi, khuVuc, loaiVT, hinhThuc, isQuyHoach,longitude,latitude,hinhAnhId} = req.body;
   try {
+    
+    const result = await cloudinary.uploader.upload(req.file.path,{
+      folder:'places'
+    });
+    if(hinhAnhId) await cloudinary.uploader.destroy(hinhAnhId);
     await models.Place.update(
       { 
         diaChi, 
         khuVuc, 
         loaiVT, 
         hinhThuc, 
-        quyHoach: isQuyHoach ? "ĐÃ QUY HOẠCH" : "CHƯA QUY HOẠCH"
+        longitude,
+        latitude,
+        quyHoach: isQuyHoach ? "ĐÃ QUY HOẠCH" : "CHƯA QUY HOẠCH",
+        hinhAnh:result.secure_url,
+        hinhAnhId:result.public_id,
       },
       {where: {id}}
     );
@@ -156,10 +178,12 @@ controller.editPlace = async (req, res) => {
 
 controller.deletePlace = async (req, res) => {
   let id = isNaN(req.params.id) ? 0 : parseInt(req.params.id);
+  let hinhAnhId=req.body.hinhAnhId;
   try {
     await models.Place.destroy(
       {where: {id}}
     );
+    if(hinhAnhId) await cloudinary.uploader.destroy(hinhAnhId);
     res.send("Đã xoá điểm đặt!");
   } catch (error) {
     res.send("Không thể xoá điểm đặt!");

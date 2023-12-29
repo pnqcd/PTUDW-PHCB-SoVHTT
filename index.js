@@ -3,6 +3,7 @@ const app = express();
 const port = 4000;
 const expressHbs = require('express-handlebars');
 const Handlebars = require('handlebars');
+require('dotenv').config();
 
 Handlebars.registerHelper('if_eq', function (a, b, options) {
     if (a == b) {

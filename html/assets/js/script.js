@@ -138,6 +138,7 @@ document.querySelectorAll(".ward-delete-btn").forEach((btnConfirm) => {
 document.querySelectorAll(".place-delete-btn").forEach((btnConfirm) => {
   btnConfirm.addEventListener("click", (e) => {
     let id = e.target.dataset.id;
+    let hinhAnhId=e.target.dataset.hinhAnhId;
     const options = {
       title: "Xác nhận xoá",
       type: "danger",
@@ -146,7 +147,8 @@ document.querySelectorAll(".place-delete-btn").forEach((btnConfirm) => {
       onConfirm: () => {
         // console.log("Confirm");
         // console.log(id);
-        deletePlace(id);
+        
+        deletePlace(id,hinhAnhId);
       },
       onCancel: () => {
         // console.log("Cancel");
@@ -269,12 +271,17 @@ function showEditWardModal(btn) {
 }
 
 function showEditPlaceModal(btn) {
+  console.log(btn.dataset);
   document.querySelector("#idPlace").value = btn.dataset.id;
   document.querySelector("#diaChiEdit").value = btn.dataset.diaChi;
   document.querySelector("#khuVucEdit").value = btn.dataset.khuVuc;
   document.querySelector("#loaiVTEdit").value = btn.dataset.loaiVt;
   document.querySelector("#hinhThucEdit").value = btn.dataset.hinhThuc;
   document.querySelector("#quyHoachEdit").checked = btn.dataset.quyHoach == "ĐÃ QUY HOẠCH" ? true : false;
+  document.querySelector("#longitudeEdit").value = btn.dataset.longitude;
+  document.querySelector("#latitudeEdit").value = btn.dataset.latitude;
+  document.querySelector("#hinhAnhKhuVucEdit").src = btn.dataset.hinhAnh;
+  document.querySelector("#imgPlaceIdEdit").value = btn.dataset.hinhAnhId;
 }
 
 function showEditAdsModal(btn) {
@@ -397,10 +404,7 @@ async function editPlace(e) {
 
   let res = await fetch('/danh-sach/places', {
     method: "PUT",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(data),
+    body:formData,
   });
 
   location.reload();
@@ -490,9 +494,13 @@ async function deleteWard(id) {
   location.reload();
 }
 
-async function deletePlace(id) {
+async function deletePlace(id,hinhAnhId) {
   let res = await fetch(`/danh-sach/places/${id}`, {
     method: "DELETE",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ hinhAnhId: hinhAnhId }),
   });
 
   location.reload();
@@ -1004,3 +1012,4 @@ function barChart(wards, district, locTotal, adsTotal) {
 
   myChart = new Chart(ctx, options);
 }
+
