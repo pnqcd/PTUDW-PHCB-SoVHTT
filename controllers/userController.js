@@ -1,6 +1,7 @@
 const controller = {};
 const models = require("../models");
 const pool = require("../database/database");
+const bcrypt = require("bcrypt");
 
 controller.show = async (req, res) => {
   res.locals.users = await models.User.findAll({
@@ -33,6 +34,8 @@ controller.show = async (req, res) => {
 controller.addUser = async (req, res) => {
   let {username, fullName, chucVu, wardUnit, districtUnit, password} = req.body;
 
+  let hashedPassword = await bcrypt.hash(password, 10);
+
   const isExisted = await models.User.findOne({ where: {username} });
   if (isExisted) {
     return res.json({ error: true, message: 'Tên đăng nhập đã tồn tại!' });
@@ -41,7 +44,7 @@ controller.addUser = async (req, res) => {
     try {
       await models.User.create({
         username,
-        password,
+        password: hashedPassword,
         fullName,
         isWard: chucVu=="Cán bộ phường" ? true : false,
         isDistrict: chucVu=="Cán bộ quận" ? true : false,
