@@ -19,11 +19,6 @@ controller.show = async (req, res) => {
     order: [["createdAt", "DESC"]],
   });
 
-  // res.locals.districts = await models.Ward.findAll({
-  //   attributes: ['districtName'],
-  //   distinct: true,
-  //   col: 'districtName'
-  // })
   const result = await pool.query(`SELECT DISTINCT "districtName" FROM "Wards"`);
   res.locals.districts = result.rows;
 
