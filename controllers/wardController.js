@@ -124,24 +124,29 @@ controller.deleteWard = async (req, res) => {
 
 controller.addPlace = async (req, res) => {
   let {diaChi, khuVuc, loaiVT, hinhThuc, isQuyHoach,longitude,latitude} = req.body;
+  let result = {};
   try {
-    const result = await cloudinary.uploader.upload(req.file.path,{
-      folder:'places'
-    });
-
+    if (req.file && req.file.path) {
+      result = await cloudinary.uploader.upload(req.file.path, {
+        folder: 'places'
+      });
+    }
     await models.Place.create({
       diaChi, 
       khuVuc, 
       loaiVT, 
       hinhThuc, 
-      longitude,
-      latitude,
+      longitude: longitude||0,
+      latitude:latitude||0,
       quyHoach: isQuyHoach ? "ĐÃ QUY HOẠCH" : "CHƯA QUY HOẠCH",
-      hinhAnh:result.secure_url,
-      hinhAnhId:result.public_id,
+      hinhAnh:result.secure_url||'',
+      hinhAnhId:result.public_id||'',
     });
     res.redirect("/danh-sach/#place-list");
   } catch (error) {
+    if (result.public_id) {
+      await cloudinary.uploader.destroy(result.public_id);
+    }
     res.send("Không thể thêm điểm đặt");
     console.error(error);
   }
@@ -149,28 +154,38 @@ controller.addPlace = async (req, res) => {
 
 controller.editPlace = async (req, res) => {
   let {id, diaChi, khuVuc, loaiVT, hinhThuc, isQuyHoach,longitude,latitude,hinhAnhId} = req.body;
+  let result ={}
   try {
-    
-    const result = await cloudinary.uploader.upload(req.file.path,{
-      folder:'places'
-    });
-    if(hinhAnhId) await cloudinary.uploader.destroy(hinhAnhId);
-    await models.Place.update(
-      { 
-        diaChi, 
-        khuVuc, 
-        loaiVT, 
-        hinhThuc, 
-        longitude,
-        latitude,
-        quyHoach: isQuyHoach ? "ĐÃ QUY HOẠCH" : "CHƯA QUY HOẠCH",
-        hinhAnh:result.secure_url,
-        hinhAnhId:result.public_id,
-      },
-      {where: {id}}
-    );
+    if (req.file && req.file.path) {
+      result = await cloudinary.uploader.upload(req.file.path, {
+        folder: 'places'
+      });
+    }
+    const updateData = { 
+      diaChi, 
+      khuVuc, 
+      loaiVT, 
+      hinhThuc, 
+      longitude:longitude||0,
+      latitude:latitude||0,
+      quyHoach: isQuyHoach ? "ĐÃ QUY HOẠCH" : "CHƯA QUY HOẠCH",
+    };
+
+    if (result.secure_url) {
+      updateData.hinhAnh = result.secure_url;
+      updateData.hinhAnhId = result.public_id;
+    }
+
+    await models.Place.update(updateData, {where: {id}});
+
+    if (hinhAnhId && result.secure_url) {
+      await cloudinary.uploader.destroy(hinhAnhId);
+    }
     res.send("Đã cập nhật điểm đặt!");
   } catch (error) {
+    if (result.public_id) {
+      await cloudinary.uploader.destroy(result.public_id);
+    }
     res.send("Không thể cập nhật điểm đặt!");
     console.error(error);
   }
